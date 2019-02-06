@@ -1,4 +1,3 @@
-
 function(git_clone)
     cmake_parse_arguments(ARG "QUIET" "URL;BRANCH;PATH" "" ${ARGN})
     list(LENGTH ARG_UNPARSED_ARGUMENTS size)
