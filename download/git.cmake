@@ -28,7 +28,7 @@ function(git_clone)
             COMMAND ${GIT_EXECUTALBE} fetch -all
             COMMAND ${GIT_EXECUTALBE} reset --hard origin/${ARG_BRANCH}
             COMMAND ${GIT_EXECUTALBE} fetch pull origin ${ARG_BRANCH}
-            WORKING_DIRECTORY ${ARG_PATH}
+            WORKING_DIRECTORY ${ARG_PATH}/${name}
             OUTPUT_VARIABLE output
             )
     else()
@@ -46,7 +46,7 @@ function(git_clone)
     if(NOT ${ARG_BRANCH} MATCHES "master")
         excute_process(
             COMMAND ${GIT_EXCUTEABLE} checkout ${ARG_BRANCH}
-            WORKING_DIRECTORY ${ARG_PATH}
+            WORKING_DIRECTORY ${ARG_PATH}/${name}
             OUTPUT_VARIABLE output
             )
     endif()
