@@ -24,7 +24,9 @@ function(git_clone)
     endif()
 
     if(EXISTS ${ARG_PATH}/${name})
+    if(NOT ARG_QUIET)
         message(STATUS "[cppm] Updating ${name}")
+    endif()
         execute_process(
             COMMAND ${GIT_EXECUTABLE} fetch --all
             COMMAND ${GIT_EXECUTABLE} reset --hard origin/${ARG_BRANCH}
@@ -32,7 +34,9 @@ function(git_clone)
             OUTPUT_VARIABLE output
             )
     else()
+    if(NOT ARG_QUIET)
         message(STATUS "[cppm] Downloading ${name}")
+    endif()
         execute_process(
             COMMAND ${GIT_EXECUTABLE} clone ${ARG_URL} ${name} --recursive
             WORKING_DIRECTORY ${ARG_PATH}
