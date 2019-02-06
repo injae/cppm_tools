@@ -1,7 +1,3 @@
-find_package(Git REQUIRED)
-if(NOT GIT_FOUND)
-    message(FATAL_ERROR "git not found!")
-endif()
 
 function(git_clone)
     cmake_parse_arguments(ARG "QUIET" "URL;BRANCH;PATH" "" ${ARGN})
@@ -10,6 +6,10 @@ function(git_clone)
         message(FATAL_ERROR "You must provide a name")
     endif()
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
+    find_package(Git REQUIRED)
+    if(NOT GIT_FOUND)
+        message(FATAL_ERROR "git not found!")
+    endif()
 
     if(NOT ARG_URL)
         message(FATAL_ERROR "You must provide a git url")
@@ -24,18 +24,17 @@ function(git_clone)
     endif()
 
     if(EXISTS ${ARG_PATH}/${name})
-        message(STATUS "[cppm] updating cppm tool")
+        message(STATUS "[cppm] Updating cppm tool")
         execute_process(
-            COMMAND ${GIT_EXECUTALBE} fetch -all
-            COMMAND ${GIT_EXECUTALBE} reset --hard origin/${ARG_BRANCH}
-            COMMAND ${GIT_EXECUTALBE} fetch pull origin ${ARG_BRANCH}
+            COMMAND ${GIT_EXECUTABLE} fetch --all
+            COMMAND ${GIT_EXECUTABLE} reset --hard origin/${ARG_BRANCH}
             WORKING_DIRECTORY ${ARG_PATH}/${name}
             OUTPUT_VARIABLE output
             )
     else()
-        message(STATUS "[cppm] downloading cppm tool")
+        message(STATUS "[cppm] Downloading cppm tool")
         execute_process(
-            COMMAND ${GIT_EXECUTALBE} clone ${ARG_URL} --recursive
+            COMMAND ${GIT_EXECUTABLE} clone ${ARG_URL} --recursive
             WORKING_DIRECTORY ${ARG_PATH}
             OUTPUT_VARIABLE output
             )
