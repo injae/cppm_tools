@@ -12,13 +12,13 @@ macro(_cppm_target_define)
 
     if(${ARG_BINARY})
         add_executable(${name} "")
-        set(${name}_target_type "BINARY" PARENT_SCOPE)
+        set(${name}_target_type "BINARY")
         target_include_directories(${name}
             PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/include
             PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
         )
     elseif(${ARG_STATIC} OR ${ARG_SHARED})
-        set(${name}_target_type "LIBRARY" PARENT_SCOPE)
+        set(${name}_target_type "LIBRARY")
         if(${ARG_STATIC})
             add_library(${name} STATIC "")
         elseif(${ARG_SHARED})
