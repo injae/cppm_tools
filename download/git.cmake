@@ -6,6 +6,7 @@ function(git_clone)
         message(FATAL_ERROR "You must provide a name")
     endif()
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
+
     find_package(Git REQUIRED)
     if(NOT GIT_FOUND)
         message(FATAL_ERROR "git not found!")
