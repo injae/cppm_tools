@@ -6,7 +6,7 @@ endif()
 function(git_clone)
     cmake_parse_arguments(ARG "QUIET" "URL;BRANCH;PATH" "" ${ARGN})
     list(LENGTH ARG_UNPARSED_ARGUMENTS size)
-    if(${size} < 1)
+    if(${size} LESS 1)
         message(FATAL_ERROR "You must provide a name")
     endif()
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
@@ -23,19 +23,19 @@ function(git_clone)
         set(ARG_PATH ${CMAKE_CURRENT_SOURCE_DIR})
     endif()
 
-    if(EXIST ${ARG_PATH}/${name})
+    if(EXISTS ${ARG_PATH}/${name})
         execute_process(
             COMMAND ${GIT_EXECUTALBE} fetch -all
             COMMAND ${GIT_EXECUTALBE} reset --hard origin/${ARG_BRANCH}
             COMMAND ${GIT_EXECUTALBE} fetch pull origin ${ARG_BRANCH}
             WORKING_DIRECTORY ${ARG_PATH}
-            OUTPUT_VALUE output
+            OUTPUT_VARIABLE output
             )
     else()
         execute_process(
             COMMAND ${GIT_EXECUTALBE} clone ${ARG_URL} --recursive
             WORKING_DIRECTORY ${ARG_PATH}
-            OUTPUT_VALUE output
+            OUTPUT_VARIABLE output
             )
     endif()
 
@@ -47,7 +47,7 @@ function(git_clone)
         excute_process(
             COMMAND ${GIT_EXCUTEABLE} checkout ${ARG_BRANCH}
             WORKING_DIRECTORY ${ARG_PATH}
-            OUTPUT_VALUE output
+            OUTPUT_VARIABLE output
             )
     endif()
 
