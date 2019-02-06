@@ -24,6 +24,7 @@ function(git_clone)
     endif()
 
     if(EXISTS ${ARG_PATH}/${name})
+        message(STATUS "[cppm] updating cppm tool")
         execute_process(
             COMMAND ${GIT_EXECUTALBE} fetch -all
             COMMAND ${GIT_EXECUTALBE} reset --hard origin/${ARG_BRANCH}
@@ -32,24 +33,25 @@ function(git_clone)
             OUTPUT_VARIABLE output
             )
     else()
+        message(STATUS "[cppm] downloading cppm tool")
         execute_process(
             COMMAND ${GIT_EXECUTALBE} clone ${ARG_URL} --recursive
             WORKING_DIRECTORY ${ARG_PATH}
             OUTPUT_VARIABLE output
             )
+        if(NOT ARG_QUIET)
+            message(STATUS "[cppm] ${output}")
+        endif()
+
+        if(NOT ${ARG_BRANCH} MATCHES "master")
+            excute_process(
+                COMMAND ${GIT_EXCUTEABLE} checkout ${ARG_BRANCH}
+                WORKING_DIRECTORY ${ARG_PATH}/${name}
+                OUTPUT_VARIABLE output
+                )
+        endif()
     endif()
 
-    if(NOT ARG_QUIET)
-        message(STATUS "[cppm] ${output}")
-    endif()
-
-    if(NOT ${ARG_BRANCH} MATCHES "master")
-        excute_process(
-            COMMAND ${GIT_EXCUTEABLE} checkout ${ARG_BRANCH}
-            WORKING_DIRECTORY ${ARG_PATH}/${name}
-            OUTPUT_VARIABLE output
-            )
-    endif()
 
     if(NOT ARG_QUIET)
         message(STATUS "[cppm] ${output}")
