@@ -29,7 +29,7 @@ function(git_clone)
         execute_process(
             COMMAND ${GIT_EXECUTABLE} fetch --all
             COMMAND ${GIT_EXECUTABLE} reset --hard origin/${ARG_BRANCH}
-            COMMAND ${GIT_EXECUTABLE} pull
+            #COMMAND ${GIT_EXECUTABLE} pull
             WORKING_DIRECTORY ${ARG_PATH}/${name}
             OUTPUT_VARIABLE output
             )
