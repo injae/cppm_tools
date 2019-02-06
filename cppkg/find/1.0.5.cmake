@@ -1,4 +1,4 @@
-macro(_find_cppkg)
+function(_find_cppkg)
     set(options HUNTER)
     set(oneValueArg)
     set(multiValueArgs COMPONENTS)
@@ -44,4 +44,4 @@ macro(_find_cppkg)
      message(STATUS "[cppm] Find Package: ${name}/${${name}_VERSION}")
    endif()
 
-endmacro()
+endfunction()
