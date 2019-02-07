@@ -9,7 +9,7 @@ function(download)
     if(NOT ARG_PATH)
         set(ARG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${name})
     else()
-        set(ARG_PATH ${ARG_PATH}/${name})
+        set(ARG_PATH "${ARG_PATH}/${name}")
     endif()
 
     set(build_dir "${CMAKE_CURRENT_BINARY_DIR}/tool/download/${name}")
