@@ -6,7 +6,7 @@ function(download)
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
 
     if(NOT ARG_PATH)
-        set(ARG_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+        set(ARG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${name})
     endif()
 
     set(build_dir "${CMAKE_CURRENT_BINARY_DIR}/tool/download/${name}")
