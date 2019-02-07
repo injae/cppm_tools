@@ -1,5 +1,6 @@
 function(download)
     cmake_parse_arguments(ARG "" "GIT_URL;URL;PATH" "" ${ARGN})
+    list(LENGTH ARG_UNPARSED_ARGUMENTS size)
     if(${size} LESS 1)
         message(FATAL_ERROR "You must provide a name")
     endif()
