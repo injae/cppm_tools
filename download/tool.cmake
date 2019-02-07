@@ -33,8 +33,10 @@ function(download)
         ")\n"
     )
     execute_process(COMMAND ${CMAKE_COMMAND} .
-                    WORKING_DIRECTORY ${build_dir})
+                    WORKING_DIRECTORY ${build_dir}
+                    OUTPUT_QUIET)
     execute_process(COMMAND ${CMAKE_COMMAND}  --build .
-                    WORKING_DIRECTORY ${build_dir})
+                    WORKING_DIRECTORY ${build_dir}
+                    OUTPUT_QUIET)
     message(STATUS "[cppm] ${name} download to ${ARG_PATH}")
 endfunction()
