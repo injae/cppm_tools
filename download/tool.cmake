@@ -1,5 +1,5 @@
 function(download)
-    cmake_parse_arguments(ARG "" "GIT_URL;URL;PATH" "" ${ARGN})
+    cmake_parse_arguments(ARG "" "GIT_URL;URL;PATH;INSTALL_SCRIPT" "" ${ARGN})
     list(LENGTH ARG_UNPARSED_ARGUMENTS size)
     if(${size} LESS 1)
         message(FATAL_ERROR "You must provide a name")
@@ -27,7 +27,7 @@ function(download)
         "    GIT_REPOSITORY ${ARG_GIT_URL}\n"
         "    URL            ${ARG_URL}"
         "    SOURCE_DIR \"${ARG_PATH}\"\n"
-        "    CONFIGURE_COMMAND \"\"\n"
+        "    CONFIGURE_COMMAND \"${INSTALL_SCRIPT}\"\n"
         "    BUILD_COMMAND \"\"\n"
         "    INSTALL_COMMAND \"\"\n"
         ")\n"

@@ -23,36 +23,40 @@ function(git_clone)
         set(ARG_PATH ${CMAKE_CURRENT_SOURCE_DIR})
     endif()
 
-    if(EXISTS ${ARG_PATH}/${name})
-    if(NOT ARG_QUIET)
-        message(STATUS "[cppm] Updating ${name}")
+    if(NOT EXISTS ${ARG_PATH})
+        make_directory(${ARG_PATH})
     endif()
-        execute_process(
-            COMMAND ${GIT_EXECUTABLE} fetch --all
-            COMMAND ${GIT_EXECUTABLE} reset --hard origin/${ARG_BRANCH}
-            WORKING_DIRECTORY ${ARG_PATH}/${name}
-            OUTPUT_VARIABLE output
-            )
-    else()
-    if(NOT ARG_QUIET)
-        message(STATUS "[cppm] Downloading ${name}")
-    endif()
-        execute_process(
-            COMMAND ${GIT_EXECUTABLE} clone ${ARG_URL} ${name} --recursive
-            WORKING_DIRECTORY ${ARG_PATH}
-            OUTPUT_VARIABLE output
-            )
-        if(NOT ARG_QUIET)
-            message(STATUS "[cppm] ${output}")
-        endif()
 
-        if(NOT ${ARG_BRANCH} MATCHES "master")
-            excute_process(
-                COMMAND ${GIT_EXCUTEABLE} checkout ${ARG_BRANCH}
+    if(EXISTS ${ARG_PATH}/${name})
+        if(NOT ARG_QUIET)
+            message(STATUS "[cppm] Updating ${name}")
+        endif()
+            execute_process(
+                COMMAND ${GIT_EXECUTABLE} fetch --all
+                COMMAND ${GIT_EXECUTABLE} reset --hard origin/${ARG_BRANCH}
                 WORKING_DIRECTORY ${ARG_PATH}/${name}
                 OUTPUT_VARIABLE output
                 )
+    else()
+        if(NOT ARG_QUIET)
+            message(STATUS "[cppm] Downloading ${name}")
         endif()
+            execute_process(
+                COMMAND ${GIT_EXECUTABLE} clone ${ARG_URL} ${name} --recursive
+                WORKING_DIRECTORY ${ARG_PATH}
+                OUTPUT_VARIABLE output
+                )
+            if(NOT ARG_QUIET)
+                message(STATUS "[cppm] ${output}")
+            endif()
+
+            if(NOT ${ARG_BRANCH} MATCHES "master")
+                excute_process(
+                    COMMAND ${GIT_EXCUTEABLE} checkout ${ARG_BRANCH}
+                    WORKING_DIRECTORY ${ARG_PATH}/${name}
+                    OUTPUT_VARIABLE output
+                    )
+            endif()
     endif()
 
     if(NOT ARG_QUIET)
