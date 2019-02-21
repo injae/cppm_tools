@@ -1,4 +1,4 @@
-macro(_find_cppkg)
+function(_find_cppkg)
     cmake_parse_arguments(ARG "HUNTER" "" "COMPONENTS" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
@@ -40,5 +40,4 @@ macro(_find_cppkg)
    if("${${name}_FOUND}")
      message(STATUS "[cppm] Find Package: ${name}/${${name}_VERSION}")
    endif()
-
-endmacro()
+endfunction()

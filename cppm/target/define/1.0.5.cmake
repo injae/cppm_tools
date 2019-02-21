@@ -24,7 +24,7 @@ macro(_cppm_target_define)
         elseif(${ARG_SHARED})
             add_library(${name} SHARED "")
         endif()
-        #add_library(${PROJECT_NAME}::${name} ALIAS ${name})
+        add_library(${PROJECT_NAME}::${name} ALIAS ${name})
         set_target_properties(${name} PROPERTIES LINKER_LANGUAGE CXX)
         target_include_directories(${name}
             PUBLIC
