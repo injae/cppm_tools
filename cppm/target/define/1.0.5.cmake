@@ -26,6 +26,7 @@ macro(_cppm_target_define)
         endif()
         add_library(${PROJECT_NAME}::${name} ALIAS ${name})
         set_target_properties(${name} PROPERTIES LINKER_LANGUAGE CXX)
+        set_target_properties(${name} PROPERTIES POSITION_INDEPENDENT_CODE ON)
         target_include_directories(${name}
             PUBLIC
                 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${lib_include_dir}>
