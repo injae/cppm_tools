@@ -12,6 +12,7 @@ macro(_cppm_target_define)
 
     if(${ARG_BINARY})
         add_executable(${name} "")
+        set_target_properties(${name} PROPERTIES POSITION_INDEPENDENT_CODE ON)
         set(${name}_target_type "BINARY")
         target_include_directories(${name}
             PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/include
