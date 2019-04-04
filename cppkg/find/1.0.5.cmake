@@ -22,10 +22,14 @@ function(_find_cppkg)
         configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
                        ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
         execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" 
-                                                 "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" .
+                                                 "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
+                                                 --build .
                         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-        execute_process(COMMAND cmake  --build .
-                        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
+        #execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" 
+        #                                         "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" .
+        #                WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
+        #execute_process(COMMAND cmake  --build .
+        #                WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
         if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
             include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
         endif()
