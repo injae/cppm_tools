@@ -20,49 +20,49 @@ macro(_download_package)
     endif()
 
     set(_version ${version})
-    set(lastest 0)
     if(${version} STREQUAL "lastest")
       set(version "")
-      set(lastest 1)
     endif()
     
     include(ExternalProject)
     find_package(${name} ${version} QUIET)
-    if(NOT "${${name}_FOUND}" AND NOT "${${name}_FIND_VERSION_EXACT}" OR ${lastest})
-        message(STATUS "[cppm] Can not find ${name} package")
-        message(STATUS "[cppm] Download ${name} package")
-        if(NOT EXISTS ${HOME}/.cppm/install/${name})
-            file(MAKE_DIRECTORY ${HOME}/.cppm/install/${name})
+    if(NOT "${${name}_FOUND}")
+        if(NOT "${${name}_FIND_VERSION_EXACT}" OR ${version} STREQUAL "lastest")
+            message(STATUS "[cppm] Can not find ${name} package")
+            message(STATUS "[cppm] Download ${name} package")
+            if(NOT EXISTS ${HOME}/.cppm/install/${name})
+                file(MAKE_DIRECTORY ${HOME}/.cppm/install/${name})
+            endif()
+            if(NOT WIN32)
+            ExternalProject_Add(
+                ${name}
+                URL ${ARG_URL}
+                GIT_REPOSITORY ${ARG_GIT}
+                GIT_TAG ${ARG_GIT_TAG}
+                SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}
+                CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
+                CONFIGURE_COMMAND ${ARG_L_CONFIGURE}
+                BUILD_COMMAND ${ARG_L_BUILD}
+                INSTALL_COMMAND ${ARG_L_INSTALL}
+                BUILD_IN_SOURCE true
+                ${ARG_UNPARSED_ARGUMENTS}
+            )
+            else(NOT WIN32)
+            ExternalProject_Add(
+                ${name}
+                URL ${ARG_URL}
+                GIT_REPOSITORY ${ARG_GIT}
+                GIT_TAG ${ARG_GIT_TAG}
+                SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}
+                CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
+                CONFIGURE_COMMAND ${ARG_W_CONFIGURE}
+                BUILD_COMMAND ${ARG_W_BUILD}
+                INSTALL_COMMAND ${ARG_W_INSTALL}
+                BUILD_IN_SOURCE true
+                ${ARG_UNPARSED_ARGUMENTS}
+            )
+            endif(NOT WIN32)
         endif()
-        if(NOT WIN32)
-          ExternalProject_Add(
-            ${name}
-            URL ${ARG_URL}
-            GIT_REPOSITORY ${ARG_GIT}
-            GIT_TAG ${ARG_GIT_TAG}
-            SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}
-            CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
-            CONFIGURE_COMMAND ${ARG_L_CONFIGURE}
-            BUILD_COMMAND ${ARG_L_BUILD}
-            INSTALL_COMMAND ${ARG_L_INSTALL}
-            BUILD_IN_SOURCE true
-            ${ARG_UNPARSED_ARGUMENTS}
-          )
-        else(NOT WIN32)
-          ExternalProject_Add(
-            ${name}
-            URL ${ARG_URL}
-            GIT_REPOSITORY ${ARG_GIT}
-            GIT_TAG ${ARG_GIT_TAG}
-            SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}
-            CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
-            CONFIGURE_COMMAND ${ARG_W_CONFIGURE}
-            BUILD_COMMAND ${ARG_W_BUILD}
-            INSTALL_COMMAND ${ARG_W_INSTALL}
-            BUILD_IN_SOURCE true
-            ${ARG_UNPARSED_ARGUMENTS}
-          )
-        endif(NOT WIN32)
         message(STATUS "[cppm] Cache Direcroty ${HOME}/.cppm/install/${name}/${_version}")
     else()
         message(STATUS "[cppm] Find ${name} package")
