@@ -26,6 +26,7 @@ macro(_download_package)
     
     include(ExternalProject)
     find_package(${name} ${version} QUIET)
+    message("${${name}_FIND_VERSION_EXACT}")
     if(NOT "${${name}_FOUND}" AND NOT "${${name}_FIND_VERSION_EXACT}")
         message(STATUS "[cppm] Can not find ${name} package")
         message(STATUS "[cppm] Download ${name} package")
