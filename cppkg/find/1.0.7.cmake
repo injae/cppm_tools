@@ -18,6 +18,7 @@ function(_find_cppkg)
 
     set(new_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake") 
     if(EXISTS ${new_cppkg})
+        message(STATUS "[cppm] Load Package: ${name}/${${name}_VERSION}")
         include(thirdparty/${name}/${version_}/${name}.cmake)
         if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
             include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
@@ -39,7 +40,6 @@ function(_find_cppkg)
             endif()
         endif()
     endif()
-
 
     if(DEFINED ARG_COMPONENTS)
         find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} QUIET)
