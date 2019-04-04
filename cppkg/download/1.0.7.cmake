@@ -26,7 +26,7 @@ macro(_download_package)
       set(version "")
     endif()
     
-    include(ExternalProject)
+    include(FetchContent)
     find_package(${name} ${version} QUIET)
     if(NOT "${${name}_FIND_VERSION_EXACT}" OR ${is_lastest})
       set(is_lastest TRUE)
@@ -39,7 +39,7 @@ macro(_download_package)
             file(MAKE_DIRECTORY ${HOME}/.cppm/install/${name})
         endif()
         if(NOT WIN32)
-        ExternalProject_Add(
+        FetchContent_Declare(
             ${name}
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}
@@ -53,7 +53,7 @@ macro(_download_package)
             ${ARG_UNPARSED_ARGUMENTS}
         )
         else(NOT WIN32)
-        ExternalProject_Add(
+        FetchContent_Declare(
             ${name}
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}

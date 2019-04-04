@@ -16,20 +16,30 @@ function(_find_cppkg)
         endif()
     endif()
 
-    set(new_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
-
+    set(new_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake") 
     if(EXISTS ${new_cppkg})
-        configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
-                       ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
-        execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" 
-                                                 "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" .
-                        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-        execute_process(COMMAND cmake  --build .
-                        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
+        include(thirdparty/${name}/${version_}/${name}.cmake)
         if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
             include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
         endif()
+        include(FetchContent)
+        FetchContent_MakeAvailable(${name})
+    else()
+        set(old_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
+        if(EXISTS ${old_cppkg})
+            configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
+                        ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
+            execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" 
+                                                    "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" .
+                            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
+            execute_process(COMMAND cmake  --build .
+                            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
+            if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
+                include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
+            endif()
+        endif()
     endif()
+
 
     if(DEFINED ARG_COMPONENTS)
         find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} QUIET)
