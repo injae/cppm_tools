@@ -33,8 +33,6 @@ macro(_download_package)
     endif()
 
     if(NOT "${${name}_FOUND}" OR ${is_lastest})
-        message(STATUS "[cppm] Can not find ${name} package")
-        message(STATUS "[cppm] Download ${name} package")
         if(NOT EXISTS ${HOME}/.cppm/install/${name})
             file(MAKE_DIRECTORY ${HOME}/.cppm/install/${name})
         endif()
