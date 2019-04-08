@@ -28,6 +28,10 @@ macro(_cppm_compiler_debug_option)
         unset(ARG_MSVC)
     endif()
 
+    message("${ARG_CLANG}")
+    message("${ARG_GCC}")
+    message("${ARG_MSVC}")
+
     if(NOT DEFINED ${ARG_CLANG})
         set(ARG_CLANG "-Wall -fPIC -O0 -g -std=c++14")
     endif()
@@ -59,6 +63,10 @@ macro(_cppm_compiler_release_option)
         unset(ARG_GCC)
         unset(ARG_MSVC)
     endif()
+
+    message("${ARG_CLANG}")
+    message("${ARG_GCC}")
+    message("${ARG_MSVC}")
 
     if(NOT DEFINED ${ARG_CLANG})
         set(ARG_CLANG "-fPIC -O0 -std=c++14")
