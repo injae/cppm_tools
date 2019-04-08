@@ -1,5 +1,5 @@
 macro(_cppm_compiler_option)
-    cmake_parse_arguments(ARG "DEFAULT" "DEBUG;RELEASE" "" ${ARGN})
+    cmake_parse_arguments(ARG "DEFAULT" "" "DEBUG;RELEASE" ${ARGN})
 
     if(${ARG_DEFAULT})
         _cppm_compiler_debug_option(DEFAULT)
@@ -54,7 +54,7 @@ macro(_cppm_compiler_debug_option)
 endmacro()
 
 macro(_cppm_compiler_release_option)
-    cmake_parse_arguments(ARG "DEFAULT" "" "CLANG;GCC;MSVC" ${ARGN})
+    cmake_parse_arguments(ARG "DEFAULT" "CLANG;GCC;MSVC" "" ${ARGN})
     if(${ARG_DEFAULT})
         unset(ARG_CLANG)
         unset(ARG_GCC)
