@@ -24,15 +24,16 @@ endmacro()
 macro(_cppm_compiler_debug_option)
     cmake_parse_arguments(ARG "DEFAULT" "" "CLANG GCC MSVC" ${ARGN})
 
+    message("${ARG_CLANG}")
+    message("${ARG_GCC}")
+    message("${ARG_MSVC}")
+
     if(${ARG_DEFAULT})
         unset(ARG_CLANG)
         unset(ARG_GCC)
         unset(ARG_MSVC)
     endif()
 
-    message("${ARG_CLANG}")
-    message("${ARG_GCC}")
-    message("${ARG_MSVC}")
 
     if(NOT DEFINED ${ARG_CLANG})
         set(ARG_CLANG "-Wall -fPIC -O0 -g -std=c++14")
@@ -60,15 +61,15 @@ endmacro()
 macro(_cppm_compiler_release_option)
     cmake_parse_arguments(ARG "DEFAULT" "" "CLANG GCC MSVC" ${ARGN})
 
+    message("${ARG_CLANG}")
+    message("${ARG_GCC}")
+    message("${ARG_MSVC}")
+
     if(${ARG_DEFAULT})
         unset(ARG_CLANG)
         unset(ARG_GCC)
         unset(ARG_MSVC)
     endif()
-
-    message("${ARG_CLANG}")
-    message("${ARG_GCC}")
-    message("${ARG_MSVC}")
 
     if(NOT DEFINED ${ARG_CLANG})
         set(ARG_CLANG "-fPIC -O0 -std=c++14")
