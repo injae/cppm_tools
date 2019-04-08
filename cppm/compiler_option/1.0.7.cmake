@@ -17,6 +17,7 @@ macro(_cppm_compiler_option)
             _cppm_compiler_release_option(DEFAULT)
         endif()
     endif()
+
 endmacro()
 
 macro(_cppm_compiler_debug_option)
@@ -26,10 +27,11 @@ macro(_cppm_compiler_debug_option)
         unset(ARG_GCC)
         unset(ARG_MSVC)
     endif()
-
+    message("arg clang: ${ARG_CLANG}")
 
     if(NOT DEFINED ARG_CLANG)
         set(ARG_CLANG "-Wall -fPIC -O0 -g -std=c++14")
+        message("default arg clang: ${ARG_CLANG}")
     endif()
     if(NOT DEFINED ARG_GCC)
         set(ARG_GCC  "-Wall -fPIC -O0 -g -std=c++14")
@@ -68,6 +70,7 @@ macro(_cppm_compiler_release_option)
     if(NOT DEFINED ARG_MSVC)
         set(ARG_MSVC "/std:c++14 /MP")
     endif()
+
 
     if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
         if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
