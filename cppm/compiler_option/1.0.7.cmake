@@ -63,8 +63,8 @@ macro(_cppm_compiler_release_option)
         unset(ARG_MSVC)
     endif()
 
-    set(DEF_CLANG_OPT "-fPIC -03 -DNDEBUG")
-    set(DEF_GCC_OPT   "-fPIC -03 -DNDEBUG")
+    set(DEF_CLANG_OPT "-fPIC -O3 -DNDEBUG")
+    set(DEF_GCC_OPT   "-fPIC -O3 -DNDEBUG")
     set(DEF_MSVC_OPT  "/MP /MD /Zi /O2 /DNDEBUG")
 
     if(NOT DEFINED ARG_CLANG)
