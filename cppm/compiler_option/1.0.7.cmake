@@ -30,7 +30,7 @@ macro(_cppm_compiler_debug_option)
 
     set(DEF_CLANG_OPT "-Wall -fPIC -O0 -g")
     set(DEF_GCC_OPT   "-Wall -fPIC -O0 -g")
-    set(DEF_MSVC_OPT  "/MP /MDd /Zi /Ob0 /Od /RT1")
+    set(DEF_MSVC_OPT  "/MP /MDd /Zi /Ob0 /Od")
 
     if(NOT DEFINED ARG_CLANG)
         set(ARG_CLANG "-std=c++17")
