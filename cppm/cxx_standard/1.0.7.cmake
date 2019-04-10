@@ -1,0 +1,5 @@
+macro(_cppm_cxx_standard _version)
+    set(CMAKE_CXX_STANDARD ${_version})
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_CXX_EXTENSIONS OFF)
+endmacro()
