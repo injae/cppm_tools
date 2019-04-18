@@ -35,7 +35,7 @@ macro(_download_package)
         endif()
         if(NOT WIN32)
           ExternalProject_Add(
-            ${name}-install
+            ${name}
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
@@ -49,7 +49,7 @@ macro(_download_package)
           )
         else(NOT WIN32)
           ExternalProject_Add(
-            ${name}-install
+            ${name}
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
