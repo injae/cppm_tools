@@ -1,0 +1,8 @@
+macro(_cppm_project)
+    cmake_parse_arguments(ARG "" "" "" ${ARGN})
+    list(GET ARG_UNPARSED_ARGUMENTS 0 _name)
+    list(GET ARG_UNPARSED_ARGUMENTS 1 _version)
+    set(CPPM_PROJECT_NAME ${_name})
+    set(CPPM_PROJECT_VERSION ${_version})
+    project(${CPPM_PROJECT_NAME} LANGUAGE C CXX VERSION ${CPPM_PROJECT_VERSION})
+endmacro()
