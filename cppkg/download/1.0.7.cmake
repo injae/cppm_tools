@@ -26,7 +26,7 @@ macro(_download_package)
     else()
       find_package(${name} ${version} EXACT QUIET)
     endif()
-    message("${${name}_FOUND} ${${name}_FIND_VERSIO_EXACT}")
+    message("${${name}_FOUND} ${${name}_FIND_VERSION_EXACT}")
     
     include(ExternalProject)
     if(NOT "${${name}_FOUND}" AND NOT "${${name}_FIND_VERSION_EXACT}" OR ${is_lastest})
