@@ -26,9 +26,6 @@ macro(_download_package)
     
     include(ExternalProject)
     find_package(${name} ${version} QUIET)
-    if(${is_lastest})
-        unset(${name})
-    endif()
 
     if(NOT "${${name}_FOUND}" AND NOT "${${name}_FIND_VERSION_EXACT}" OR ${is_lastest})
         message(STATUS "[cppm] Can not find ${name} package")
@@ -38,7 +35,7 @@ macro(_download_package)
         endif()
         if(NOT WIN32)
           ExternalProject_Add(
-            ${name}
+            _${name}
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
@@ -52,7 +49,7 @@ macro(_download_package)
           )
         else(NOT WIN32)
           ExternalProject_Add(
-            ${name}
+            _${name}
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
