@@ -24,7 +24,7 @@ macro(_download_package)
       set(is_lastest TRUE)
       find_package(${name} ${version} QUIET)
     else()
-      find_package(${name} ${version} EXACT QUIET)
+      find_package(${name} ${version} QUIET)
     endif()
     message("${${name}_FOUND} ${PACKAGE_VERSION}")
     
