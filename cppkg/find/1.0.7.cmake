@@ -7,7 +7,7 @@ function(_find_cppkg)
       set(version "")
     endif()
 
-    if(DEFINED ARG_HUNTER) 
+    if(ARG_HUNTER) 
         message(STATUS "[cppm] Load ${name} hunter file")
         if(DEFINED ARG_COMPONENTS)
           hunter_add_package(${name} COMPONENTS ${ARG_COMPONENTS})
