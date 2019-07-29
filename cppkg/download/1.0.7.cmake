@@ -19,6 +19,7 @@ macro(_download_package)
     endif()
 
     set(_version ${version})
+    message("${_version}")
     if(${version} STREQUAL "lastest")
       set(version "")
       set(is_lastest TRUE)
