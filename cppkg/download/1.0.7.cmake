@@ -40,11 +40,11 @@ macro(_download_package)
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
             SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}
+            BINARY_DIR ${HOME}/.cppm/install/${name}/${_version}-build
             CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
             CONFIGURE_COMMAND ${ARG_L_CONFIGURE}
             BUILD_COMMAND ${ARG_L_BUILD}
             INSTALL_COMMAND ${ARG_L_INSTALL}
-            BUILD_IN_SOURCE true
             ${ARG_UNPARSED_ARGUMENTS}
           )
         else(NOT WIN32)
@@ -54,11 +54,11 @@ macro(_download_package)
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
             SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}
+            BINARY_DIR ${HOME}/.cppm/install/${name}/${_version}-build
             CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
             CONFIGURE_COMMAND ${ARG_W_CONFIGURE}
             BUILD_COMMAND ${ARG_W_BUILD}
             INSTALL_COMMAND ${ARG_W_INSTALL}
-            BUILD_IN_SOURCE true
             ${ARG_UNPARSED_ARGUMENTS}
           )
         endif(NOT WIN32)
