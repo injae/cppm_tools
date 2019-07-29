@@ -32,7 +32,7 @@ macro(_download_package)
     endif()
     
     include(ExternalProject)
-    if(${_is_found} OR ${_is_lastest})
+    if(_is_found OR _is_lastest)
         message(STATUS "[cppm] Can not find ${name} package")
         message(STATUS "[cppm] Download ${name} package")
         if(NOT EXISTS ${HOME}/.cppm/install/${name})
