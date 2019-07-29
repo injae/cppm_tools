@@ -10,6 +10,10 @@ macro(_cppm_setting)
     message(STATUS "[cppm] Generator: ${CMAKE_GENERATOR}")
   endif()
 
+  if(NOT ${CMAKE_PROJECT_NAME} MATCHES ${PROJECT_NAME})
+      set(ARG_NO_CCACHE FALSE)
+  endif()
+
   if(NOT ARG_NO_CCACHE)
     find_program(CCACHE_EXE ccache)
     if(CCACHE_EXE)
