@@ -8,7 +8,7 @@ macro(_download_package)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0 1)
 
-    cppm_setting(NO_MESSAGE NO_CCACHE)
+    cppm_setting(NO_MESSAGE)
 
     if(ARG_LOCAL)
       set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${HOME}/.cppm/local ")
@@ -26,6 +26,10 @@ macro(_download_package)
     
     include(ExternalProject)
     find_package(${name} ${version} QUIET)
+    if(${is_lastest})
+        unset(${name})
+    endif()
+
     if(NOT "${${name}_FOUND}" AND NOT "${${name}_FIND_VERSION_EXACT}" OR ${is_lastest})
         message(STATUS "[cppm] Can not find ${name} package")
         message(STATUS "[cppm] Download ${name} package")

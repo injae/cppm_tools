@@ -40,7 +40,7 @@ function(_find_cppkg)
         endif()
     endif()
 
-
+    unset(${name})
     if(DEFINED ARG_COMPONENTS)
         find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} QUIET)
     else()
