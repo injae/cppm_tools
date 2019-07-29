@@ -31,7 +31,7 @@ function(_find_cppkg)
                                                     "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" .
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-            execute_process(COMMAND cmake  --build .
+            execute_process(COMMAND cmake --build .
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
             if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
