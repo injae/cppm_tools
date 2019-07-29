@@ -8,8 +8,8 @@ macro(_download_package)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0 1)
 
-    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppm_tool.cmake)
-    cppm_setting(NO_MESSAGE)
+    include(cppm/setting/1.0.7)
+    _cppm_setting(NO_MESSAGE)
 
     if(ARG_LOCAL)
       set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${HOME}/.cppm/local ")
