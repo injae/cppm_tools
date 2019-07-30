@@ -44,7 +44,7 @@ macro(_cppm_target_define)
                 $<INSTALL_INTERFACE:include>
         )
     endif()
-        target_compile_features(${name} PUBLIC cxx_std_${CMAKE_CXX_STANDARD})
+        target_compile_features(${name} PUBLIC "cxx_std_${CMAKE_CXX_STANDARD}")
     if(DEFINED ARG_SOURCES)
         target_sources(${name} PRIVATE ${ARG_SOURCES})
     endif()
