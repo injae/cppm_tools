@@ -7,7 +7,6 @@ macro(_cppm_setting)
     message(STATUS "[cppm] System Version: ${CMAKE_SYSTEM_VERSION}")
     message(STATUS "[cppm] System Processor: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
     message(STATUS "[cppm] Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
-    message(STATUS "[cppm] C++ Version: ${CMAKE_CXX_STANDARD}")
     message(STATUS "[cppm] Generator: ${CMAKE_GENERATOR}")
   endif()
 
