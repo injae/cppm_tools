@@ -17,6 +17,7 @@ macro(_cppm_target_define)
             PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/include
             PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
         )
+    
     elseif(${ARG_STATIC} OR ${ARG_SHARED})
         set(${name}_target_type "LIBRARY")
         if(${ARG_STATIC})
@@ -43,7 +44,7 @@ macro(_cppm_target_define)
                 $<INSTALL_INTERFACE:include>
         )
     endif()
-
+        target_compile_features(cxx_std_${CMAKE_CXX_STANDARD})
     if(DEFINED ARG_SOURCES)
         target_sources(${name} PRIVATE ${ARG_SOURCES})
     endif()
