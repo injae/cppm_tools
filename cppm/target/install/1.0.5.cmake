@@ -5,7 +5,7 @@ macro(_cppm_target_install)
         install(TARGETS ${name} RUNTIME DESTINATION bin)
     endif()
     if(${${name}_target_type} MATCHES "LIBRARY")
-        install(TARGETS ${name} EXPORT ${PROJECT_NAME}-targets
+        install(TARGETS ${name} EXPORT ${CMAKE_PROJECT_NAME}-targets
             ARCHIVE DESTINATION lib 
             LIBRARY DESTINATION lib
             RUNTIME DESTINATION bin
