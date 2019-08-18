@@ -1,7 +1,7 @@
 macro(_cppm_setting)
   cmake_parse_arguments(ARG "NO_CCACHE;NO_MESSAGE" "" "" ${ARGN})
   if(NOT ARG_NO_MESSAGE)
-    message(STATUS "[cppm] [[${PROJECT_NAME}]]")
+    message(STATUS "[cppm] Target: ${PROJECT_NAME}")
     message(STATUS "[cppm] CMake Version: ${CMAKE_VERSION}")
     message(STATUS "[cppm] System Name: ${CMAKE_SYSTEM_NAME}")
     message(STATUS "[cppm] System Version: ${CMAKE_SYSTEM_VERSION}")
