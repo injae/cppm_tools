@@ -3,7 +3,7 @@ macro(_find_cppkg)
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     set(version_ ${version})
-    if(version STREQUAL "lastest")
+    if(version STREQUAL "latest")
       set(version "")
     endif()
 
