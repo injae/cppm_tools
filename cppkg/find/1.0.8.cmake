@@ -7,6 +7,10 @@ macro(_find_cppkg)
       set(version "")
     endif()
 
+    if(version STREQUAL "git")
+      set(version "")
+    endif()
+
     if(${ARG_HUNTER}) 
         message(STATUS "[cppm] Load ${name} hunter file")
         if(DEFINED ARG_COMPONENTS)
