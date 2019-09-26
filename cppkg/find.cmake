@@ -51,6 +51,6 @@ macro(_find_cppkg)
     endif()
 
    if("${${name}_FOUND}")
-     message(STATUS "[cppm] Find Package: ${name}/${${name}_VERSION}")
+       message(STATUS "[cppm] Find Package: ${name}/${${name}_VERSION}")
    endif()
 endmacro()
