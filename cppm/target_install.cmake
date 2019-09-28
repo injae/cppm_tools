@@ -30,7 +30,7 @@ macro(_cppm_target_install)
           DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
         )
         if(SUB_PROJECT)
-            message(STATUS "[cppm] Find Package: ${name}/${PACKAGE_VERSION}")
+            message(STATUS "[cppm] Find Package: ${name}/${PROJECT_VERSION}")
         endif()
         message(STATUS "[cppm] Module : ${PROJECT_NAME}::${name}")
     endif()
