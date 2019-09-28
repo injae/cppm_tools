@@ -4,7 +4,7 @@ macro(_cppm_cxx_standard _version)
     set(CMAKE_CXX_EXTENSIONS OFF)
     set(cxx_standard ${_version})
     if(NOT NO_MESSAGE)
-        message(STATUS "[cppm] C++ Version: ${cxx_standard}")
+        message(STATUS "[cppm] c++ version: ${cxx_standard}")
     endif()
 
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
