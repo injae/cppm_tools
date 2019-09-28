@@ -29,7 +29,7 @@ macro(_cppm_target_install)
           ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config-version.cmake
           DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
         )
-        message(STATUS "Module : ${CMAKE_PROJECT_NAME}::${name}")
+        message(STATUS "[cppm] Module : ${PROJECT_NAME}::${name}")
         #message(STATUS "cppm.toml: ${CMAKE_PROJECT_NAME} = {module=\"${CMAKE_PROJECT_NAME}::${name}\" version=\"${${CMAKE_PROJECT_NAME}_VERSION}\"}")
     endif()
 endmacro()
