@@ -42,7 +42,7 @@ macro(_cppm_setting)
   list(APPEND CMAKE_MODULE_PATH "${HOME}/.cppm/cmake")
   list(APPEND CMAKE_MODULE_PATH "${HOME}/.cppm/cmake/core")
   if(NOT NO_MESSAGE)
-       message(STATUS "[cppm] CPPM_ROOT: ${HOME}/.cppm")
+       message(STATUS "[cppm] cppm_root: ${HOME}/.cppm")
   endif()
 
   if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
