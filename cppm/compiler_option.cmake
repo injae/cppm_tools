@@ -35,7 +35,7 @@ macro(_cppm_compiler_debug_option)
 
     set(DEF_CLANG_OPT "-Wall -fPIC -O0 -g")
     set(DEF_GCC_OPT   "-Wall -fPIC -O0 -g")
-    set(DEF_MSVC_OPT  "/MP /MTd /Zi /Ob0 /Od /EHsc")
+    set(DEF_MSVC_OPT  "/MP /Zi /Ob0 /Od /EHsc")
 
     if(NOT DEFINED ARG_CLANG)
         set(ARG_CLANG "")
@@ -69,7 +69,7 @@ macro(_cppm_compiler_release_option)
 
     set(DEF_CLANG_OPT "-fPIC -O3 -DNDEBUG")
     set(DEF_GCC_OPT   "-fPIC -O3 -DNDEBUG")
-    set(DEF_MSVC_OPT  "/MP /MT /Zi /O2 /DNDEBUG /EHsc")
+    set(DEF_MSVC_OPT  "/MP /Zi /O2 /DNDEBUG /EHsc")
 
     if(NOT DEFINED ARG_CLANG)
         set(ARG_CLANG "")
