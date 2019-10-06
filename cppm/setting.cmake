@@ -31,7 +31,8 @@ macro(_cppm_setting)
         endif()
     endif()
   endif()
-        
+
+  set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
   
   string(REPLACE "\\" "/" HOME "$ENV{HOME}")
   set(CPPM_ROOT ${HOME}/.cppm)
