@@ -45,7 +45,7 @@ macro(_download_package)
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
             SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}
-            BINARY_DIR ${HOME}/.cppm/install/${name}/${_version}-build
+            BINARY_DIR ${HOME}/.cppm/install/${name}/${_version}-build-${CMAKE_GENERATOR}
             CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
             CONFIGURE_COMMAND ${ARG_L_CONFIGURE}
             BUILD_COMMAND ${ARG_L_BUILD}
@@ -59,7 +59,7 @@ macro(_download_package)
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
             SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}
-            BINARY_DIR ${HOME}/.cppm/install/${name}/${_version}-build
+            BINARY_DIR ${HOME}/.cppm/install/${name}/${_version}-build-${CMAKE_GENERATOR}
             CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
             CONFIGURE_COMMAND ${ARG_W_CONFIGURE}
             BUILD_COMMAND ${ARG_W_BUILD}
