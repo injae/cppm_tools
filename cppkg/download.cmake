@@ -10,7 +10,7 @@ macro(_download_package)
 
     cppm_setting(NO_MESSAGE)
 
-    #list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
+    list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
     set(is_none_cmake_package FALSE)
     foreach(_option ${multiValueArgs})
         if(DEFINED "ARG_${_option}")
@@ -20,12 +20,12 @@ macro(_download_package)
 
     if(is_none_cmake_package)
         # use ExternalProject_add
-        message(STATUS "[cppm] more option version")
         include(${CPPM_VERSION}/cppkg/download-none-cmake-package)
         _none_cmake_download_package(${ARGN})
     else()
         set(CMAKE_PROJECT_NAME ${name})
         set(CMAKE_BUILD_TYPE RELEASE)
+        set(NO_MESSAGE TRUE)
         if(ARG_LOCAL)
             set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
         elseif(ARG_GLOBAL)
