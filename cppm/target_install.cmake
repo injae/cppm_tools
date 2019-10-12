@@ -21,7 +21,6 @@ macro(_cppm_target_install)
             ARCHIVE  DESTINATION lib 
             LIBRARY  DESTINATION lib
             RUNTIME  DESTINATION bin
-            INCLUDES DESTINATION include
         )
         install(DIRECTORY include/ DESTINATION include)
 
