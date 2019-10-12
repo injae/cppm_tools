@@ -53,6 +53,7 @@ macro(_download_package)
             SOURCE_DIR   "${_package_install_path}/src"
             BINARY_DIR   "${_package_install_path}/build"
             SUBBUILD_DIR "${_package_install_path}/cache"
+            QUIET
         )
         add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
         
