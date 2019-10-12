@@ -20,6 +20,7 @@ macro(_download_package)
 
     if(is_none_cmake_package)
         # use ExternalProject_add
+        message(STATUS "[cppm] more option version")
         include(cppkg/download-none-cmake-package)
         _none_cmake_download_package(${ARGN})
     else()
