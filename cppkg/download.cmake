@@ -10,7 +10,7 @@ macro(_download_package)
 
     cppm_setting(NO_MESSAGE)
 
-    list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
+    #list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
     set(is_none_cmake_package FALSE)
     foreach(_option ${multiValueArgs})
         if(DEFINED ${ARG_${_option}})
