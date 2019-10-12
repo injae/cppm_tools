@@ -9,6 +9,7 @@ macro(_download_package)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0 1)
 
     cppm_setting(NO_MESSAGE)
+    message("hello")
 
     list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
     set(is_none_cmake_package FALSE)
