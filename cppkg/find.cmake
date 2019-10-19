@@ -1,4 +1,4 @@
-macro(_find_cppkg)
+macro(find_cppkg)
     cmake_parse_arguments(ARG "HUNTER" "" "COMPONENTS" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)

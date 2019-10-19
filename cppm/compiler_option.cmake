@@ -1,5 +1,5 @@
 
-macro(_cppm_compiler_option)
+macro(cppm_compiler_option)
     cmake_parse_arguments(ARG "DEFAULT" "" "DEBUG;RELEASE" ${ARGN})
     if(${ARG_DEFAULT})
         _cppm_compiler_debug_option(DEFAULT)

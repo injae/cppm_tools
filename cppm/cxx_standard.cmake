@@ -1,5 +1,5 @@
 
-macro(_cppm_cxx_standard _version)
+macro(cppm_cxx_standard _version)
     include(utility/set_cmake_cache)
     include(utility/cppm_print)
     set_cache(CMAKE_CXX_STANDARD ${_version} STRING)

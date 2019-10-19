@@ -1,4 +1,4 @@
-macro(_cppm_target_install)
+macro(cppm_target_install)
     cmake_parse_arguments(ARG "" "" "" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     if(${${name}_target_type} MATCHES "BINARY")

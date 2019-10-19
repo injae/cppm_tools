@@ -1,4 +1,4 @@
-macro(_cppm_setting)
+macro(cppm_setting)
   cmake_parse_arguments(ARG "NO_CCACHE;NO_MESSAGE" "" "" ${ARGN})
   if(NOT ${CMAKE_PROJECT_NAME} MATCHES ${PROJECT_NAME})
       set(SUB_PROJECT TRUE)

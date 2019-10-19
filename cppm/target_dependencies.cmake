@@ -1,4 +1,4 @@
-macro(_cppm_target_dependencies)
+macro(cppm_target_dependencies)
     cmake_parse_arguments(ARG "" "" "PRIVATE;PUBLIC;INTERFACE" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     set(has_deps FALSE)

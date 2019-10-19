@@ -1,4 +1,4 @@
-macro(_cppm_target_define)
+macro(cppm_target_define)
     cmake_parse_arguments(ARG "BINARY;STATIC;SHARED;INTERFACE" "" "SOURCES" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
 
