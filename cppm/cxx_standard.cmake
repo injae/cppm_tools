@@ -1,6 +1,6 @@
 macro(_cppm_cxx_standard _version)
-    include(../utility/set_cmake_cache)
-    include(../utility/cppm_print)
+    include(../utility/set_cmake_cache.cmake)
+    include(../utility/cppm_print.cmake)
     set_cache(CMAKE_CXX_STANDARD ${_version})
     set_cache(CMAKE_CXX_STANDARD_REQUIRED ON)
     set(cxx_standard ${_version})
