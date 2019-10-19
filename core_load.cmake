@@ -7,6 +7,7 @@ list(APPEND CMAKE_MODULE_PATH "${CPPM_ROOT}")
 list(APPEND CMAKE_MODULE_PATH "${CPPM_TOOL}")
 list(APPEND CMAKE_MODULE_PATH "${CPPM_MODULE}")
 list(APPEND CMAKE_MODULE_PATH "${CPPM_CORE}")
+list(APPEND CMAKE_MODULE_PATH "${CPPM_CORE}/${CPPM_VERSION}")
 
 include(cppm/cxx_standard)
 include(cppm/compiler_option)
