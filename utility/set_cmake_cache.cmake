@@ -19,7 +19,7 @@ function(set_cache cache_var data type)
     if(NOT data_index EQUAL -1)
         return()
     endif()
-    set("${cache_var}" "${data} ${${cache_var}}" CACHE "${type}" "${ARGN}" FORCE)
+    set("${cache_var}" "${data}" CACHE "${type}" "${ARGN}" FORCE)
 endfunction()
 
 
