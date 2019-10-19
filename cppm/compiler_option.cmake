@@ -1,12 +1,11 @@
 
 macro(_cppm_compiler_option)
     cmake_parse_arguments(ARG "DEFAULT" "" "DEBUG;RELEASE" ${ARGN})
-    set(CMAKE_CXX_EXTENSIONS OFF)
-
     if(${ARG_DEFAULT})
         _cppm_compiler_debug_option(DEFAULT)
         _cppm_compiler_release_option(DEFAULT)
-    else() if(DEFINED ARG_DEBUG)
+    else()
+        if(DEFINED ARG_DEBUG)
             _cppm_compiler_debug_option(${ARG_DEBUG})
         else()
             _cppm_compiler_debug_option(DEFAULT)
