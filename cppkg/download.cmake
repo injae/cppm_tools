@@ -10,6 +10,7 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
+    set(CMAKE_ARGS ${ARG_CMAKE_ARGS})
     list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
     set(is_none_cmake_package FALSE)
     foreach(_option ${multiValueArgs})
@@ -33,16 +34,6 @@ macro(download_package)
         else()
             message(FATAL_ERROR "Need Option LOCAL or GLOBAL")
         endif()
-
-        #if(${version} STREQUAL "git")
-        #    find_package(${name} QUIET)
-        #else()
-        #    find_package(${name} ${version} EXACT QUIET)
-        #endif()
-
-        #if(${${name}_FOUND} EQUAL 0)
-        #    set(_is_not_found TRUE)
-        #endif()
 
         include(FetchContent)
         set(_package_install_path "${CPPM_ROOT}/install/${name}/${version}")
