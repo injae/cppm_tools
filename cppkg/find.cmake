@@ -12,7 +12,7 @@ macro(find_cppkg)
     endif()
 
     if(${ARG_HUNTER}) 
-        message(STATUS "[cppm] Load ${name} hunter file")
+        cppm_print("Load ${name} hunter file")
         if(DEFINED ARG_COMPONENTS)
           hunter_add_package(${name} COMPONENTS ${ARG_COMPONENTS})
         else() 
@@ -35,7 +35,7 @@ macro(find_cppkg)
                                                     "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" .
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-            execute_process(COMMAND cmake --build .
+            execute_process(COMMAND cmake --build . --config release
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
             if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
@@ -51,8 +51,6 @@ macro(find_cppkg)
     endif()
 
    if("${${name}_FOUND}")
-       if(NOT NO_MESSAGE)
-            message(STATUS "[cppm] Find Package: ${name}/${${name}_VERSION}")
-       endif()
+       cppm_print("Find Package: ${name}/${${name}_VERSION}")
    endif()
 endmacro()
