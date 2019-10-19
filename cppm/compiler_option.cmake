@@ -55,6 +55,7 @@ macro(_cppm_compiler_release_option)
         unset(ARG_MSVC)
     endif()
 
+    include(utility/set_cmake_cache)
     if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
         if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
             add_compiler_options(CMAKE_CXX_FLAGS "-fPIC -O3 -DNDEBUG")
