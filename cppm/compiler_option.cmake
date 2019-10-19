@@ -17,10 +17,9 @@ macro(cppm_compiler_option)
             _cppm_compiler_release_option(DEFAULT)
         endif()
         inclue(utility/cppm_print)
-        cppm_print("Build Type: ${CMAKE_BUILD_TYPE}")
-        cppm_print("Compiler Option: ${CMAKE_CXX_FLAGS}")
     endif()
-
+    cppm_print("Build Type: ${CMAKE_BUILD_TYPE}")
+    cppm_print("Compiler Option: ${CMAKE_CXX_FLAGS}")
 endmacro()
 
 macro(_cppm_compiler_debug_option)
