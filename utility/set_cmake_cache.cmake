@@ -31,7 +31,7 @@ function(defalut_cache cache_var data type)
     string(COMPARE EQUAL "" "${${cache_var}}" is_empty)
     if(is_empty)
         set("${cache_var}" "${data}" CACHE "${type}" "${ARGN}" FORCE)
-    else()
+    endif()
 endfunction()
 
 
