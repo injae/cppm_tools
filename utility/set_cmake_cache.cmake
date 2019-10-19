@@ -22,6 +22,18 @@ function(set_cache cache_var data type)
     set("${cache_var}" "${data}" CACHE "${type}" "${ARGN}" FORCE)
 endfunction()
 
+function(defalut_cache cache_var data type)
+    set(spaced_string " ${${cache_var}} ")
+    string(FIND "${spaced_string}" " ${data} " data_index)
+    if(NOT data_index EQUAL -1)
+        return()
+    endif()
+    string(COMPARE EQUAL "" "${${cache_var}}" is_empty)
+    if(is_empty)
+        set("${cache_var}" "${data}" CACHE "${type}" "${ARGN}" FORCE)
+    else()
+endfunction()
+
 
 function(add_compiler_option cache_var data)
     append_cache("${cache_var}" "${data}" STRING "compiler options")
