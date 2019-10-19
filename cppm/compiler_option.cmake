@@ -29,7 +29,7 @@ macro(_cppm_compiler_debug_option)
     endif()
 
     include(utility/set_cmake_cache)
-    if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+    if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
         if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
             add_compiler_option(CMAKE_CXX_FLAGS "-Wall -fPIC -O0 -g")
             add_compiler_option(CMAKE_CXX_FLAGS "${ARG_CLANG}")
