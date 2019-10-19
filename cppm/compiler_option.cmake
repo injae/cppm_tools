@@ -1,3 +1,4 @@
+
 macro(_cppm_compiler_option)
     cmake_parse_arguments(ARG "DEFAULT" "" "DEBUG;RELEASE" ${ARGN})
     set(CMAKE_CXX_EXTENSIONS OFF)
