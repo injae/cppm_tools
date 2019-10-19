@@ -13,7 +13,7 @@ function(append_cache cache_var data)
 endfunction()
 
 
-function(set_cache cache_var type data message)
+function(set_cache cache_var data type message)
     set(spaced_string " ${${cache_var}} ")
     string(FIND "${spaced_string}" " ${data} " data_index)
     if(NOT data_index EQUAL -1)
