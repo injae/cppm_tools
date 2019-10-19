@@ -11,6 +11,7 @@ list(APPEND CMAKE_MODULE_PATH "${CPPM_CORE}/${CPPM_VERSION}")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/")
 
+include(cppkg/cppm_project)
 include(cppm/cxx_standard)
 include(cppm/compiler_option)
 include(cppm/setting)
