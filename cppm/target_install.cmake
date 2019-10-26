@@ -25,7 +25,7 @@ macro(cppm_target_install)
         install(DIRECTORY include/ DESTINATION include)
 
         install(EXPORT ${CMAKE_PROJECT_NAME}-targets
-            FILE ${CMAKE_PROJECT_NAME}-targets.cmake
+            FILE ${CMAKE_PROJECT_NAME}-config.cmake
             NAMESPACE ${CMAKE_PROJECT_NAME}::
             DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
         )
