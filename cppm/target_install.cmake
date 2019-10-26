@@ -16,6 +16,15 @@ macro(cppm_target_install)
           ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config-version.cmake
           DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
         )
+
+        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
+            "include(\"${CMAKE_CURRENT_LIST_DIR}\"${CMAKE_PROJECT_NAME}-targets.cmake)\n"
+        )
+        install(FILES
+            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
+            DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
+        )
+
         # project-targets.cmake install part
         install(TARGETS ${name} EXPORT ${CMAKE_PROJECT_NAME}-targets
             ARCHIVE  DESTINATION lib 
