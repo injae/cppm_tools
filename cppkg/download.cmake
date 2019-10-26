@@ -8,8 +8,8 @@ macro(download_package)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0 1)
 
-    cppm_setting(NO_MESSAGE)
     cppm_print("Cppkg Load ${name}")
+    cppm_setting(NO_MESSAGE)
 
     set(CMAKE_ARGS ${ARG_CMAKE_ARGS})
     list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
