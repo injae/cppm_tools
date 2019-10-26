@@ -17,11 +17,11 @@ macro(cppm_target_install)
           DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
         )
 
-        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake.in
-            "include(@CMAKE_CURRENT_LIST_DIR@/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
+        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
+            "include(\"${CMAKE_CURRENT_LIST_DIR}\"/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
         )
-        configure_file("${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake.in"
-                       "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake")
+        #configure_file("${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake.in"
+        #               "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake")
         install(FILES
             ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
             DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
