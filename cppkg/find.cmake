@@ -31,7 +31,7 @@ macro(find_cppkg)
         if(EXISTS ${_cppkg})
             configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
                         ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
-            execute_process(COMMAND ${CMAKE_COMMAND} -G "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" .
+            execute_process(COMMAND ${CMAKE_COMMAND} "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}" .
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
             execute_process(COMMAND cmake --build . --config ${cppm_build_type}
