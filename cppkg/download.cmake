@@ -50,9 +50,9 @@ macro(download_package)
             QUIET
         )
         add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
-        execute_process(COMMAND cmake --build . --config Release
+        execute_process(COMMAND cmake --build . --config release
                         RESULT_VARIABLE result
-                        WORKING_DIRECTORY ${_package_install_path}/build)
+                        WORKING_DIRECTORY ${_package_install_path}/cache)
         
         #if(_is_not_found)
         #    message(STATUS "[cppm] Cache Direcroty ${HOME}/.cppm/install/${name}/${_version}")
