@@ -6,10 +6,4 @@ macro(cppm_project)
         SOURCE_DIR     ${CPPM_CORE}/${CPPM_VERSION}
         QUIET
     )
-
-    FetchContent_Populate(${CPPM_VERSION}
-        GIT_REPOSITORY https://github.com/injae/cppkg.git
-        SOURCE_DIR     ${CPPM_ROOT}/repo
-        QUIET
-    )
 endmacro()
