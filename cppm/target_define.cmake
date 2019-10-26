@@ -4,10 +4,6 @@ macro(cppm_target_define)
 
     set(lib_include_dir "include")
     set(lib_source_dir  "src")
-    #if(NOT ${name} MATCHES ${CMAKE_PROJECT_NAME})
-    #    set(lib_include_dir "include/${CMAKE_PROJECT_NAME}/${name}")
-    #    set(lib_source_dir  "src/${name}")
-    #endif()
 
     if(${ARG_BINARY})
         add_executable(${name} "")
