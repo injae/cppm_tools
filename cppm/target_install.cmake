@@ -18,7 +18,7 @@ macro(cppm_target_install)
         )
 
         file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
-            "include(\"${CMAKE_CURRENT_LIST_DIR}\"/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
+            "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
         )
         #configure_file("${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake.in"
         #               "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake")
