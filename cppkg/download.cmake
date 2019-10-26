@@ -11,7 +11,7 @@ macro(download_package)
     cppm_print("Cppkg  [${name}/${version}] loading...")
     cppm_setting(NO_MESSAGE)
 
-    set(CMAKE_ARGS ${ARG_CMAKE_ARGS})
+    set(CMAKE_ARGS ${CMAKE_ARGS} ${ARG_CMAKE_ARGS})
     list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
     set(is_none_cmake_package FALSE)
     foreach(_option ${multiValueArgs})
