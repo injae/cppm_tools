@@ -8,7 +8,7 @@ macro(download_package)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0 1)
 
-    cppm_print("Cppkg Load ${name}")
+    cppm_print("Cppkg  [${name}/${version}] loading...")
     cppm_setting(NO_MESSAGE)
 
     set(CMAKE_ARGS ${ARG_CMAKE_ARGS})
@@ -44,12 +44,15 @@ macro(download_package)
             GIT_TAG        ${ARG_GIT_TAG}
             URL            ${ARG_URL}
             URL_HASH       ${ARG_URL_HASH}
-            SOURCE_DIR   "${_package_install_path}/src"
-            BINARY_DIR   "${_package_install_path}/build"
-            SUBBUILD_DIR "${_package_install_path}/cache-${CMAKE_GENERATOR}"
+            SOURCE_DIR    "${_package_install_path}/src"
+            BINARY_DIR    "${_package_install_path}/build"
+            SUBBUILD_DIR  "${_package_install_path}/cache"
             QUIET
         )
-        add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
+        execute_process(COMMAND ${CMAKE_COMMAND} "--build . --config release"
+                        RESULT_VARIABLE result
+                        WORKING_DIRECTORY ${_package_install_path}/build)
+        #add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
         
         #if(_is_not_found)
         #    message(STATUS "[cppm] Cache Direcroty ${HOME}/.cppm/install/${name}/${_version}")
