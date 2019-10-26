@@ -49,7 +49,10 @@ macro(download_package)
             SUBBUILD_DIR  "${_package_install_path}/cache"
             QUIET
         )
-        execute_process(COMMAND ${CMAKE_COMMAND} "--build . --config release"
+        execute_process(COMMAND ${CMAKE_COMMAND} " --build . --config release"
+                        RESULT_VARIABLE result
+                        WORKING_DIRECTORY ${_package_install_path}/build)
+        execute_process(COMMAND ${CMAKE_COMMAND} " --build . --config release"
                         RESULT_VARIABLE result
                         WORKING_DIRECTORY ${_package_install_path}/build)
         #add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
