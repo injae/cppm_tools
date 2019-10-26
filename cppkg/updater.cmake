@@ -1,5 +1,5 @@
 string(REPLACE "\\" "/" HOME "$ENV{HOME}")
-set(CPPM_ROOT   ${HOME}/.cppm)
+set(CPPM_ROOT ${HOME}/.cppm)
 
 include(FetchContent)
 FetchContent_Populate(cppkg
