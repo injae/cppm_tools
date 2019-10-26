@@ -37,7 +37,7 @@ macro(find_cppkg)
                             "-DCMAKE_BUILD_TYPE=Release" .
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-            execute_process(COMMAND cmake --build . --config ${cppm_build_type}
+            execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
             if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
