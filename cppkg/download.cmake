@@ -50,7 +50,7 @@ macro(download_package)
             QUIET
         )
         #add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
-        execute_process(COMMAND ${CMAKE_COMMAND} " --build . --config release"
+        execute_process(COMMAND cmake --build . --config release
                         RESULT_VARIABLE result
                         WORKING_DIRECTORY ${_package_install_path}/build)
         
