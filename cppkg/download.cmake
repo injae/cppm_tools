@@ -49,7 +49,7 @@ macro(download_package)
             SUBBUILD_DIR  "${_package_install_path}/cache"
             QUIET
         )
-        #add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
+        add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
         execute_process(COMMAND cmake --build . --config release
                         RESULT_VARIABLE result
                         WORKING_DIRECTORY ${_package_install_path}/build)
