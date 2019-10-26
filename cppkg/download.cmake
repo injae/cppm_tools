@@ -44,8 +44,8 @@ macro(download_package)
             URL            ${ARG_URL}
             URL_HASH       ${ARG_URL_HASH}
             SOURCE_DIR   "${_package_install_path}/src"
-            BINARY_DIR   "${_package_install_path}/build-${CMAKE_GENERATOR}"
-            SUBBUILD_DIR "${_package_install_path}/cache"
+            BINARY_DIR   "${_package_install_path}/build"
+            SUBBUILD_DIR "${_package_install_path}/cache-${CMAKE_GENERATOR}"
             QUIET
         )
         add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
