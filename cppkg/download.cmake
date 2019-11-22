@@ -10,6 +10,7 @@ macro(download_package)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0 1)
 
     cppm_print("Cppkg  [${name}/${version}] loading...")
+    cppm_print("cppkg options ${copy_argn}")
     cppm_setting(NO_MESSAGE)
 
     set(CMAKE_ARGS ${CMAKE_ARGS} ${ARG_CMAKE_ARGS})
@@ -22,7 +23,6 @@ macro(download_package)
     endforeach()
 
     include(${CPPM_VERSION}/cppkg/download-none-cmake-package)
-    cppm_print("cppkg options ${copy_argn}")
     _none_cmake_download_package(${copy_argn})
     #if(is_none_cmake_package)
     #    # use ExternalProject_add
