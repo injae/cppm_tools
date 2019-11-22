@@ -23,7 +23,7 @@ macro(download_package)
     endforeach()
 
     include(${CPPM_VERSION}/cppkg/download-none-cmake-package)
-    _none_cmake_download_package(${copy_argn})
+    _none_cmake_download_package("${copy_argn}")
     #if(is_none_cmake_package)
     #    # use ExternalProject_add
     #else()
