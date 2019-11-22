@@ -11,13 +11,6 @@ macro(_none_cmake_download_package)
     message("test ${copy_argn}")
     cppm_setting(NO_MESSAGE)
 
-    if(ARG_LOCAL)
-      set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
-    elseif(ARG_GLOBAL)
-      set(CMAKE_INSTALL_PREFIX "")
-    else()
-      message(FATAL_ERROR "Need Option LOCAL or GLOBAL")
-    endif()
 
     set(_version ${version})
     if(${version} STREQUAL "git")
