@@ -20,42 +20,42 @@ macro(download_package)
         endif()
     endforeach()
 
-    if(is_none_cmake_package)
-        # use ExternalProject_add
-        include(${CPPM_VERSION}/cppkg/download-none-cmake-package)
-        _none_cmake_download_package(${ARGN})
-    else()
-        set(CMAKE_PROJECT_NAME ${name})
-        set(CMAKE_BUILD_TYPE RELEASE)
-        set(NO_MESSAGE TRUE)
-        if(ARG_LOCAL)
-            set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
-        elseif(ARG_GLOBAL)
-            set(CMAKE_INSTALL_PREFIX "")
-        else()
-            message(FATAL_ERROR "Need Option LOCAL or GLOBAL")
-        endif()
+    include(${CPPM_VERSION}/cppkg/download-none-cmake-package)
+    _none_cmake_download_package(${ARGN})
+    #if(is_none_cmake_package)
+    #    # use ExternalProject_add
+    #else()
+    #    set(CMAKE_PROJECT_NAME ${name})
+    #    set(CMAKE_BUILD_TYPE RELEASE)
+    #    set(NO_MESSAGE TRUE)
+    #    if(ARG_LOCAL)
+    #        set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
+    #    elseif(ARG_GLOBAL)
+    #        set(CMAKE_INSTALL_PREFIX "")
+    #    else()
+    #        message(FATAL_ERROR "Need Option LOCAL or GLOBAL")
+    #    endif()
 
-        include(FetchContent)
-        set(_package_install_path "${CPPM_ROOT}/install/${name}/${version}")
-        FetchContent_Populate(
-            ${name}
-            GIT_REPOSITORY ${ARG_GIT}
-            GIT_TAG        ${ARG_GIT_TAG}
-            URL            ${ARG_URL}
-            URL_HASH       ${ARG_URL_HASH}
-            SOURCE_DIR    "${_package_install_path}/src"
-            BINARY_DIR    "${_package_install_path}/build"
-            SUBBUILD_DIR  "${_package_install_path}/cache"
-            QUIET
-        )
-        add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
-        #execute_process(COMMAND cmake -P cmake_install.cmake
-        #                RESULT_VARIABLE result
-        #                WORKING_DIRECTORY ${_package_install_path}/build)
-        #if(_is_not_found)
-        #    message(STATUS "[cppm] Cache Direcroty ${HOME}/.cppm/install/${name}/${_version}")
-        #    message(STATUS "[cppm] Find ${name} package")
-        #endif()
-    endif()
+    #    include(FetchContent)
+    #    set(_package_install_path "${CPPM_ROOT}/install/${name}/${version}")
+    #    FetchContent_Populate(
+    #        ${name}
+    #        GIT_REPOSITORY ${ARG_GIT}
+    #        GIT_TAG        ${ARG_GIT_TAG}
+    #        URL            ${ARG_URL}
+    #        URL_HASH       ${ARG_URL_HASH}
+    #        SOURCE_DIR    "${_package_install_path}/src"
+    #        BINARY_DIR    "${_package_install_path}/build"
+    #        SUBBUILD_DIR  "${_package_install_path}/cache"
+    #        QUIET
+    #    )
+    #    add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
+    #    #execute_process(COMMAND cmake -P cmake_install.cmake
+    #    #                RESULT_VARIABLE result
+    #    #                WORKING_DIRECTORY ${_package_install_path}/build)
+    #    #if(_is_not_found)
+    #    #    message(STATUS "[cppm] Cache Direcroty ${HOME}/.cppm/install/${name}/${_version}")
+    #    #    message(STATUS "[cppm] Find ${name} package")
+    #    #endif()
+    #endif()
 endmacro()
