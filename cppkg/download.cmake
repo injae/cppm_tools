@@ -3,13 +3,13 @@ macro(download_package)
     set(oneValueArgs URL URL_HASH GIT GIT_TAG)
     set(multiValueArgs CMAKE_ARGS W_CONFIGURE W_BUILD W_INSTALL
                                   L_CONFIGURE L_BUILD L_INSTALL)
-    set(copy_argn ${ARGN})
+    string(REPLACE ";" " " copy_argn "${ARGN}")
     cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0 1)
 
-    cppm_print("Cppkg  [${name}/${version}] loading...")
+    cppm_print("cppkg  [${name}/${version}] loading...")
     cppm_print("cppkg options ${copy_argn}")
     cppm_setting(NO_MESSAGE)
 
