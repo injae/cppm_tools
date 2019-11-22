@@ -3,6 +3,7 @@ macro(download_package)
     set(oneValueArgs URL URL_HASH GIT GIT_TAG)
     set(multiValueArgs CMAKE_ARGS W_CONFIGURE W_BUILD W_INSTALL
                                   L_CONFIGURE L_BUILD L_INSTALL)
+    set(copy_argn ${ARGN})
     cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
@@ -21,7 +22,8 @@ macro(download_package)
     endforeach()
 
     include(${CPPM_VERSION}/cppkg/download-none-cmake-package)
-    _none_cmake_download_package(${ARGN})
+    cppm_print("cppkg options ${copy_argn}")
+    _none_cmake_download_package(${copy_argn})
     #if(is_none_cmake_package)
     #    # use ExternalProject_add
     #else()
