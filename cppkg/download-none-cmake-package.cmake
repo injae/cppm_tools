@@ -1,4 +1,4 @@
-macro(_none_cmake_download_package)
+macro(download_package)
     #set(options LOCAL GLOBAL)
     #set(oneValueArgs URL GIT GIT_TAG)
     #set(multiValueArgs CMAKE_ARGS W_CONFIGURE W_BUILD W_INSTALL
