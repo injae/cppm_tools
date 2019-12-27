@@ -38,8 +38,8 @@ macro(download_package)
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
-            SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}/src
-            BINARY_DIR ${HOME}/.cppm/install/${name}/${_version}/build
+            SOURCE_DIR ${HOME}/.cppm/src/${name}/${_version}
+            BINARY_DIR ${HOME}/.cppm/cache/${name}/${_version}
             CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
             CONFIGURE_COMMAND ${ARG_L_CONFIGURE}
             BUILD_COMMAND ${ARG_L_BUILD}
@@ -52,8 +52,8 @@ macro(download_package)
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
-            SOURCE_DIR ${HOME}/.cppm/install/${name}/${_version}/src
-            BINARY_DIR ${HOME}/.cppm/install/${name}/${_version}/build
+            SOURCE_DIR ${HOME}/.cppm/src/${name}/${_version}
+            BINARY_DIR ${HOME}/.cppm/cache/${name}/${_version}
             CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
             CONFIGURE_COMMAND ${ARG_W_CONFIGURE}
             BUILD_COMMAND ${ARG_W_BUILD}
@@ -61,7 +61,8 @@ macro(download_package)
             ${ARG_UNPARSED_ARGUMENTS}
           )
         endif(NOT WIN32)
-        message(STATUS "[cppm] Cache Direcroty ${HOME}/.cppm/install/${name}/${_version}")
+        message(STATUS "[cppm] Source Direcroty ${HOME}/.cppm/src/${name}/${_version}")
+        message(STATUS "[cppm] Cache Direcroty ${HOME}/.cppm/cache/${name}/${_version}")
     else()
         message(STATUS "[cppm] Find ${name} package")
     endif()
