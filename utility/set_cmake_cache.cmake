@@ -39,3 +39,7 @@ endfunction()
 function(add_compiler_option cache_var data)
     append_cache("${cache_var}" "${data}" STRING "compiler options")
 endfunction()
+ 
+function(cppm_set cache_var data)
+    set_cache("${cache_var}" "${data}" INTERNAL)
+endfunction()

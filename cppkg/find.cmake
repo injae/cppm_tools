@@ -31,7 +31,7 @@ macro(find_cppkg)
         if(EXISTS ${_cppkg})
             configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
                         ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
-                    execute_process(COMMAND
+            execute_process(COMMAND
                             ${CMAKE_COMMAND}
                             "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
                             "-DCMAKE_BUILD_TYPE=Release" .
@@ -44,13 +44,13 @@ macro(find_cppkg)
                 include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
             endif()
         endif()
-    endif()
+   endif()
 
-    if(DEFINED ARG_COMPONENTS)
+   if(DEFINED ARG_COMPONENTS)
         find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} QUIET)
-    else()
+   else()
         find_package(${name} ${version} QUIET)
-    endif()
+   endif()
 
    if("${${name}_FOUND}")
        cppm_print("Find Package: ${name}/${${name}_VERSION}")
