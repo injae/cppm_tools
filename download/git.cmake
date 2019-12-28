@@ -63,3 +63,12 @@ function(git_clone)
         message(STATUS "[cppm] ${output}")
     endif()
 endfunction()
+
+function(git_is_current_version path)
+    execute_process(
+        COMMAND git rev-parse --short HEAD
+        RESULT_VARIABLE result
+        OUTPUT_VARIABLE short_hash
+        WORKING_DIRECTORY ${path}
+    )
+endfunction()
