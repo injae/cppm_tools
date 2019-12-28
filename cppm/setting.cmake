@@ -12,8 +12,6 @@ macro(cppm_setting)
     endif()
 
     cppm_set(CPPM_ROOT    ${HOME}/.cppm)
-    set_cache(CPPM_TT ${HOME}/.cppm INTERNAL)
-    set_cache(CPPM_TR ${HOME}/.cppm INTERNAL " ")
     cppm_set(CPPM_MODULE  ${CPPM_ROOT}/cmake)
     cppm_set(CPPM_SOURCE  ${CPPM_ROOT}/src)
     cppm_set(CPPM_CACHE   ${CPPM_ROOT}/cache)

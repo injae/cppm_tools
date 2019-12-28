@@ -36,10 +36,10 @@ function(default_cache cache_var data type)
 endfunction()
 
 
-function(add_compiler_option cache_var data)
+macro(add_compiler_option cache_var data)
     append_cache("${cache_var}" "${data}" STRING "compiler options")
-endfunction()
+endmacro()
  
-function(cppm_set cache_var data)
+macro(cppm_set cache_var data)
     set_cache("${cache_var}" "${data}" INTERNAL " ")
-endfunction()
+endmacro()
