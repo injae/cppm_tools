@@ -41,5 +41,5 @@ function(add_compiler_option cache_var data)
 endfunction()
  
 function(cppm_set cache_var data)
-    set_cache("${cache_var}" "${data}" INTERNAL)
+    set_cache("${cache_var}" "${data}" INTERNAL " ")
 endfunction()
