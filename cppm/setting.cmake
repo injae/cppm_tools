@@ -10,7 +10,7 @@ macro(cppm_setting)
         set(NO_MESSAGE TRUE)
     endif()
 
-    default_cache(CPPM_ROOT    ${HOME}/.cppm INTERNAL)
+    set(CPPM_ROOT ${HOME}/.cppm INTERNAL FORCE)
     default_cache(CPPM_MODULE  ${CPPM_ROOT}/cmake INTERNAL)
     default_cache(CPPM_SOURCE  ${CPPM_ROOT}/src INTERNAL)
     default_cache(CPPM_CACHE   ${CPPM_ROOT}/cache INTERNAL)
