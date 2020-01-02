@@ -64,6 +64,14 @@ function(git_clone)
     endif()
 endfunction()
 
+macro(cache_check path)
+    if(EXIST ${path})
+        
+    else()
+
+    endif()
+endmacro()
+
 function(git_is_current_version path)
     execute_process(
         COMMAND git rev-parse --short HEAD
@@ -71,4 +79,15 @@ function(git_is_current_version path)
         OUTPUT_VARIABLE short_hash
         WORKING_DIRECTORY ${path}
     )
+    set(hash_file ${path}/git_hash.cmake)
+    set(file_data "set(GIT_HASH ${short_hash})")
+    set(hash_matched OFF PARENT_SCOPE)
+    if(EXISTS ${hash_file})
+        include(${path}/git_hash.cmake)
+        if(${short_hash} STREQUAL ${GIT_HASH})
+            set(hash_matched ON PARENT_SCOPE)
+        endif()
+    else()
+        file(WRITE ${path}/git_hash.cmake ${file_data})
+    endif()
 endfunction()

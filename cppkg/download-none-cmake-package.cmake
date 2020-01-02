@@ -10,16 +10,6 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
-
-    set(_version ${version})
-    if(${version} STREQUAL "git")
-      set(version "")
-      set(_is_git TRUE)
-      find_package(${name} ${version} QUIET)
-    else()
-      find_package(${name} ${version} EXACT QUIET)
-    endif()
-
     if(ARG_LOCAL)
       set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
     elseif(ARG_GLOBAL)
@@ -29,49 +19,61 @@ macro(download_package)
     endif()
     set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}") 
 
+    set(_version ${version})
+    if(${version} STREQUAL "git")
+      set(version "")
+      set(_is_git TRUE)
+      find_package(${name} ${version} QUIET)
+    else()
+      find_package(${name} ${version} EXACT QUIET)
+    endif()
     if(${${name}_FOUND} EQUAL 0)
         set(_is_not_found TRUE)
+        message(STATUS "[cppm] Can not find ${name} package")
+    endif()
+
+    set(_cache_path ${CPPM_SOURCE}/${name}/${_version})
+    set(_source_path ${CPPM_CACHE}/${name}/${_version})
+
+    if(WIN32)
+        set(_configure_cmd "${ARG_W_CONFIGURE}")
+        set(_build_cmd "${ARG_W_BUILD}")
+        set(_install_cmd "${ARG_W_INSTALL}")
+    else()
+        set(_configure_cmd "${ARG_L_CONFIUGURE}")
+        set(_build_cmd "${ARG_L_BUILD}")
+        set(_install_cmd "${ARG_L_INSTALL}")
     endif()
     
     include(ExternalProject)
     if(_is_not_found OR _is_git)
-        message(STATUS "[cppm] Can not find ${name} package")
         message(STATUS "[cppm] Download ${name} package")
-        if(NOT EXISTS ${HOME}/.cppm/install/${name})
-            file(MAKE_DIRECTORY ${HOME}/.cppm/install/${name})
+        if(NOT EXISTS ${_cache_path})
+            file(MAKE_DIRECTORY ${_cache_path})
         endif()
-        if(NOT WIN32)
-          ExternalProject_Add(
+        #if(_is_git)
+        #    include(download/git)
+        #    git_is_current_version(${_cache_path})
+        #endif()
+        ExternalProject_Add(
             _${name}
             URL ${ARG_URL}
             GIT_REPOSITORY ${ARG_GIT}
             GIT_TAG ${ARG_GIT_TAG}
-            SOURCE_DIR ${CPPM_SOURCE}/${name}/${_version}
-            BINARY_DIR ${CPPM_CACHE}/${name}/${_version}
+            SOURCE_DIR ${_source_path}
+            BINARY_DIR ${_cache_path}
             CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
-            CONFIGURE_COMMAND ${ARG_L_CONFIGURE}
-            BUILD_COMMAND ${ARG_L_BUILD}
-            INSTALL_COMMAND ${ARG_L_INSTALL}
+            CONFIGURE_COMMAND ${_configure_cmd}
+            BUILD_COMMAND ${_build_cmd}
+            INSTALL_COMMAND ${_install_cmd}
             ${ARG_UNPARSED_ARGUMENTS}
-          )
-        else(NOT WIN32)
-          ExternalProject_Add(
-            _${name}
-            URL ${ARG_URL}
-            GIT_REPOSITORY ${ARG_GIT}
-            GIT_TAG ${ARG_GIT_TAG}
-            SOURCE_DIR ${CPPM_SOURCE}/${name}/${_version}
-            BINARY_DIR ${CPPM_CACHE}/${name}/${_version}
-            CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
-            CONFIGURE_COMMAND ${ARG_W_CONFIGURE}
-            BUILD_COMMAND ${ARG_W_BUILD}
-            INSTALL_COMMAND ${ARG_W_INSTALL}
-            ${ARG_UNPARSED_ARGUMENTS}
-          )
-        endif(NOT WIN32)
+        )
         message(STATUS "[cppm] Source Direcroty ${CPPM_SOURCE}/${name}/${_version}")
         message(STATUS "[cppm] Cache Direcroty ${CPPM_CACHE}/${name}/${_version}")
     else()
         message(STATUS "[cppm] Find ${name} package")
     endif()
 endmacro()
+
+
+
