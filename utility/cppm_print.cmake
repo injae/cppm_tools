@@ -6,6 +6,13 @@ function(cppm_print)
     endforeach()
 endfunction()
 
+function(cppkg_print)
+    foreach(message ${ARGV})
+            message(STATUS "[cppkg] ${message}")
+    endforeach()
+endfunction()
+
+
 function(cppm_error_print)
     foreach(message ${ARGV})
         if(NOT NO_MESSAGE)
