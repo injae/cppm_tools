@@ -32,8 +32,8 @@ macro(download_package)
         message(STATUS "[cppm] Can not find ${name} package")
     endif()
 
-    set(_cache_path ${CPPM_SOURCE}/${name}/${_version})
-    set(_source_path ${CPPM_CACHE}/${name}/${_version})
+    set(_source_path ${CPPM_SOURCE}/${name}/${_version})
+    set(_cache_path ${CPPM_CACHE}/${name}/${_version})
 
     if(WIN32)
         set(_configure_cmd "${ARG_W_CONFIGURE}")
