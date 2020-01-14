@@ -55,7 +55,7 @@ macro(download_package)
             include(download/git)
             hash_check(${_source_path} ${_cache_path})
         endif()
-        if(hash_matched)
+        if(NOT hash_matched)
             ExternalProject_Add(
                 _${name}
                 URL ${ARG_URL}
