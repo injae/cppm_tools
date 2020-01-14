@@ -84,7 +84,9 @@ function(hash_check src_path cache_path)
     endif()
 endfunction()
 
-function(write_hash src_path cache_path)
+function(write_hash)
+    set(src_path ${ARGV1})
+    set(cache_path ${ARGV2})
     set(hash_matched FALSE PARENT_SCOPE)
     if(EXISTS ${src_path})
         cppm_print("find source files ${src_path}")
@@ -95,7 +97,6 @@ function(write_hash src_path cache_path)
             WORKING_DIRECTORY ${src_path}
             OUTPUT_STRIP_TRAILING_WHITESPACE
         )
-        cppm_print("result ${result} : output ${short_hash}")
         set(hash_file ${cache_path}/git_hash.cmake)
         set(file_data "set(GIT_HASH ${short_hash})")
         if(EXISTS ${hash_file})
