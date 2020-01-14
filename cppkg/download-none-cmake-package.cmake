@@ -48,26 +48,35 @@ macro(download_package)
     include(ExternalProject)
     if(_is_not_found OR _is_git)
         message(STATUS "[cppm] Download ${name} package")
+        set(_download_package False)
         if(NOT EXISTS ${_cache_path})
             file(MAKE_DIRECTORY ${_cache_path})
+            set(_download_package True)
         endif()
-        #if(_is_git)
-        #    include(download/git)
-        #    git_is_current_version(${_cache_path})
-        #endif()
-        ExternalProject_Add(
-            _${name}
-            URL ${ARG_URL}
-            GIT_REPOSITORY ${ARG_GIT}
-            GIT_TAG ${ARG_GIT_TAG}
-            SOURCE_DIR ${_source_path}
-            BINARY_DIR ${_cache_path}
-            CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
-            CONFIGURE_COMMAND ${_configure_cmd}
-            BUILD_COMMAND ${_build_cmd}
-            INSTALL_COMMAND ${_install_cmd}
-            ${ARG_UNPARSED_ARGUMENTS}
-        )
+        if(_is_git)
+            include(download/git)
+            hash_check(${_source_path} ${_cache_path})
+        endif()
+        if(download_package)
+            if(hash_matched)
+                ExternalProject_Add(
+                    _${name}
+                    URL ${ARG_URL}
+                    GIT_REPOSITORY ${ARG_GIT}
+                    GIT_TAG ${ARG_GIT_TAG}
+                    SOURCE_DIR ${_source_path}
+                    BINARY_DIR ${_cache_path}
+                    CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
+                    CONFIGURE_COMMAND ${_configure_cmd}
+                    BUILD_COMMAND ${_build_cmd}
+                    INSTALL_COMMAND ${_install_cmd}
+                    ${ARG_UNPARSED_ARGUMENTS}
+                )
+            endif()
+            if(_is_git)
+                write_hash(${_source_path} ${_cache_path})
+            endif()
+        endif()
         message(STATUS "[cppm] Source Direcroty ${CPPM_SOURCE}/${name}/${_version}")
         message(STATUS "[cppm] Cache Direcroty ${CPPM_CACHE}/${name}/${_version}")
     else()

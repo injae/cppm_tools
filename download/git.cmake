@@ -64,26 +64,35 @@ function(git_clone)
     endif()
 endfunction()
 
-macro(cache_check path)
-    if(EXIST ${path})
-        
-    else()
-
+function(hash_check src_path cache_path)
+    set(hash_file ${cache_path}/git_hash.cmake)
+    set(hash_matched FALSE PARENT_SCOPE)
+    if(EXIST ${hash_file})
+        include(${hash_file})
+        execute_process(
+            COMMAND git rev-parse --short HEAD
+            RESULT_VARIABLE result
+            OUTPUT_VARIABLE short_hash
+            WORKING_DIRECTORY ${src_path}
+        )
+        if(${short_hash} STREQUAL ${GIT_HASH})
+            set(hash_matched TRUE PARENT_SCOPE)
+        endif()
     endif()
-endmacro()
+endfunction()
 
-function(git_is_current_version path)
+function(write_hash src_path cache_path)
     execute_process(
         COMMAND git rev-parse --short HEAD
         RESULT_VARIABLE result
         OUTPUT_VARIABLE short_hash
-        WORKING_DIRECTORY ${path}
+        WORKING_DIRECTORY ${src_path}
     )
-    set(hash_file ${path}/git_hash.cmake)
+    set(hash_file ${cache_path}/git_hash.cmake)
     set(file_data "set(GIT_HASH ${short_hash})")
-    set(hash_matched OFF PARENT_SCOPE)
+    set(hash_matched )
     if(EXISTS ${hash_file})
-        include(${path}/git_hash.cmake)
+        include(${cache_path}/git_hash.cmake)
         if(${short_hash} STREQUAL ${GIT_HASH})
             set(hash_matched ON PARENT_SCOPE)
         endif()
