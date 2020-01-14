@@ -76,7 +76,6 @@ function(hash_check src_path cache_path)
             RESULT_VARIABLE result
             OUTPUT_VARIABLE short_hash
             WORKING_DIRECTORY ${src_path}
-            OUTPUT_QUIET
         )
         if(${short_hash} STREQUAL ${GIT_HASH})
             set(hash_matched TRUE PARENT_SCOPE)
@@ -91,7 +90,6 @@ function(write_hash src_path cache_path)
         RESULT_VARIABLE result
         OUTPUT_VARIABLE short_hash
         WORKING_DIRECTORY ${src_path}
-        OUTPUT_QUIET
     )
     set(hash_file ${cache_path}/git_hash.cmake)
     set(file_data "set(GIT_HASH ${short_hash})")
