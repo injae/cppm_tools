@@ -53,6 +53,6 @@ macro(find_cppkg)
    endif()
 
    if("${${name}_FOUND}")
-       cppm_print("Find Package: ${name}/${${name}_VERSION}")
+       cppkg_print("Find Package: ${name}/${${name}_VERSION}")
    endif()
 endmacro()

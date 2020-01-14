@@ -72,8 +72,6 @@ macro(download_package)
                 ${ARG_UNPARSED_ARGUMENTS}
             )
         endif()
-    else()
-        cppkg_print("Find ${name} package")
     endif()
 endmacro()
 
