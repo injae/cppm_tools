@@ -29,7 +29,7 @@ function(git_clone)
 
     if(EXISTS ${ARG_PATH}/${name})
         if(NOT ARG_QUIET)
-            message(STATUS "[cppm] Updating ${name}")
+            cppm_print("Updating ${name}")
         endif()
             execute_process(
                 COMMAND ${GIT_EXECUTABLE} fetch --all
@@ -39,7 +39,7 @@ function(git_clone)
                 )
     else()
         if(NOT ARG_QUIET)
-            message(STATUS "[cppm] Downloading ${name}")
+            cppm_print("Downloading ${name}")
         endif()
             execute_process(
                 COMMAND ${GIT_EXECUTABLE} clone ${ARG_URL} ${name} --recursive
@@ -48,6 +48,7 @@ function(git_clone)
                 )
             if(NOT ARG_QUIET)
                 message(STATUS "[cppm] ${output}")
+                cppm_print("[cppm] ${output}")
             endif()
 
             if(NOT ${ARG_BRANCH} MATCHES "master")
