@@ -97,7 +97,7 @@ function(write_hash)
             WORKING_DIRECTORY ${src_path}
             OUTPUT_STRIP_TRAILING_WHITESPACE
         )
-        set(hash_file ${cache_path}/git_hash.cmake)
+        set(hash_file "${cache_path}/git_hash.cmake")
         set(file_data "set(GIT_HASH ${short_hash})")
         if(EXISTS ${hash_file})
             include(${hash_file})
