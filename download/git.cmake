@@ -89,8 +89,6 @@ function(write_hash)
     set(cache_path ${ARGV1})
     set(hash_matched FALSE PARENT_SCOPE)
     if(EXISTS ${src_path})
-        cppm_print("find source files ${src_path}")
-        cppm_print("find cache files ${cache_path}")
         execute_process(
             COMMAND git rev-parse --short HEAD
             RESULT_VARIABLE result

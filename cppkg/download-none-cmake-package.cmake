@@ -47,9 +47,6 @@ macro(download_package)
     
     include(ExternalProject)
     if(_is_not_found OR _is_git)
-        cppm_print("Download ${name} package")
-        cppm_print("Source Direcroty ${CPPM_SOURCE}/${name}/${_version}")
-        cppm_print("Cache Direcroty ${CPPM_CACHE}/${name}/${_version}")
         if(NOT EXISTS ${_cache_path})
             file(MAKE_DIRECTORY ${_cache_path})
         endif()
@@ -58,6 +55,9 @@ macro(download_package)
             write_hash(${_source_path} ${_cache_path})
         endif()
         if(NOT hash_matched)
+            cppm_print("Download ${name} package")
+            cppm_print("Source Direcroty ${_source_path}")
+            cppm_print("Cache Direcroty ${_cache_path}")
             ExternalProject_Add(
                 _${name}
                 URL ${ARG_URL}
