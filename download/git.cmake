@@ -85,6 +85,7 @@ function(hash_check src_path cache_path)
 endfunction()
 
 function(write_hash src_path cache_path)
+    set(hash_matched FALSE PARENT_SCOPE)
     if(EXISTS ${src_path})
         execute_process(
             COMMAND git rev-parse --short HEAD
@@ -98,6 +99,7 @@ function(write_hash src_path cache_path)
             include(${cache_path}/git_hash.cmake)
             if(${short_hash} STREQUAL ${GIT_HASH})
                 cppm_print("cache matched ${cache_path}")
+                set(hash_matched TRUE PARENT_SCOPE)
             else()
                 file(WRITE ${hash_file} ${file_data})
                 cppm_print("updated ${cache_path}")
