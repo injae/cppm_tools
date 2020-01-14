@@ -93,13 +93,14 @@ function(write_hash src_path cache_path)
             RESULT_VARIABLE result
             OUTPUT_VARIABLE short_hash
             WORKING_DIRECTORY ${src_path}
+            OUTPUT_STRIP_TRAILING_WHITESPACE
         )
         cppm_print("result ${result} : output ${short_hash}")
         set(hash_file ${cache_path}/git_hash.cmake)
         set(file_data "set(GIT_HASH ${short_hash})")
         if(EXISTS ${hash_file})
             include(${hash_file})
-            if("${short_hash}" STREQUAL ${GIT_HASH})
+            if("${short_hash}" STREQUAL "${GIT_HASH}")
                 cppm_print("cache matched ${cache_path}")
                 set(hash_matched TRUE PARENT_SCOPE)
             else()
