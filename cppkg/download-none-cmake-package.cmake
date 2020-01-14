@@ -55,7 +55,7 @@ macro(download_package)
         endif()
         if(_is_git)
             include(download/git)
-            write_hash(${_source_path} ${_cache_path})
+            write_hash("${_source_path}" "${_cache_path}")
         endif()
         if(NOT hash_matched)
             ExternalProject_Add(
