@@ -67,7 +67,7 @@ endfunction()
 function(hash_check src_path cache_path)
     set(hash_file ${cache_path}/git_hash.cmake)
     set(hash_matched FALSE PARENT_SCOPE)
-    if(EXIST ${hash_file})
+    if(EXISTS ${hash_file})
         include(${hash_file})
         execute_process(
             COMMAND git rev-parse --short HEAD
