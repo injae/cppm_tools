@@ -85,24 +85,26 @@ function(hash_check src_path cache_path)
 endfunction()
 
 function(write_hash src_path cache_path)
-    execute_process(
-        COMMAND git rev-parse --short HEAD
-        RESULT_VARIABLE result
-        OUTPUT_VARIABLE short_hash
-        WORKING_DIRECTORY ${src_path}
-    )
-    set(hash_file ${cache_path}/git_hash.cmake)
-    set(file_data "set(GIT_HASH ${short_hash})")
-    if(EXISTS ${hash_file})
-        include(${cache_path}/git_hash.cmake)
-        if(${short_hash} STREQUAL ${GIT_HASH})
-            cppm_print("cache matched ${cache_path}")
+    if(EXISTS ${src_path})
+        execute_process(
+            COMMAND git rev-parse --short HEAD
+            RESULT_VARIABLE result
+            OUTPUT_VARIABLE short_hash
+            WORKING_DIRECTORY ${src_path}
+        )
+        set(hash_file ${cache_path}/git_hash.cmake)
+        set(file_data "set(GIT_HASH ${short_hash})")
+        if(EXISTS ${hash_file})
+            include(${cache_path}/git_hash.cmake)
+            if(${short_hash} STREQUAL ${GIT_HASH})
+                cppm_print("cache matched ${cache_path}")
+            else()
+                file(WRITE ${hash_file} ${file_data})
+                cppm_print("updated ${cache_path}")
+            endif()
         else()
             file(WRITE ${hash_file} ${file_data})
             cppm_print("updated ${cache_path}")
         endif()
-    else()
-        file(WRITE ${hash_file} ${file_data})
-        cppm_print("updated ${cache_path}")
     endif()
 endfunction()
