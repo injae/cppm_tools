@@ -94,6 +94,7 @@ function(write_hash src_path cache_path)
             OUTPUT_VARIABLE short_hash
             WORKING_DIRECTORY ${src_path}
         )
+        cppm_print("result ${result} : output ${short_hash}")
         set(hash_file ${cache_path}/git_hash.cmake)
         set(file_data "set(GIT_HASH ${short_hash})")
         if(EXISTS ${hash_file})
