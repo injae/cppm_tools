@@ -71,7 +71,6 @@ function(hash_check)
     set(hash_file "${cache_path}/git_hash.cmake")
     set(hash_matched FALSE PARENT_SCOPE)
     if(EXISTS ${hash_file})
-        cppkg_print("find cache ${cache_path}")
         include(${hash_file})
         execute_process(
             COMMAND git rev-parse --short HEAD
@@ -80,10 +79,10 @@ function(hash_check)
             WORKING_DIRECTORY ${src_path}
             OUTPUT_STRIP_TRAILING_WHITESPACE
         )
-        cppkg_print("version hash ${short_hash} : ${GIT_HASH}")
         if("${short_hash}" STREQUAL "${GIT_HASH}")
             set(hash_matched TRUE PARENT_SCOPE)
-            cppkg_print("this is not recent package")
+        else()
+            cppkg_print("update version ${short_hash} -> ${GIT_HASH}")
         endif()
     endif()
 endfunction()
