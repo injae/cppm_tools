@@ -72,8 +72,8 @@ function(hash_check)
     set(hash_matched FALSE PARENT_SCOPE)
     if(EXISTS ${hash_file})
         include(${hash_file})
+        execute_process(COMAND git fetch WORKING_DIRECTORY ${src_path})
         execute_process(
-            COMMAND git fetch
             COMMAND git rev-parse --short origin/HEAD
             RESULT_VARIABLE result
             OUTPUT_VARIABLE short_hash
@@ -93,8 +93,8 @@ function(write_hash)
     set(cache_path ${ARGV1})
     set(hash_matched FALSE PARENT_SCOPE)
     if(EXISTS ${src_path})
+        execute_process(COMAND git fetch WORKING_DIRECTORY ${src_path})
         execute_process(
-            COMMAND git fetch
             COMMAND git rev-parse --short origin/HEAD
             RESULT_VARIABLE result
             OUTPUT_VARIABLE short_hash
