@@ -72,7 +72,7 @@ function(hash_check)
     set(hash_matched FALSE PARENT_SCOPE)
     if(EXISTS ${hash_file})
         include(${hash_file})
-        execute_process(COMAND git fetch WORKING_DIRECTORY ${src_path})
+        execute_process(COMMAND git fetch WORKING_DIRECTORY ${src_path})
         execute_process(
             COMMAND git rev-parse --short origin/HEAD
             RESULT_VARIABLE result
