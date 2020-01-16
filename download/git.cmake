@@ -78,6 +78,7 @@ function(hash_check)
             RESULT_VARIABLE result
             OUTPUT_VARIABLE short_hash
             WORKING_DIRECTORY ${src_path}
+            OUTPUT_STRIP_TRAILING_WHITESPACE
         )
         cppkg_print("version hash ${short_hash} : ${GIT_HASH}")
         if("${short_hash}" STREQUAL "${GIT_HASH}")
