@@ -39,6 +39,7 @@ macro(m_cppm_target_dependencies)
 
     if(DEFINED ARG_PUBLIC)
         foreach(pub IN LISTS ${ARG_PUBLIC})
+            message("${pub}")
             target_link_libraries(${name} PUBLIC ${_M_${pub}})
         endforeach()
         set(has_deps TRUE)
