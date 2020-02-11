@@ -54,6 +54,6 @@ macro(find_cppkg)
 
    if("${${name}_FOUND}")
        cppkg_print("Find Package: ${name}/${${name}_VERSION}")
-       set(${name} "${ARG_MODULE}")
+       set(_M_${name} "${ARG_MODULE}")
    endif()
 endmacro()
