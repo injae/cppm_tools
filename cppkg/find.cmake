@@ -1,5 +1,5 @@
 macro(find_cppkg)
-    cmake_parse_arguments(ARG "HUNTER" "" "MODULE;COMPONENTS" ${ARGN})
+    cmake_parse_arguments(ARG "HUNTER;WORKSPACE" "" "MODULE;COMPONENTS" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     set(version_ ${version})
@@ -9,6 +9,13 @@ macro(find_cppkg)
 
     if(version STREQUAL "git")
       set(version "")
+    endif()
+
+    if(ARG_WORKSPACE)
+        cppm_print("Load ${name} sub project")
+        set("_M_${name}" "${ARG_MODULE}")
+        set("_V_${name}" "${${name}_VERSION}")
+        endmacro()
     endif()
 
     if(${ARG_HUNTER}) 
