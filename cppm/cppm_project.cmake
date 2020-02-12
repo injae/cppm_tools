@@ -12,8 +12,8 @@ ExternalProject_Add(cppm-tools-${CPPM_VERSION}
     #QUIET
 )"
 )
-    configure_file(${CMAKE_CURRENT_BINARY_DIR}/cppm-tools/download.cmake.in
-                ${CMAKE_CURRENT_BINARY_DIR}/cppm-tools/CMakeLists.txt)
-    execute_process(COMMAND "${CMAKE_COMMAND} ." WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cppm-tools)
-    execute_process(COMMAND "${CMAKE_COMMAND} --build ." WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cppm-tools)
+configure_file(${CMAKE_CURRENT_BINARY_DIR}/cppm-tools/download.cmake.in
+            ${CMAKE_CURRENT_BINARY_DIR}/cppm-tools/CMakeLists.txt)
+execute_process(COMMAND "${CMAKE_COMMAND} ." WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cppm-tools)
+execute_process(COMMAND "${CMAKE_COMMAND} --build ." WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/cppm-tools)
 endmacro()
