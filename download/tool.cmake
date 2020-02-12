@@ -1,5 +1,5 @@
-function(download)
-    cmake_parse_arguments(ARG "" "GIT_URL;URL;PATH;INSTALL_SCRIPT" "" ${ARGN})
+function(cppm_download_package)
+    cmake_parse_arguments(ARG "" "GIT;GIT_TAG;URL;PATH;INSTALL_SCRIPT" "" ${ARGN})
     list(LENGTH ARG_UNPARSED_ARGUMENTS size)
     if(${size} LESS 1)
         message(FATAL_ERROR "You must provide a name")
@@ -9,7 +9,6 @@ function(download)
     if(NOT ARG_PATH)
         set(ARG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${name})
     else()
-        set(ARG_PATH "${ARG_PATH}/${name}")
     endif()
 
     set(build_dir "${CMAKE_CURRENT_BINARY_DIR}/tool/download/${name}")
@@ -24,19 +23,16 @@ function(download)
         "include(ExternalProject)\n"
         "ExternalProject_Add(\n"
         "    ${name}\n"
-        "    GIT_REPOSITORY ${ARG_GIT_URL}\n"
+        "    GIT_REPOSITORY ${ARG_GIT}\n"
+        "    GIT_TAG        ${ARG_GIT_TAG}"
         "    URL            ${ARG_URL}"
-        "    SOURCE_DIR \"${ARG_PATH}\"\n"
-        "    CONFIGURE_COMMAND \"${INSTALL_SCRIPT}\"\n"
+        "    SOURCE_DIR     ${ARG_PATH}"
+        "    CONFIGURE_COMMAND \"${INSTALL_SCRIPT}\""
         "    BUILD_COMMAND \"\"\n"
         "    INSTALL_COMMAND \"\"\n"
         ")\n"
     )
-    execute_process(COMMAND ${CMAKE_COMMAND} .
-                    WORKING_DIRECTORY ${build_dir}
-                    OUTPUT_QUIET)
-    execute_process(COMMAND ${CMAKE_COMMAND}  --build .
-                    WORKING_DIRECTORY ${build_dir}
-                    OUTPUT_QUIET)
+    execute_process(COMMAND ${CMAKE_COMMAND} . WORKING_DIRECTORY ${build_dir} OUTPUT_QUIET)
+    execute_process(COMMAND ${CMAKE_COMMAND}  --build . WORKING_DIRECTORY ${build_dir} OUTPUT_QUIET)
     message(STATUS "[cppm] ${name} download to ${ARG_PATH}")
 endfunction()

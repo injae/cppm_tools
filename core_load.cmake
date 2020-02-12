@@ -12,6 +12,7 @@ set(CPPM_CORE   ${CPPM_SOURCE}/cppm_tools/${CPPM_VERSION})
 list(APPEND CMAKE_MODULE_PATH "${CPPM_MODULE}")
 list(APPEND CMAKE_MODULE_PATH "${CPPM_CORE}")
 
+include(download/tool)
 include(cppm/setting)
 include(utility/set_cmake_cache)
 include(cppm/cppm_project)
