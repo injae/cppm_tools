@@ -24,7 +24,6 @@ macro(cppm_target_dependencies)
         endforeach()
         list(APPEND _D_${name} "${ARG_INTERFACE}")
     endif()
-    message("${_D_${name}}")
 endmacro()
 
     #if(has_deps)

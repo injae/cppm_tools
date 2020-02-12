@@ -1,3 +1,17 @@
+function(cppm_write_target_dependency_file)
+    cmake_parse_arguments(ARG "" "" "" ${ARGN})
+    list(GET ARG_UNPARSED_ARGUMENTS 0 name)
+    set(Deps "")
+    foreach(dep IN LISTS _D_${name})
+        string(CONCAT Deps "find_dependency(${dep})\n")
+    endforeach()
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
+        "include(CMakeFindDependencyMacro)\n"
+        "${Deps}\n"
+        "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
+    )
+endfunction()
+
 macro(cppm_target_install)
     cmake_parse_arguments(ARG "" "" "" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
@@ -16,10 +30,11 @@ macro(cppm_target_install)
           ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config-version.cmake
           DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
         )
+        cppm_write_target_dependency_file(${name})
 
-        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
-            "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
-        )
+        #file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
+        #    "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
+        #)
         #configure_file("${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake.in"
         #               "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake")
         install(FILES
