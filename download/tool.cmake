@@ -13,11 +13,14 @@ function(cppm_download_package)
         set(VERSION ${ARG_VERSION})
     else()
         if(DEFINED ARG_GIT)
-            set(VERSION git)
+            if(DEFINED ARG_GIT_TAG)
+                set(VERSION ${ARG_GIT_TAG})
+            else()
+                set(VERSION git)
+            endif()
         else()
             set(VERSION unknown)
         endif()
-        
     endif()
 
     file(WRITE "${build_dir}/CMakeLists.txt"
@@ -36,7 +39,7 @@ function(cppm_download_package)
         "    INSTALL_COMMAND \"\"\n"
         ")\n"
     )
-    execute_process(COMMAND ${CMAKE_COMMAND} . WORKING_DIRECTORY ${build_dir} OUTPUT_QUIET)
-    execute_process(COMMAND ${CMAKE_COMMAND}  --build . WORKING_DIRECTORY ${build_dir} OUTPUT_QUIET)
+    execute_process(COMMAND cmake . WORKING_DIRECTORY ${build_dir} OUTPUT_QUIET)
+    execute_process(COMMAND cmake  --build . WORKING_DIRECTORY ${build_dir} OUTPUT_QUIET)
     message(STATUS "[cppm] ${name} download to ${ARG_PATH}")
 endfunction()
