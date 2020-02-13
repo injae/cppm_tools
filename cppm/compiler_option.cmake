@@ -50,7 +50,7 @@ macro(_cppm_compiler_release_option)
     else()
         set(DEF_CLANG "-fPIC -O3 -DNDEBUG")
         set(DEF_GCC   "-fPIC -O3 -DNDEBUG")
-        set(DEF_MSVC  "/DWIN32 /D_WINDOWS /MP /O2 /EHsc")
+        set(DEF_MSVC  "/DWIN32 /D_WINDOWS /MP /O2 /EHsc /MD")
     endif()
 
     include(utility/set_cmake_cache)
