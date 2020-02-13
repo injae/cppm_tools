@@ -23,7 +23,9 @@ function(cppm_download_package)
         endif()
     endif()
 
-    file(WRITE "${build_dir}/CMakeLists.txt"
+    set(_cache_path "${CPPM_CACHE}/${name}/${VERSION}")
+
+    file(WRITE "${_cache_path}/script/CMakeLists.txt"
         "cmake_minimum_required(VERSION 3.2)\n"
         "project(CPPM_TOOL_DOWNLOAD LANGUAGES NONE)\n"
         "include(ExternalProject)\n"
@@ -33,7 +35,7 @@ function(cppm_download_package)
         "    GIT_TAG        ${ARG_GIT_TAG}"
         "    URL            ${ARG_URL}"
         "    SOURCE_DIR     ${ARG_PATH}"
-        "    BINARY_DIR     ${CPPM_CACHE}/${name}/${VERSION}/build"
+        "    BINARY_DIR     ${_cache_path}/build"
         "    CONFIGURE_COMMAND \"${INSTALL_SCRIPT}\""
         "    BUILD_COMMAND \"\"\n"
         "    INSTALL_COMMAND \"\"\n"
