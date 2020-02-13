@@ -65,10 +65,10 @@ macro(download_package)
                 GIT_TAG ${ARG_GIT_TAG}
                 SOURCE_DIR ${_source_path}
                 BINARY_DIR "${_cache_path}/build"
-                CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
+                CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
                 CONFIGURE_COMMAND ${_configure_cmd}
                 BUILD_COMMAND ${_build_cmd}
-                INSTALL_COMMAND cmake --build . --target install --config Release
+                INSTALL_COMMAND cmake --build . --target install --config ${CMAKE_BUILD_TYPE}
                 ${ARG_UNPARSED_ARGUMENTS}
             )
             if(_is_git)

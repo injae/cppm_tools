@@ -34,7 +34,7 @@ macro(find_cppkg)
             execute_process(COMMAND
                             ${CMAKE_COMMAND}
                             "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
-                            "-DCMAKE_BUILD_TYPE=Release" .
+                            "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
             execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
