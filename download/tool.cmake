@@ -1,5 +1,5 @@
 function(cppm_download_package)
-    cmake_parse_arguments(ARG "" "GIT;GIT_TAG;URL;PATH;INSTALL_SCRIPT" "" ${ARGN})
+    cmake_parse_arguments(ARG "" "GIT;GIT_TAG;VERSION;URL;PATH;INSTALL_SCRIPT" "" ${ARGN})
     list(LENGTH ARG_UNPARSED_ARGUMENTS size)
     if(${size} LESS 1)
         message(FATAL_ERROR "You must provide a name")
@@ -8,14 +8,17 @@ function(cppm_download_package)
 
     if(NOT ARG_PATH)
         set(ARG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${name})
-    else()
     endif()
-
-    set(build_dir "${CMAKE_CURRENT_BINARY_DIR}/tool/download/${name}")
-
-    file(REMOVE_RECURSE "${build_dir}")
-    #file(REMOVE_RECURSE "${build_dir}/CMakeLists.txt")
-    file(MAKE_DIRECTORY ${build_dir})
+    if(DEFINE ARG_VERSION)
+        set(VERSION ${ARG_VERSION})
+    else()
+        if(DEFINE ARG_GIT)
+            set(VERSION git)
+        else()
+            set(VERSION unknown)
+        endif()
+        
+    endif()
 
     file(WRITE "${build_dir}/CMakeLists.txt"
         "cmake_minimum_required(VERSION 3.2)\n"
@@ -27,6 +30,7 @@ function(cppm_download_package)
         "    GIT_TAG        ${ARG_GIT_TAG}"
         "    URL            ${ARG_URL}"
         "    SOURCE_DIR     ${ARG_PATH}"
+        "    BINARY_DIR     ${CPPM_CACHE}/${name}/${VERSION}/build"
         "    CONFIGURE_COMMAND \"${INSTALL_SCRIPT}\""
         "    BUILD_COMMAND \"\"\n"
         "    INSTALL_COMMAND \"\"\n"
