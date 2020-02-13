@@ -20,7 +20,7 @@ macro(_cppm_compiler_debug_option)
     else()
         set(DEF_CLANG "-Wall -fPIC -O0 -g")
         set(DEF_GCC   "-Wall -fPIC -O0 -g")
-        set(DEF_MSVC  "/MP /Ob0")
+        set(DEF_MSVC  "/Zi /Ob0 /Od /RTC1 /MDd")
         #set(DEF_MSVC  "/DWIN32 /D_WINDOWS /MP /Zi /Ob0 /Od /EHsc")
     endif()
 
