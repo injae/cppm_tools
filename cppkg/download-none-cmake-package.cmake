@@ -68,7 +68,7 @@ macro(download_package)
                 CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
                 CONFIGURE_COMMAND ${_configure_cmd}
                 BUILD_COMMAND ${_build_cmd}
-                INSTALL_COMMAND ${_install_cmd}
+                INSTALL_COMMAND cmake --build . --target install --config Release
                 ${ARG_UNPARSED_ARGUMENTS}
             )
             if(_is_git)
