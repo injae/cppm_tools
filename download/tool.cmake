@@ -24,8 +24,9 @@ function(cppm_download_package)
     endif()
 
     set(_cache_path "${CPPM_CACHE}/${name}/${VERSION}")
+    set(_install_script "${CPPM_CACHE}/${name}/${VERSION}/install-script")
 
-    file(WRITE "${_cache_path}/script/CMakeLists.txt"
+    file(WRITE "${_install_script}/CMakeLists.txt"
         "cmake_minimum_required(VERSION 3.2)\n"
         "project(CPPM_TOOL_DOWNLOAD LANGUAGES NONE)\n"
         "include(ExternalProject)\n"
@@ -41,7 +42,7 @@ function(cppm_download_package)
         "    INSTALL_COMMAND \"\"\n"
         ")\n"
     )
-    execute_process(COMMAND cmake . WORKING_DIRECTORY ${build_dir} OUTPUT_QUIET)
-    execute_process(COMMAND cmake  --build . WORKING_DIRECTORY ${build_dir} OUTPUT_QUIET)
+    execute_process(COMMAND cmake . WORKING_DIRECTORY ${_install_script} OUTPUT_QUIET)
+    execute_process(COMMAND cmake  --build . WORKING_DIRECTORY ${_install_script} OUTPUT_QUIET)
     message(STATUS "[cppm] ${name} download to ${ARG_PATH}")
 endfunction()
