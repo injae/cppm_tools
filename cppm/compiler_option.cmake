@@ -38,7 +38,7 @@ macro(_cppm_compiler_debug_option)
             add_compiler_option(CMAKE_CXX_FLAGS_DEBUG "${ARG_MSVC}")
         elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
         endif()
-        cppm_print("Compiler Option: ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG}")
+        cppm_print("Compiler Option: ${CMAKE_CXX_FLAGS} | ${CMAKE_CXX_FLAGS_DEBUG}")
     endif()
 endmacro()
 
