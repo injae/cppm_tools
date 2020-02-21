@@ -56,7 +56,7 @@ endmacro()
 
 
 macro(_cppm_os_flag)
-    if(_cppm_target_platform)
+    if(cppm_target_platform)
     elseif(CMAKE_SYSTEM_NAME STREQUAL "WindowsStore" OR CMAKE_SYSTEM_NAME STREQUAL "WindowsPhone")
         set(cppm_target_platform uwp)
         set(cppm_target_base_platform windows)
