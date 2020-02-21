@@ -30,7 +30,7 @@ function(cppm_download_package)
 
     file(WRITE "${_install_script}/CMakeLists.txt"
         "cmake_minimum_required(VERSION 3.2)\n"
-        "project(CPPM_TOOL_DOWNLOAD VERSION ${CPPM_VERSION} NONE)\n"
+        "project(CPPM_TOOL_DOWNLOAD VERSION ${CPPM_VERSION} LANGUAGES NONE)\n"
         "include(ExternalProject)\n"
         "ExternalProject_Add(\n"
         "    ${name}\n"
