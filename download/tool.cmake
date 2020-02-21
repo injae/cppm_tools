@@ -6,9 +6,7 @@ function(cppm_download_package)
     endif()
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
 
-    if(NOT ARG_PATH)
-        set(ARG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${name})
-    endif()
+
     if(DEFINED ARG_VERSION)
         set(VERSION ${ARG_VERSION})
     else()
@@ -23,12 +21,16 @@ function(cppm_download_package)
         endif()
     endif()
 
+    if(NOT ARG_PATH)
+        set(ARG_PATH ${CPPM_SOURCE}/${name}/${VERSION})
+    endif()
+
     set(_cache_path "${CPPM_CACHE}/${name}/${VERSION}")
     set(_install_script "${CPPM_CACHE}/${name}/${VERSION}/install-script")
 
     file(WRITE "${_install_script}/CMakeLists.txt"
         "cmake_minimum_required(VERSION 3.2)\n"
-        "project(CPPM_TOOL_DOWNLOAD LANGUAGES NONE)\n"
+        "project(CPPM_TOOL_DOWNLOAD VERSION ${CPPM_VERSION} NONE)\n"
         "include(ExternalProject)\n"
         "ExternalProject_Add(\n"
         "    ${name}\n"
