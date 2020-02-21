@@ -6,7 +6,6 @@ function(cppm_download_package)
     endif()
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
 
-
     if(DEFINED ARG_VERSION)
         set(VERSION ${ARG_VERSION})
     else()
@@ -21,7 +20,7 @@ function(cppm_download_package)
         endif()
     endif()
 
-    if(NOT ARG_PATH)
+    if(NOT DEFINED ARG_PATH)
         set(ARG_PATH ${CPPM_SOURCE}/${name}/${VERSION})
     endif()
 
