@@ -88,7 +88,7 @@ macro(_cppm_generator)
     endif()
 endmacro()
 
-macro(_cppm_build_type_setting)
+macro(_cppm_build_type)
     default_cache(CMAKE_BUILD_TYPE Debug STRING)
     string(TOLOWER ${CMAKE_BUILD_TYPE} cppm_build_type) 
     if(cppm_target_base_platform STREQUAL "unix" AND (cppm_build_type STREQUAL "release"))
