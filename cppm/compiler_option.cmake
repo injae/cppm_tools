@@ -56,7 +56,6 @@ macro(_cppm_compiler_release_option)
 
     include(utility/set_cmake_cache)
     if(cppm_build_type STREQUAL "release")
-        #set(CMAKE_CXX_FLAGS_RELEASE "" CACHE STRING "" FORCE)
         if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
             add_compiler_option(CMAKE_CXX_FLAGS_RELEASE "${DEF_CLANG}")
             add_compiler_option(CMAKE_CXX_FLAGS_RELEASE "${ARG_CLANG}")

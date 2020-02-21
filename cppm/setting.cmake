@@ -25,7 +25,7 @@ macro(cppm_setting)
     cppm_print("Target: ${PROJECT_NAME} [Type:${cppm_build_type}, Cppm:${CPPM_VERSION}, CMake:${CMAKE_VERSION}]")
     cppm_print("System: ${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}")
     cppm_print("Compiler: ${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION}")
-    cppm_print("Generator: ${cppm_generator_type}")
+    cppm_print("Generator: ${CMAKE_GENERATOR}")
 
     _cppm_ccache()
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
