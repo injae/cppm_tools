@@ -20,7 +20,7 @@ macro(cppm_setting)
     list(APPEND CMAKE_MODULE_PATH "${CPPM_CORE}")
 
     _cppm_build_type()
-    _cppm_genertor()
+    _cppm_generator()
 
     cppm_print("Target: ${PROJECT_NAME} [Type:${cppm_build_type}, Cppm:${CPPM_VERSION}, CMake:${CMAKE_VERSION}]")
     cppm_print("System: ${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}")
