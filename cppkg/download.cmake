@@ -1,16 +1,13 @@
 macro(download_package)
     set(options LOCAL GLOBAL)
-    set(oneValueArgs URL URL_HASH GIT GIT_TAG)
+    set(oneValueArgs URL GIT GIT_TAG)
     set(multiValueArgs CMAKE_ARGS W_CONFIGURE W_BUILD W_INSTALL
                                   L_CONFIGURE L_BUILD L_INSTALL)
-    string(REPLACE ";" " " copy_argn "${ARGN}")
     cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0 1)
 
-    cppm_print("cppkg  [${name}/${version}] loading...")
-    cppm_print("cppkg options: ${copy_argn}")
     cppm_setting(NO_MESSAGE)
 
     if(ARG_LOCAL)
@@ -18,54 +15,69 @@ macro(download_package)
     elseif(ARG_GLOBAL)
       set(CMAKE_INSTALL_PREFIX "")
     else()
-      message(FATAL_ERROR "Need Option LOCAL or GLOBAL")
+      set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
+    endif()
+    set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}") 
+
+    set(_version ${version})
+    if(version STREQUAL "git")
+      set(version "")
+      set(_is_git TRUE)
+      find_package(${name} ${version} QUIET)
+    else()
+      find_package(${name} ${version} EXACT QUIET)
+    endif()
+    if(${${name}_FOUND} EQUAL 0)
+        set(_is_not_found TRUE)
+        cppkg_print("Can not find ${name} package")
     endif()
 
-    set(CMAKE_ARGS ${CMAKE_ARGS} ${ARG_CMAKE_ARGS})
-    list(REMOVE_ITEM multiValueArgs "CMAKE_ARGS")
-    set(is_none_cmake_package FALSE)
-    foreach(_option ${multiValueArgs})
-        if(DEFINED "ARG_${_option}")
-            set(is_none_cmake_package TRUE)
+    set(_source_path ${CPPM_SOURCE}/${name}/${_version})
+    set(_cache_path ${CPPM_CACHE}/${name}/${_version})
+
+    if(WIN32)
+        set(_configure_cmd "${ARG_W_CONFIGURE}")
+        set(_build_cmd "${ARG_W_BUILD}")
+        set(_install_cmd "${ARG_W_INSTALL}")
+    else()
+        set(_configure_cmd "${ARG_L_CONFIUGURE}")
+        set(_build_cmd "${ARG_L_BUILD}")
+        set(_install_cmd "${ARG_L_INSTALL}")
+    endif()
+    
+    include(ExternalProject)
+    if(_is_not_found OR _is_git)
+        if(NOT EXISTS ${_cache_path})
+            file(MAKE_DIRECTORY ${_cache_path})
         endif()
-    endforeach()
-
-    include(${CPPM_VERSION}/cppkg/download-none-cmake-package)
-    _none_cmake_download_package(${copy_argn})
-    #if(is_none_cmake_package)
-    #    # use ExternalProject_add
-    #else()
-    #    set(CMAKE_PROJECT_NAME ${name})
-    #    set(CMAKE_BUILD_TYPE RELEASE)
-    #    set(NO_MESSAGE TRUE)
-    #    if(ARG_LOCAL)
-    #        set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
-    #    elseif(ARG_GLOBAL)
-    #        set(CMAKE_INSTALL_PREFIX "")
-    #    else()
-    #        message(FATAL_ERROR "Need Option LOCAL or GLOBAL")
-    #    endif()
-
-    #    include(FetchContent)
-    #    set(_package_install_path "${CPPM_ROOT}/install/${name}/${version}")
-    #    FetchContent_Populate(
-    #        ${name}
-    #        GIT_REPOSITORY ${ARG_GIT}
-    #        GIT_TAG        ${ARG_GIT_TAG}
-    #        URL            ${ARG_URL}
-    #        URL_HASH       ${ARG_URL_HASH}
-    #        SOURCE_DIR    "${_package_install_path}/src"
-    #        BINARY_DIR    "${_package_install_path}/build"
-    #        SUBBUILD_DIR  "${_package_install_path}/cache"
-    #        QUIET
-    #    )
-    #    add_subdirectory("${${name}_SOURCE_DIR}" "${${name}_BINARY_DIR}") 
-    #    #execute_process(COMMAND cmake -P cmake_install.cmake
-    #    #                RESULT_VARIABLE result
-    #    #                WORKING_DIRECTORY ${_package_install_path}/build)
-    #    #if(_is_not_found)
-    #    #    message(STATUS "[cppm] Cache Direcroty ${HOME}/.cppm/install/${name}/${_version}")
-    #    #    message(STATUS "[cppm] Find ${name} package")
-    #    #endif()
-    #endif()
+        if(_is_git)
+            include(download/git)
+            hash_check(${_source_path} ${_cache_path})
+        endif()
+        set(_binary_directory ${_cache_path}/build/${cppm_build_type}-${cppm_generator})
+        if(NOT hash_matched)
+            cppkg_print("Download ${name} package")
+            cppkg_print("Source Direcroty ${_source_path}")
+            cppkg_print("Cache Direcroty ${_cache_path}")
+            ExternalProject_Add(
+                _${name}
+                URL ${ARG_URL}
+                GIT_REPOSITORY ${ARG_GIT}
+                GIT_TAG ${ARG_GIT_TAG}
+                SOURCE_DIR ${_source_path}
+                BINARY_DIR ${_binary_directory}
+                CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
+                CONFIGURE_COMMAND ${_configure_cmd}
+                BUILD_COMMAND ${_build_cmd}
+                INSTALL_COMMAND cmake --build . --target install --config ${CMAKE_BUILD_TYPE}
+                ${ARG_UNPARSED_ARGUMENTS}
+            )
+            if(_is_git)
+                write_hash(${_source_path} ${_cache_path})
+            endif()
+        endif()
+    endif()
 endmacro()
+
+
+
