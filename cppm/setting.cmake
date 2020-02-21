@@ -19,6 +19,7 @@ macro(cppm_setting)
     list(APPEND CMAKE_MODULE_PATH "${CPPM_MODULE}")
     list(APPEND CMAKE_MODULE_PATH "${CPPM_CORE}")
 
+    _cppm_os_flag()
     _cppm_generator()
     _cppm_build_type()
 
@@ -33,7 +34,6 @@ macro(cppm_setting)
     _cppm_find_package_prefix(${CPPM_ROOT}/local)
     cppm_print("cppm_root: ${CPPM_ROOT}")
 
-   _cppm_os_flag()
 endmacro()
 
 macro(_cppm_ccache)
