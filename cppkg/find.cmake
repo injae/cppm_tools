@@ -9,6 +9,7 @@ macro(find_cppkg)
 
     if(version STREQUAL "git")
       set(version "")
+      set(_is_git "EXACT")
     endif()
 
     if(${ARG_HUNTER}) 
@@ -51,10 +52,12 @@ macro(find_cppkg)
         set("_V_${name}" "${version_}")
    else()
        if(DEFINED ARG_COMPONENTS)
-               find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} EXACT QUIET)
+            find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} ${_is_git} QUIET)
        else()
-               find_package(${name} ${version} EXACT QUIET)
+            find_package(${name} ${version} ${_is_git} QUIET)
        endif()
+
+
        if("${${name}_FOUND}")
            cppkg_print("Find Package: ${name}/${${name}_VERSION}")
            set("_M_${name}" "${ARG_MODULE}")
