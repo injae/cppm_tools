@@ -9,6 +9,7 @@ macro(find_cppkg)
 
     if(version STREQUAL "git")
       set(version "")
+      set(_is_not_git "")
     else()
       set(_is_not_git "EXACT")
     endif()
