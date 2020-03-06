@@ -10,15 +10,6 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
-    if(ARG_LOCAL)
-      set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
-    elseif(ARG_GLOBAL)
-      set(CMAKE_INSTALL_PREFIX "")
-    else()
-      set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local")
-    endif()
-    set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}") 
-
     set(_version ${version})
     if(version STREQUAL "git")
       set(version "")
@@ -31,6 +22,16 @@ macro(download_package)
         set(_is_not_found TRUE)
         cppkg_print("Can not find ${name} package")
     endif()
+
+    if(ARG_LOCAL)
+      set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local/${name}/-${_version}")
+    elseif(ARG_GLOBAL)
+      set(CMAKE_INSTALL_PREFIX "")
+    else()
+      set(CMAKE_INSTALL_PREFIX "${HOME}/.cppm/local/${name}/-${_version}")
+    endif()
+    set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}") 
+
 
     set(_source_path ${CPPM_SOURCE}/${name}/${_version})
     set(_cache_path ${CPPM_CACHE}/${name}/${_version})
