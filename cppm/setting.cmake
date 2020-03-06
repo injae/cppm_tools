@@ -16,7 +16,7 @@ macro(cppm_setting)
     cppm_set(CPPM_CACHE   "${CPPM_ROOT}/cache")
     cppm_set(CPPM_VERSION "${CPPM_VERSION}")
     cppm_set(CPPM_CORE    "${CPPM_SOURCE}/cppm_tools/${CPPM_VERSION}")
-    cppm_set(CPPM_PREFIX  "${CPPM_ROOT}/local")
+    cppm_set(CPPM_INSTALL  "${CPPM_ROOT}/local")
     list(APPEND CMAKE_MODULE_PATH "${CPPM_MODULE}")
     list(APPEND CMAKE_MODULE_PATH "${CPPM_CORE}")
 
