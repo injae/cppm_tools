@@ -30,6 +30,7 @@ macro(cppm_setting)
 
     _cppm_ccache()
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+    set(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)
 
     _cppm_find_package_prefix(${CPPM_ROOT}/local)
     cppm_print("cppm_root: ${CPPM_ROOT}")
