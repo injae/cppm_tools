@@ -51,10 +51,11 @@ endmacro()
 
 macro(_cppm_find_package_prefix prefix)
     list(APPEND CMAKE_PREFIX_PATH "${prefix}")
-    list(APPEND CMAKE_PREFIX_PATH "${prefix}/lib/cmake")
-    list(APPEND CMAKE_PREFIX_PATH "${prefix}/lib64/cmake")
-    list(APPEND CMAKE_PREFIX_PATH "${prefix}/lib/pkgconfig")
-    list(APPEND CMAKE_PREFIX_PATH "${prefix}/lib64/pkgconfig")
+    list(APPEND CMAKE_PREFIX_PATH "${prefix}/share")
+    #list(APPEND CMAKE_PREFIX_PATH "${prefix}/lib/cmake")
+    #list(APPEND CMAKE_PREFIX_PATH "${prefix}/lib64/cmake")
+    #list(APPEND CMAKE_PREFIX_PATH "${prefix}/lib/pkgconfig")
+    #list(APPEND CMAKE_PREFIX_PATH "${prefix}/lib64/pkgconfig")
 endmacro()
 
 
