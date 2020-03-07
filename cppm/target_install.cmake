@@ -20,6 +20,7 @@ macro(cppm_target_install)
             install(TARGETS ${name} RUNTIME DESTINATION bin)
                                                       # $HOME/.cppm/local/share/${name}/${version}
             get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../../" ABSOLUTE)
+            message("${PACKAGE_PREFIX_DIR}")
             if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}")
                 install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin)
             endif()
