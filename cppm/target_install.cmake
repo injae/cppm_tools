@@ -18,6 +18,11 @@ macro(cppm_target_install)
     if(${_O_${name}})
         if(${${name}_target_type} MATCHES "BINARY")
             install(TARGETS ${name} RUNTIME DESTINATION bin)
+                                                      # $HOME/.cppm/local/share/${name}-${version}
+            get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../" ABSOLUTE)
+            if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}")
+                install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin)
+            endif()
         endif()
         if(${${name}_target_type} MATCHES "LIBRARY")
             # project-config-version.cmake install part
@@ -33,11 +38,6 @@ macro(cppm_target_install)
             )
             cppm_write_target_dependency_file(${name})
 
-            #file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
-            #    "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
-            #)
-            #configure_file("${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake.in"
-            #               "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake")
             install(FILES
                 ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
                 DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
