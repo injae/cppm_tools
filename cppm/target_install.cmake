@@ -21,7 +21,7 @@ macro(cppm_target_install)
                                                       # $HOME/.cppm/local/share/${name}-${version}
             get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../" ABSOLUTE)
             if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}")
-                install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin)
+                install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS)
             endif()
         endif()
         if(${${name}_target_type} MATCHES "LIBRARY")

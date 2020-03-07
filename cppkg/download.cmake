@@ -79,7 +79,7 @@ macro(download_package)
                 INSTALL_COMMAND cmake --build . --target install --config ${CMAKE_BUILD_TYPE}
                 ${ARG_UNPARSED_ARGUMENTS}
             )
-            install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin)
+            install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS) 
             #file(GLOB _binaries_ "${CMAKE_INSTALL_PREFIX}/bin/*")
             #file(COPY ${_binaries_} DESTINATION ${CPPM_PREFIX}/local/bin FOLLOW_SYMLINK_CHAIN)
             if(_is_git)
