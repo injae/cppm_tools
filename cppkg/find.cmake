@@ -23,47 +23,39 @@ macro(find_cppkg)
         endif()
     endif()
 
-    set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake") 
+    set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
-        include(thirdparty/${name}/${version_}/${name}.cmake)
+        configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
+                    ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
+        execute_process(COMMAND
+                        ${CMAKE_COMMAND}
+                        "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
+                        "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
+                        RESULT_VARIABLE result
+                        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
+        execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
+                        RESULT_VARIABLE result
+                        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
         if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
             include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
         endif()
+    endif()
+    if(${ARG_LOADPATH})
+         cppm_print("Load ${name} sub project")
+         set("_M_${name}" "${ARG_MODULE}")
+         set("_V_${name}" "${version_}")
     else()
-        set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
-        if(EXISTS ${_cppkg})
-            configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
-                        ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
-            execute_process(COMMAND
-                            ${CMAKE_COMMAND}
-                            "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
-                            "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
-                            RESULT_VARIABLE result
-                            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-            execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
-                            RESULT_VARIABLE result
-                            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-            if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
-                include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
-            endif()
+        if(DEFINED ARG_COMPONENTS)
+             find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} ${_is_not_git} QUIET)
+        else()
+             find_package(${name} ${version} ${_is_not_git} QUIET)
         endif()
-   endif()
-   if(${ARG_LOADPATH})
-        cppm_print("Load ${name} sub project")
-        set("_M_${name}" "${ARG_MODULE}")
-        set("_V_${name}" "${version_}")
-   else()
-       if(DEFINED ARG_COMPONENTS)
-            find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} ${_is_not_git} QUIET)
-       else()
-            find_package(${name} ${version} ${_is_not_git} QUIET)
-       endif()
 
 
-       if("${${name}_FOUND}")
-           cppkg_print("Find Package: ${name}/${${name}_VERSION}")
-           set("_M_${name}" "${ARG_MODULE}")
-           set("_V_${name}" "${${name}_VERSION}")
-       endif()
-   endif()
+        if("${${name}_FOUND}")
+            cppkg_print("Find Package: ${name}/${${name}_VERSION}")
+            set("_M_${name}" "${ARG_MODULE}")
+            set("_V_${name}" "${${name}_VERSION}")
+        endif()
+    endif()
 endmacro()
