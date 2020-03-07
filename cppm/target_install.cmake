@@ -18,8 +18,8 @@ macro(cppm_target_install)
     if(${_O_${name}})
         if(${${name}_target_type} MATCHES "BINARY")
             install(TARGETS ${name} RUNTIME DESTINATION bin)
-                                                      # $HOME/.cppm/local/share/${name}/${version}
-            get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../../" ABSOLUTE)
+                                                      # $HOME/.cppm/local/share/${name}-${version}
+            get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../" ABSOLUTE)
             message("${PACKAGE_PREFIX_DIR}")
             message("${CMAKE_INSTALL_PREFIX}")
             if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}")
