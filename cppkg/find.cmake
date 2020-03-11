@@ -4,13 +4,13 @@ function(add_cppkg_info name)
         add_custom_target(${name} COMMENT "Cppkg Info Target")
     endif()
     set_target_properties(${name} PROPERTIES
-        MODULE "${ARG_MODULE}"
-        VERSION ${ARG_VERSION}
-        DESCRIPTION "${name}/${ARG_VERSION}"
+        CPPM_MODULE "${ARG_MODULE}"
+        CPPM_VERSION ${ARG_VERSION}
+        CPPM_DESCRIPTION "${name}/${ARG_VERSION}"
     )
 endfunction()
 
-macro(find_cppkg)
+function(find_cppkg)
     cmake_parse_arguments(ARG "HUNTER;LOADPATH" "" "MODULE;COMPONENTS" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
@@ -56,10 +56,7 @@ macro(find_cppkg)
          cppm_print("Load ${name} sub project")
          add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
-             VERSION "${version_}"
-             )
-         set("_M_${name}" "${ARG_MODULE}")
-         set("_V_${name}" "${version_}")
+             VERSION "${version_}")
     else()
         if(DEFINED ARG_COMPONENTS)
              find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} ${_is_not_git} QUIET)
@@ -71,10 +68,7 @@ macro(find_cppkg)
             cppkg_print("Find Package: ${name}/${${name}_VERSION}")
             add_cppkg_info(${name}
                 MODULE  "${ARG_MODULE}"
-                VERSION "${${name}_VERSION}"
-                )
-            set("_M_${name}" "${ARG_MODULE}")
-            set("_V_${name}" "${${name}_VERSION}")
+                VERSION "${${name}_VERSION}")
         endif()
     endif()
-endmacro()
+endfunction()
