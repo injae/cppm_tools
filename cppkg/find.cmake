@@ -6,6 +6,7 @@ function(add_cppkg_info name)
     set_target_properties(${name} PROPERTIES
         MODULE "${ARG_MODULE}"
         VERSION ${ARG_VERSION}
+        DESCRIPTION "${name}/${ARG_VERSION}"
     )
 endfunction()
 
