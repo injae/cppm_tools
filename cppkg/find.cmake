@@ -1,3 +1,14 @@
+function(add_cppkg_info name)
+    cmake_parse_arguments(ARG "" "VERSION" "MODULE" ${ARGN})
+    if(NOT TARGET ${name})
+        add_custom_target(${name} COMMENT "Cppkg Info Target")
+    endif()
+    set_target_properties(${name} PROPERTIES
+        MODULE "${ARG_MODULE}"
+        VERSION ${ARG_VERSION}
+    )
+endfunction()
+
 macro(find_cppkg)
     cmake_parse_arguments(ARG "HUNTER;LOADPATH" "" "MODULE;COMPONENTS" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
@@ -14,7 +25,7 @@ macro(find_cppkg)
       set(_is_not_git "EXACT")
     endif()
 
-    if(${ARG_HUNTER}) 
+    if(ARG_HUNTER) 
         cppm_print("Load ${name} hunter file")
         if(DEFINED ARG_COMPONENTS)
           hunter_add_package(${name} COMPONENTS ${ARG_COMPONENTS})
@@ -40,8 +51,12 @@ macro(find_cppkg)
             include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
         endif()
     endif()
-    if(${ARG_LOADPATH})
+    if(ARG_LOADPATH)
          cppm_print("Load ${name} sub project")
+         add_cppkg_info(${name}
+             MODULE  "${ARG_MODULE}"
+             VERSION "${version_}"
+             )
          set("_M_${name}" "${ARG_MODULE}")
          set("_V_${name}" "${version_}")
     else()
@@ -51,9 +66,12 @@ macro(find_cppkg)
              find_package(${name} ${version} ${_is_not_git} QUIET)
         endif()
 
-
         if("${${name}_FOUND}")
             cppkg_print("Find Package: ${name}/${${name}_VERSION}")
+            add_cppkg_info(${name}
+                MODULE  "${ARG_MODULE}"
+                VERSION "${${name}_VERSION}"
+                )
             set("_M_${name}" "${ARG_MODULE}")
             set("_V_${name}" "${${name}_VERSION}")
         endif()
