@@ -17,9 +17,9 @@ macro(cppm_target_define)
     endif()
 
     if(ARG_NAMESPACE)
-        set(_namespace ${CMAKE_PROJECT_NAME}::${name})
-    else()
         set(_namespace ${ARG_NAMESPACE})
+    else()
+        set(_namespace ${CMAKE_PROJECT_NAME}::${name})
     endif()
 
     if(${_O_${name}})
