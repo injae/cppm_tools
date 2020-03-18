@@ -1,6 +1,7 @@
 function(add_cppkg_info name)
     cmake_parse_arguments(ARG "" "VERSION" "MODULE" ${ARGN})
-    if(NOT TARGET ${name})
+    if(TARGET ${name})
+    else()
         add_custom_target(${name} COMMENT "Cppkg Info Target")
     endif()
     set_target_properties(${name} PROPERTIES

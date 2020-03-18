@@ -24,14 +24,13 @@ macro(cppm_target_define)
                 PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/include
                 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
             )
-
         elseif(${ARG_STATIC} OR ${ARG_SHARED})
-            set(${name}_target_type "LIBRARY")
             if(${ARG_STATIC})
                 add_library(${name} STATIC "")
             elseif(${ARG_SHARED})
                 add_library(${name} SHARED "")
             endif()
+            set(${name}_target_type "LIBRARY")
             add_library(${PROJECT_NAME}::${name} ALIAS ${name})
             set_target_properties(${name} PROPERTIES LINKER_LANGUAGE CXX)
             set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
