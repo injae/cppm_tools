@@ -1,5 +1,5 @@
 macro(cppm_target_define)
-    cmake_parse_arguments(ARG "BINARY;STATIC;SHARED;INTERFACE;EXCLUDE" "OPTIONAL" "SOURCES" ${ARGN})
+    cmake_parse_arguments(ARG "BINARY;STATIC;SHARED;INTERFACE;EXCLUDE" "OPTIONAL;NAMESPACE" "SOURCES" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
 
     set(lib_include_dir "include")
@@ -16,23 +16,31 @@ macro(cppm_target_define)
         option(${_O_${name}} "Build with ${name}" ON)
     endif()
 
+    if(ARG_NAMESPACE)
+        set(_namespace ${CMAKE_PROJECT_NAME}::${name})
+    else()
+        set(_namespace ${ARG_NAMESPACE})
+    endif()
+
     if(${_O_${name}})
-        if(${ARG_BINARY})
+        if(ARG_BINARY)
             add_executable(${name} "")
             set(${name}_target_type "BINARY")
+            set_target_properties(${name} PROPERTIES CPPM_TYPE "BINARY")
             target_include_directories(${name}
                 PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/include
                 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
             )
-        elseif(${ARG_STATIC} OR ${ARG_SHARED})
-            if(${ARG_STATIC})
+        elseif(ARG_STATIC OR ARG_SHARED)
+            if(ARG_STATIC)
                 add_library(${name} STATIC "")
-            elseif(${ARG_SHARED})
+            elseif(ARG_SHARED)
                 add_library(${name} SHARED "")
             endif()
             set(${name}_target_type "LIBRARY")
-            add_library(${PROJECT_NAME}::${name} ALIAS ${name})
+            add_library(${_namespace} ALIAS ${name})
             set_target_properties(${name} PROPERTIES LINKER_LANGUAGE CXX)
+            set_target_properties(${name} PROPERTIES CPPM_NAMESPACE ${_namespace} CPPM_TYPE "LIBRARY")
             set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
             target_include_directories(${name}
                 PUBLIC
@@ -41,10 +49,11 @@ macro(cppm_target_define)
                 PRIVATE
                     ${CMAKE_CURRENT_SOURCE_DIR}/${lib_source_dir}
             )
-        elseif(${ARG_INTERFACE})
+        elseif(ARG_INTERFACE)
             set(${name}_target_type "LIBRARY")
             add_library(${name} INTERFACE)
-            add_library(${PROJECT_NAME}::${name} ALIAS ${name})
+            add_library(${_namespace} ALIAS ${name})
+            set_target_properties(${name} PROPERTIES CPPM_NAMESPACE ${_namespace} TYPE "LIBRARY")
             target_include_directories(${name}
                 INTERFACE
                     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${lib_include_dir}>
