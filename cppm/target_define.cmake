@@ -53,7 +53,7 @@ macro(cppm_target_define)
             set(${name}_target_type "LIBRARY")
             add_library(${name} INTERFACE)
             add_library(${_namespace} ALIAS ${name})
-            set_target_properties(${name} PROPERTIES CPPM_NAMESPACE "${_namespace}" TYPE "LIBRARY")
+            set_target_properties(${name} PROPERTIES CPPM_NAMESPACE "${_namespace}" CPPM_TYPE "LIBRARY")
             target_include_directories(${name}
                 INTERFACE
                     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${lib_include_dir}>
