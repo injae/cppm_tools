@@ -28,14 +28,14 @@ macro(download_package)
     else()
         if(_is_git)
             set(CMAKE_INSTALL_PREFIX "${CPPM_PREFIX}/share/${name}")
+            set(_source_path ${CPPM_PKGS}/${name}/src)
         else()
             set(CMAKE_INSTALL_PREFIX "${CPPM_PREFIX}/share/${name}-${version}")
+            set(_source_path ${CPPM_PKGS}/${name}-${version}/src)
         endif()
     endif()
     set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}") 
 
-
-    set(_source_path ${CMAKE_INSTALL_PREFIX}/src)
     set(_cache_path ${CPPM_CACHE}/${name}/${_version})
 
     if(WIN32)
