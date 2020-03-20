@@ -31,33 +31,33 @@ macro(cppm_target_install)
             get_target_property(_namespace ${name}_info CPPM_NAMESPACE)
             include(CMakePackageConfigHelpers)
             write_basic_package_version_file(
-            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config-version.cmake
-            VERSION ${${CMAKE_PROJECT_NAME}_VERSION}
-            COMPATIBILITY ExactVersion
+                ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+                VERSION ${${CMAKE_PROJECT_NAME}_VERSION}
+                COMPATIBILITY ExactVersion
             ) 
             install(FILES
-            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config-version.cmake
-            DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
+            ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+            DESTINATION lib/cmake/${PROJECT_NAME}
             )
             cppm_write_target_dependency_file(${name})
 
             install(FILES
-                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
+                ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
                 DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
             )
 
             # project-targets.cmake install part
-            install(TARGETS ${name} EXPORT ${CMAKE_PROJECT_NAME}-targets
+            install(TARGETS ${name} EXPORT ${PROJECT_NAME}-targets
                 ARCHIVE  DESTINATION lib 
                 LIBRARY  DESTINATION lib
                 RUNTIME  DESTINATION bin
             )
             install(DIRECTORY include/ DESTINATION include)
 
-            install(EXPORT ${CMAKE_PROJECT_NAME}-targets
-                FILE ${CMAKE_PROJECT_NAME}-targets.cmake
+            install(EXPORT ${PROJECT_NAME}-targets
+                FILE ${PROJECT_NAME}-targets.cmake
                 NAMESPACE ${_namespace}::
-                DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
+                DESTINATION lib/cmake/${PROJECT_NAME}
             )
 
             if(SUB_PROJECT)
