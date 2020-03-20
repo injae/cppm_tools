@@ -17,12 +17,13 @@ macro(cppm_target_install)
     cmake_parse_arguments(ARG "" "" "" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     if(TARGET ${name})
+        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON) # linked shared library project rpath problom fix
         get_target_property(_target_type ${name}_info CPPM_TYPE)
         if(_target_type MATCHES "BINARY")
             install(TARGETS ${name} RUNTIME DESTINATION bin) # $HOME/.cppm/local/share/${name}-${version}
             get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../" ABSOLUTE)
             if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}")
-                #add_custom_command(TARGET ${name} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_INSTALL_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" "${CPPM_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" COMMENT "-- Linking ${CMAKE_INSTALL_PREFIX}/bin -> ${CPPM_PREFIX}/bin/")
+                add_custom_command(TARGET ${name} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_INSTALL_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" "${CPPM_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" COMMENT "-- Linking ${CMAKE_INSTALL_PREFIX}/bin -> ${CPPM_PREFIX}/bin/")
                 #install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS)
             endif()
         endif()
@@ -47,6 +48,7 @@ macro(cppm_target_install)
 
             # project-targets.cmake install part
             install(TARGETS ${name} EXPORT ${PROJECT_NAME}-targets
+                #PUBLIC_HEADER DESTINATION include
                 ARCHIVE  DESTINATION lib 
                 LIBRARY  DESTINATION lib
                 RUNTIME  DESTINATION bin
