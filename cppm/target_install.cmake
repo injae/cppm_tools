@@ -36,14 +36,14 @@ macro(cppm_target_install)
                 COMPATIBILITY ExactVersion
             ) 
             install(FILES
-            ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
-            DESTINATION lib/cmake/${PROJECT_NAME}
+                ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+                DESTINATION lib/cmake/${PROJECT_NAME}
             )
             cppm_write_target_dependency_file(${name})
 
             install(FILES
                 ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
-                DESTINATION lib/cmake/${CMAKE_PROJECT_NAME}
+                DESTINATION lib/cmake/${PROJECT_NAME}
             )
 
             # project-targets.cmake install part
