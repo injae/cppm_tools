@@ -34,6 +34,7 @@ macro(download_package)
             set(_source_path ${CPPM_PKGS}/${name}-${version}/src)
         endif()
     endif()
+    set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
     set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}") 
 
     set(_cache_path ${CPPM_CACHE}/${name}/${_version})

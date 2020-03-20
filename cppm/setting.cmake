@@ -55,6 +55,13 @@ macro(_cppm_find_package_prefix prefix)
     list(APPEND CMAKE_PREFIX_PATH "${prefix}/share")
 endmacro()
 
+macro(_cppm_rpath) # macos has RPATH bug
+    set(CMAKE_SKIP_BUILD_RPATH FALSE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+    set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+endmacro()
+
 
 macro(_cppm_os_flag)
     if(cppm_target_platform)
