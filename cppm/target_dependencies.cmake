@@ -7,7 +7,7 @@ function(cppm_target_dependencies)
                 get_target_property(md ${dep} CPPM_MODULE)
                 cppm_print("cppm <=> ${md}")
                 
-                target_link_libraries(${name} PUBLIC $<TARGET_PROPERTY:${dep},CPPM_MODULE>)
+                target_link_libraries(${name} PUBLIC ${md})
                 get_target_property(desc ${dep} CPPM_DESCRIPTION)
                 cppm_print("cppm <== ${desc}")
             endforeach()
