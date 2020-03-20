@@ -6,10 +6,10 @@ function(cppm_write_target_dependency_file)
     foreach(dep IN LISTS deps)
         string(CONCAT Deps "find_dependency(${dep})\n")
     endforeach()
-    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
         "include(CMakeFindDependencyMacro)\n"
         "${Deps}\n"
-        "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${CMAKE_PROJECT_NAME}-targets.cmake)\n"
+        "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${PROJECT_NAME}-targets.cmake)\n"
     )
 endfunction()
 
