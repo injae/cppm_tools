@@ -18,7 +18,11 @@ macro(cppm_target_install)
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     if(TARGET ${name})
         set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE) # linked shared library project rpath problom fix
-        set(CMAKE_MACOSX_RPATH OFF)
+        set(CMAKE_SKIP_BUILD_RPATH FALSE)
+        set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+        set(CMAKE_INSTALL_RPATH "")
+        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
+        #set(CMAKE_MACOSX_RPATH OFF)
         get_target_property(_target_type ${name}_info CPPM_TYPE)
         if(_target_type MATCHES "BINARY")
             install(TARGETS ${name} RUNTIME DESTINATION bin) # $HOME/.cppm/local/share/${name}-${version}
