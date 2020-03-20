@@ -23,7 +23,7 @@ macro(cppm_target_install)
             get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../" ABSOLUTE)
             if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}")
                 add_custom_command(TARGET ${name} POST_BUILD COMMAND
-                    ${CMAKE_COMMAND} -E create_symlink "$<TARGET_FILE:${name}>" "${CPPM_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" COMMENT "-- Linking $<TARGET_FILE:${name}> -> ${CPPM_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>")
+                    ${CMAKE_COMMAND} -E create_symlink "$<TARGET_FILE:${name}>" "${CPPM_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" COMMENT "-- Linking ${CMAKE_INSTALL_PREFIX}/bin -> ${CPPM_PREFIX}/bin/")
                 #install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS)
             endif()
         endif()
