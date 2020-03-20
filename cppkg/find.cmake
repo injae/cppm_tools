@@ -59,10 +59,9 @@ function(find_cppkg)
          add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}")
-         if(NOT SUB_PROJECT)
-             message("in")
-             add_subdirectory(${ARG_LOADPATH})
-         endif()
+        if(NOT ARG_LOADPATH MATCHS "^\.\./.*$") # out of tree dependency(workspace) use this option
+            add_subdirectory(${ARG_LOADPATH})
+        endif()
     else()
         if(DEFINED ARG_COMPONENTS)
              find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} ${_is_not_git} QUIET)
