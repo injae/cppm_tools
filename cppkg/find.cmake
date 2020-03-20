@@ -67,7 +67,6 @@ function(find_cppkg)
 
         if("${${name}_FOUND}")
             cppkg_print("Find Package: ${name}/${${name}_VERSION}")
-            message("test ${ARG_MODULE}")
             add_cppkg_info(${name}
                 MODULE  "${ARG_MODULE}"
                 VERSION "${${name}_VERSION}")
