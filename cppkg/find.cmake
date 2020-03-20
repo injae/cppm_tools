@@ -4,7 +4,6 @@ function(add_cppkg_info name)
     else()
         add_custom_target(${name} COMMENT "Cppkg Info Target")
     endif()
-    message("test -- ${ARG_MODULE} ${ARG_VERSION}" )
     set_target_properties(${name} PROPERTIES
         CPPM_MODULE "${ARG_MODULE}"
         CPPM_VERSION ${ARG_VERSION}
@@ -68,6 +67,7 @@ function(find_cppkg)
 
         if("${${name}_FOUND}")
             cppkg_print("Find Package: ${name}/${${name}_VERSION}")
+            message("test ${ARG_MODULE}")
             add_cppkg_info(${name}
                 MODULE  "${ARG_MODULE}"
                 VERSION "${${name}_VERSION}")
