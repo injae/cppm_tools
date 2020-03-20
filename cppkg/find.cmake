@@ -1,6 +1,10 @@
 function(add_cppkg_info name)
     cmake_parse_arguments(ARG "" "VERSION" "MODULE" ${ARGN})
-    add_custom_target(${name}_info COMMENT "Cppkg Info Target")
+    if(TARGET ${name}_info)
+    else()
+        add_custom_target(${name}_info COMMENT "Cppkg Info Target")
+    endif()
+
     set_target_properties(${name}_info PROPERTIES
         CPPM_MODULE "${ARG_MODULE}"
         CPPM_VERSION ${ARG_VERSION}
