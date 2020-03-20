@@ -59,7 +59,7 @@ function(find_cppkg)
          add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}")
-         if(CMAKE_PACKAGE_NAME STREQUAL ${PACKAGE_NAME})
+         if(CMAKE_PACKAGE_NAME STREQUAL "${PACKAGE_NAME}")
              message("in")
              add_subdirectory(${ARG_LOAD_PATH})
          endif()
