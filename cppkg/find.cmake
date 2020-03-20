@@ -59,7 +59,7 @@ function(find_cppkg)
          add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}")
-         if(SUB_PROJECT)
+         if(NOT SUB_PROJECT)
              message("in")
              add_subdirectory(${ARG_LOAD_PATH})
          endif()
