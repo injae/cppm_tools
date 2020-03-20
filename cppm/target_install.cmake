@@ -22,7 +22,7 @@ macro(cppm_target_install)
        # set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
        # set(CMAKE_INSTALL_RPATH "")
        # set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
-        set(CMAKE_MACOSX_RPATH OFF)
+        set(CMAKE_MACOSX_RPATH ON)
         get_target_property(_target_type ${name}_info CPPM_TYPE)
         if(_target_type MATCHES "BINARY")
             install(TARGETS ${name} RUNTIME DESTINATION bin) # $HOME/.cppm/local/share/${name}-${version}
