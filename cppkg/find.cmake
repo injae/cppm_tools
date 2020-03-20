@@ -59,7 +59,7 @@ function(find_cppkg)
          add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}")
-        if(NOT ARG_LOADPATH MATCHS "^\.\./.*$") # out of tree dependency(workspace) use this option
+        if(NOT ARG_LOADPATH MATCHES "^\.\./.*$") # out of tree dependency(workspace) use this option
             add_subdirectory(${ARG_LOADPATH})
         endif()
     else()
