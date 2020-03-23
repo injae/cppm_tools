@@ -29,12 +29,12 @@ function(find_cppkg)
     endif()
 
     if(ARG_HUNTER) 
-        cppm_print("Load ${name} hunter file")
         if(DEFINED ARG_COMPONENTS)
           hunter_add_package(${name} COMPONENTS ${ARG_COMPONENTS})
         else() 
           hunter_add_package(${name})
         endif()
+        cppm_print("Load Package ${name} from Hunter")
     endif()
 
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
@@ -55,12 +55,14 @@ function(find_cppkg)
         endif()
     endif()
     if(DEFINED ARG_LOADPATH)
-         cppkg_print("Load ${name} from ${ARG_LOADPATH}")
          add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}")
+        set_target_properties(${name}_info PROPERTIES CPPM_LOADPATH "${ARG_LOADPATH}")
         if(NOT ARG_LOADPATH MATCHES "^\.\./.*$") # out of tree dependency(workspace) use this option
             add_subdirectory(${ARG_LOADPATH})
+        else()
+            cppkg_print("Load Workspace ${name}/${version_} from ${ARG_LOADPATH}")
         endif()
     else()
         if(DEFINED ARG_COMPONENTS)
@@ -70,7 +72,7 @@ function(find_cppkg)
         endif()
 
         if("${${name}_FOUND}")
-            cppkg_print("Find Package: ${name}/${${name}_VERSION}")
+            cppkg_print("Load Package: ${name}/${${name}_VERSION} from Cppkg")
             add_cppkg_info(${name}
                 MODULE  "${ARG_MODULE}"
                 VERSION "${${name}_VERSION}")

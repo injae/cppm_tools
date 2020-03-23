@@ -59,10 +59,7 @@ macro(cppm_target_install)
                 DESTINATION lib/cmake/${PROJECT_NAME}
             )
 
-            if(SUB_PROJECT)
-                message(STATUS "[cppm] Find Package: ${name}/${PROJECT_VERSION}")
-            endif()
-            message(STATUS "[cppm] Module : ${_namespace}::${name}")
+            message(STATUS "[cppm] Export CMake Module: ${_namespace}::${name}")
         endif()
     endif()
 endmacro()

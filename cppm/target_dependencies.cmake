@@ -29,6 +29,7 @@ function(cppm_target_dependencies)
             endforeach()
             set_property(TARGET ${name}_info APPEND PROPERTY CPPM_DEPENDENCIES ${ARG_INTERFACE})
         endif()
+
     endif()
 endfunction()
 
