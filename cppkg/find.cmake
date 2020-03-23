@@ -44,7 +44,6 @@ function(find_cppkg)
         execute_process(COMMAND
                         ${CMAKE_COMMAND}
                         "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
-                        "-G\"${CMAKE_GENERATOR}\""
                         "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
                         RESULT_VARIABLE result
                         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
