@@ -1,6 +1,6 @@
 macro(cppm_setting)
     cmake_parse_arguments(ARG "NO_MESSAGE" "" "" ${ARGN})
-    if(NOT ${CMAKE_PROJECT_NAME} MATCHES ${PROJECT_NAME})
+    if(NOT CMAKE_PROJECT_NAME MATCHES "${PROJECT_NAME}")
         set(SUB_PROJECT TRUE)
         set(${PACKAGE_NAME}_NO_MESSAGE TRUE)
     else()
