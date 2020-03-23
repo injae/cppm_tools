@@ -39,7 +39,7 @@ function(find_cppkg)
 
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
-        print(STATUS "[${name}]=========")
+        message(STATUS "[${name}]=========")
         configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
                     ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
         execute_process(COMMAND
@@ -54,17 +54,17 @@ function(find_cppkg)
         if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
             include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
         endif()
-        print(STATUS "[${name}]=========")
+        message(STATUS "[${name}]=========")
     endif()
     if(DEFINED ARG_LOADPATH)
-         add_cppkg_info(${name}
+        add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}")
         set_target_properties(${name}_info PROPERTIES CPPM_LOADPATH "${ARG_LOADPATH}")
         if(NOT ARG_LOADPATH MATCHES "^\.\./.*$") # out of tree dependency(workspace) use this option
-            print(STATUS "[${name}]=========")
+            message(STATUS "[${name}]=========")
             add_subdirectory(${ARG_LOADPATH})
-            print(STATUS "[${name}]=========")
+            message(STATUS "[${name}]=========")
         else()
             cppkg_print("Load Workspace ${name}/${version_} from ${ARG_LOADPATH}")
         endif()
