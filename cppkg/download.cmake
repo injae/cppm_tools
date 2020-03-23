@@ -34,6 +34,7 @@ macro(download_package)
             set(_source_path ${CPPM_PKGS}/${name}-${version}/src)
         endif()
     endif()
+    _cppm_rpath()
     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
     set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}") 
 
@@ -72,6 +73,7 @@ macro(download_package)
                 URL ${ARG_URL}
                 GIT_REPOSITORY ${ARG_GIT}
                 GIT_TAG ${ARG_GIT_TAG}
+                DOWNLOAD_DIR ${_source_path}
                 SOURCE_DIR ${_source_path}
                 BINARY_DIR ${_binary_directory}
                 CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR}
