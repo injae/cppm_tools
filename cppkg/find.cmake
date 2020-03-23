@@ -55,7 +55,7 @@ function(find_cppkg)
         endif()
     endif()
     if(DEFINED ARG_LOADPATH)
-         cppkg_print("Load ${name} sub project")
+         cppkg_print("Load ${name} from ${ARG_LOADPATH}")
          add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}")
