@@ -24,6 +24,7 @@ macro(cppm_setting)
     _cppm_os_flag()
     _cppm_generator()
     _cppm_build_type()
+    _cppm_rpath()
 
     cppm_print("Target: ${PROJECT_NAME} [Type:${cppm_build_type}, Cppm:${CPPM_VERSION}, CMake:${CMAKE_VERSION}]")
     cppm_print("System: ${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}")
