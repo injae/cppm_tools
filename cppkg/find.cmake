@@ -39,6 +39,7 @@ function(find_cppkg)
 
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
+        cppkg_print("===[${name}]===")
         configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
                     ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
         execute_process(COMMAND
@@ -53,6 +54,7 @@ function(find_cppkg)
         if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
             include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
         endif()
+        cppkg_print("===[${name}]===")
     endif()
     if(DEFINED ARG_LOADPATH)
          add_cppkg_info(${name}
