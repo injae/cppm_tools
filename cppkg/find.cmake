@@ -81,7 +81,7 @@ function(find_cppkg)
                 MODULE  "${ARG_MODULE}"
                 VERSION "${${name}_VERSION}")
         else()
-            cppm_error("Can't find Package ${name}/${${name}_VERSION}")
+            cppm_error_print("Can't find Package ${name}/${${name}_VERSION}")
         endif()
     endif()
 endfunction()
