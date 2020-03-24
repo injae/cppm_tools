@@ -75,11 +75,13 @@ function(find_cppkg)
              find_package(${name} ${version} ${_is_not_git} QUIET)
         endif()
 
-        if("${${name}_FOUND}")
+        if(${${name}_FOUND})
             cppkg_print("Load Package: ${name}/${${name}_VERSION} from Cppkg")
             add_cppkg_info(${name}
                 MODULE  "${ARG_MODULE}"
                 VERSION "${${name}_VERSION}")
+        else()
+            cppm_error("Can't find Package ${name}/${${name}_VERSION}")
         endif()
     endif()
 endfunction()
