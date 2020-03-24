@@ -3,9 +3,11 @@ function(cppm_write_target_dependency_file)
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     set(Deps "")
     get_target_property(deps ${name}_info CPPM_DEPENDENCIES)
-    foreach(dep IN LISTS deps)
-        string(CONCAT Deps "find_dependency(${dep})\n")
-    endforeach()
+    if(NOT deps MATCHES "deps-NOTFOUND")
+        foreach(dep IN LISTS deps)
+            string(CONCAT Deps "find_dependency(${dep})\n")
+        endforeach()
+    endif()
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
         "include(CMakeFindDependencyMacro)\n"
         "${Deps}\n"
