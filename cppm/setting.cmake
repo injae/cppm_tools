@@ -112,6 +112,9 @@ macro(_cppm_build_type)
 endmacro()
 
 macro(_cppkg_define_property)
-    define_property(TARGET CPPM_DEPENDENCIES)
+    define_property(TARGET PROPERTY CPPM_DEPENDENCIES
+        BRIEF_DOCS "Cppm package dependencies list"
+        FULL_DOCS  "Cppm package dependencies list"
+    )
 endmacro()
 
