@@ -23,7 +23,7 @@ macro(cppm_target_install)
         if(_target_type MATCHES "BINARY")
             install(TARGETS ${name} RUNTIME DESTINATION bin) # $HOME/.cppm/local/share/${name}-${version}
             get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../" ABSOLUTE)
-            if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}")
+            if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}" AND (CMAKE_BUILD_TYPE MATCHES "RELEASE"))
                 add_custom_command(TARGET ${name} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_INSTALL_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" "${CPPM_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" COMMENT "-- Linking ${CMAKE_INSTALL_PREFIX}/bin -> ${CPPM_PREFIX}/bin/")
             endif()
         endif()
