@@ -43,6 +43,7 @@ macro(cppm_target_define)
             add_library(${_namespace}::${name} ALIAS ${name})
             set_target_properties(${name} PROPERTIES LINKER_LANGUAGE CXX)
             set_target_properties(${name}_info PROPERTIES CPPM_NAMESPACE "${_namespace}" CPPM_TYPE "LIBRARY")
+            set_target_properties(${name}_info PROPERTIES CPPM_MODULE "${name}" CPPM_DESCRIPTION "${PACKAGE_VERSION}")
             set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
             target_include_directories(${name}
                 PUBLIC
@@ -55,6 +56,7 @@ macro(cppm_target_define)
             add_library(${name} INTERFACE)
             add_library(${_namespace}::${name} ALIAS ${name})
             set_target_properties(${name}_info PROPERTIES CPPM_NAMESPACE "${_namespace}" CPPM_TYPE "LIBRARY")
+            set_target_properties(${name}_info PROPERTIES CPPM_MODULE "${name}" CPPM_DESCRIPTION "${PACKAGE_VERSION}")
             target_include_directories(${name}
                 INTERFACE
                     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${lib_include_dir}>
