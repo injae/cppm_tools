@@ -75,7 +75,7 @@ function(find_cppkg)
              find_package(${name} ${version} ${_is_not_git} QUIET)
         endif()
 
-        if(NOT ${${name}_FOUND})
+        if(NOT (${${name}_FOUND}))
             cppkg_print("Can't find Package: ${name}/${${name}_VERSION} from Cppkg")
             if(DEFINED ARG_COMPONENTS)
                 find_package(${name} ${version} COMPONENTS ${ARG_COMPONENTS} QUIET)
