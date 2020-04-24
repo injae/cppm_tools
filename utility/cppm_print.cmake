@@ -1,8 +1,8 @@
 function(cppm_print)
     foreach(message ${ARGV})
-        #if(NOT ${PROJECT_NAME}_NO_MESSAGE)
+        if(NOT ${PROJECT_NAME}_NO_MESSAGE)
             message(STATUS "[cppm] ${message}")
-        #endif()
+        endif()
     endforeach()
 endfunction()
 
