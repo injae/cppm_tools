@@ -1,4 +1,4 @@
-macro(cppm_target_define)
+function(cppm_target_define)
     cmake_parse_arguments(ARG "BINARY;STATIC;SHARED;INTERFACE;EXCLUDE" "OPTIONAL;NAMESPACE;PUBLIC_HEADER;PRIVATE_HEADER" "SOURCES" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
 
@@ -16,6 +16,9 @@ macro(cppm_target_define)
     else()          
         set(_private_header "src")
     endif()
+
+    cppm_print("test ${_public_header}")
+    cppm_print("test ${_private_header}")
 
     if(ARG_OPTIONAL)
         set(_O_${name} ${ARG_OPTIONAL})
@@ -84,4 +87,4 @@ macro(cppm_target_define)
             target_sources(${name} PRIVATE ${ARG_SOURCES})
         endif()
     endif()
-endmacro()
+endfunction()
