@@ -90,6 +90,7 @@ macro(cppm_unit_test_area)
         else()
             set(__unit_test_library__ "unknown")
         endif()
+        cppm_unit_test("==>${__unit_test_library__}")
     endif()
 endmacro()
 
