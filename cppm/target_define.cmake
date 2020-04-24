@@ -4,7 +4,7 @@ function(cppm_target_define)
 
     cppm_set_if_else(_public_header  "ARG_PUBLIC_HEADER"  "${ARG_PUBLIC_HEADER}"  "include")
     cppm_set_if_else(_private_header "ARG_PRIVATE_HEADER" "${ARG_PRIVATE_HEADER}" "src")
-    cppm_set_if_else(_O_${name}      "ARG_PRIVATE_HEADER" "${ARG_OPTIONAL}"       "${CMAKE_PROJECT_NAME}_${name}")
+    cppm_set_if_else(_O_${name}      "ARG_OPTIONAL"       "${ARG_OPTIONAL}"       "${CMAKE_PROJECT_NAME}_${name}")
     cppm_set_if_else(_namespace      "ARG_NAMESPACE"      "${ARG_NAMESPACE}"      "${CMAKE_PROJECT_NAME}")
     cmake_dependent_option(${_O_${name}} "Build with ${name}" ON "ARG_EXCLUDE" OFF)
 
