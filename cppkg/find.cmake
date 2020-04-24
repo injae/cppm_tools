@@ -65,8 +65,7 @@ function(find_cppkg)
             message("==>[[${name}]]")
             add_subdirectory(${ARG_LOADPATH})
             message("<==[[${name}]]")
-        else()
-            cppkg_print("Load Workspace ${name}/${version_} from ${ARG_LOADPATH}")
+        else() cppkg_print("Load Workspace ${name}/${version_} from ${ARG_LOADPATH}")
         endif()
     else()
         if(DEFINED ARG_COMPONENTS)
@@ -92,7 +91,9 @@ function(find_cppkg)
             cppkg_print("Load Package: ${name}/${${name}_VERSION} from Cppkg")
             add_cppkg_info(${name}
                 MODULE  "${ARG_MODULE}"
-                VERSION "${${name}_VERSION}")
+                VERSION "${${name}_VERSION}"
+                DEPEND  "${CMAKE_PROJECT_NAME}"
+            )
         else()
             cppm_error_print("Can't find Package ${name}/${${name}_VERSION}")
         endif()
