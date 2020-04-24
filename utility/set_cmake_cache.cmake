@@ -49,7 +49,7 @@ function(cppm_set cache_var data)
     endif()
 endfunction()
 
-macro(cppm_set_if_else name if_cond if_var else_val)
+macro(cppm_set_if_else name if_cond if_var else_var)
     if(${if_cond})
         set(${name} ${if_var})
     else()
