@@ -6,5 +6,4 @@ macro(cppm_project)
             GIT_TAG ${CPPM_VERSION}
         )
     endif()
-    include(CMakeDependentOption)
 endmacro()
