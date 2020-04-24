@@ -63,7 +63,7 @@ function(find_cppkg)
         set_target_properties(${name}_info PROPERTIES CPPM_LOADPATH "${ARG_LOADPATH}")
         if(NOT ARG_LOADPATH MATCHES "^\.\./.*$") # out of tree dependency(workspace) use this option
             message("==>[[${name}]]")
-            add_subdirectory(${ARG_LOADPATH} EXCLUDE_FROM_ALL)
+            add_subdirectory(${ARG_LOADPATH})
             message("<==[[${name}]]")
         else()
             cppkg_print("Load Workspace ${name}/${version_} from ${ARG_LOADPATH}")
