@@ -1,20 +1,29 @@
 macro(cppm_target_define)
-    cmake_parse_arguments(ARG "BINARY;STATIC;SHARED;INTERFACE;EXCLUDE" "OPTIONAL;NAMESPACE" "SOURCES" ${ARGN})
+    cmake_parse_arguments(ARG "BINARY;STATIC;SHARED;INTERFACE;EXCLUDE" "OPTIONAL;NAMESPACE;PUBLIC_HEADER;PRIVATE_HEADER" "SOURCES" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
 
-    set(lib_include_dir "include")
-    set(lib_source_dir  "src")
+    #cppm_set_if_else(_public_header  "ARG_PUBLIC_HEADER"  "${ARG_PUBLIC_HEADER}"  "include")
+    #cppm_set_if_else(_private_header "ARG_PRIVATE_HEADER" "${ARG_PRIVATE_HEADER}" "src")
+
+    if(ARG_PUBLIC_HEADER)
+        set(_public_header ${ARG_PUBLIC_HEADER})
+    else()
+        set(_public_header "include")
+    endif()
+
+    if(ARG_PRIVATE_HEADER)
+        set(_private_header ${ARG_PRIVATE_HEADER})
+    else()          
+        set(_private_header "src")
+    endif()
 
     if(ARG_OPTIONAL)
         set(_O_${name} ${ARG_OPTIONAL})
     else()
         set(_O_${name} ${CMAKE_PROJECT_NAME}_${name})
     endif()
-    if(ARG_EXCLUDE)
-        option(${_O_${name}} "Build with ${name}" OFF)
-    else()
-        option(${_O_${name}} "Build with ${name}" ON)
-    endif()
+
+    cmake_dependent_option(${_O_${name}} "Build with ${name}" ON "ARG_EXCLUDE" OFF)
 
     if(ARG_NAMESPACE)
         set(_namespace ${ARG_NAMESPACE})
@@ -31,8 +40,8 @@ macro(cppm_target_define)
             add_executable(${name} "")
             set_target_properties(${name}_info PROPERTIES CPPM_TYPE "BINARY")
             target_include_directories(${name}
-                PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/include
-                PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
+                PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/${_public_header}
+                PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${_private_header}
             )
         elseif(ARG_STATIC OR ARG_SHARED)
             if(ARG_STATIC)
@@ -48,10 +57,10 @@ macro(cppm_target_define)
             set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
             target_include_directories(${name}
                 PUBLIC
-                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${lib_include_dir}>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${_public_header}>
                     $<INSTALL_INTERFACE:include>
                 PRIVATE
-                    ${CMAKE_CURRENT_SOURCE_DIR}/${lib_source_dir}
+                    ${CMAKE_CURRENT_SOURCE_DIR}/${_private_header}
             )
         elseif(ARG_INTERFACE)
             add_library(${name} INTERFACE)
@@ -61,12 +70,12 @@ macro(cppm_target_define)
                                                           CPPM_DESCRIPTION "${name}/${${PROJECT_NAME}_VERSION}")
             target_include_directories(${name}
                 INTERFACE
-                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${lib_include_dir}>
+                    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${_public_header}>
                     $<INSTALL_INTERFACE:include>
             )
         endif()
         if(SUB_PROJECT)
-            include_directories(${lib_include_dir})
+            include_directories(${_public_header})
             get_target_property(_load_path ${name}_info CPPM_LOADPATH)
             cppkg_print("Load Workspace: ${name}/${PROJECT_VERSION} from ${_load_path}")
         endif()
