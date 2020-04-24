@@ -8,7 +8,7 @@ function(add_cppkg_info name)
     set_target_properties(${name}_info PROPERTIES
         CPPM_MODULE "${ARG_MODULE}"
         CPPM_VERSION ${ARG_VERSION}
-        CPPM_DEPEND  ${ARG_DEPEND}
+        CPPM_DEPEND  "${ARG_DEPEND}"
         CPPM_DESCRIPTION "${name}/${ARG_VERSION}"
     )
 endfunction()
