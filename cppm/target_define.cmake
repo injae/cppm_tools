@@ -6,7 +6,7 @@ function(cppm_target_define)
     cppm_set_then(_private_header "src"                                 "ARG_PRIVATE_HEADER" "${ARG_PRIVATE_HEADER}")
     cppm_set_then(_namespace      "${CMAKE_PROJECT_NAME}"               "ARG_NAMESPACE"      "${ARG_NAMESPACE}")
     cppm_set_then(_optional       "${CMAKE_PROJECT_NAME}_${name}_BUILD" "ARG_OPTIONAL"       "${ARG_OPTIONAL}")
-    cmake_dependent_option("${${_optional}}" "build with ${name}" ON "ARG_EXCLUDE" OFF)
+    cmake_dependent_option(${_optional} "build with ${name}" ON "ARG_EXCLUDE" OFF)
     cppm_print("======== ${_optional} ${${_optional}}")
 
     if(${${_optional}})
