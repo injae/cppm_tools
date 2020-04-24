@@ -62,3 +62,14 @@ function(cppm_target_define)
         endif()
     endif()
 endfunction()
+
+function(cppm_with_unit_test)
+    string(TOUPPER ${CMAKE_PROJECT_NAME} upper_name) 
+    cmake_dependent_option("${upper_name}_BUILD_TESTING" "${CMAKE_PROJECT_NAME} build test"
+        ON "CMAKE_BUILD_TYPE STREQUAL Debug" OFF)
+endfunction()
+
+function(cppm_with_examples)
+    string(TOUPPER ${CMAKE_PROJECT_NAME} upper_name) 
+    option(${upper_name}_BUILD_EXAMPLES "${CMAKE_PROJECT_NAME} build examples" OFF)
+endfunction()
