@@ -52,15 +52,14 @@ function(find_cppkg)
         execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
                         RESULT_VARIABLE result
                         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-        if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
-            include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/dep.cmake)
-        endif()
         message("<==[[${name}]]")
     endif()
     if(DEFINED ARG_LOADPATH)
         add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
-             VERSION "${version_}")
+             VERSION "${version_}"
+             DEPEND  "${CMAKE_PROJECT_NAME}"
+        )
         set_target_properties(${name}_info PROPERTIES CPPM_LOADPATH "${ARG_LOADPATH}")
         if(NOT ARG_LOADPATH MATCHES "^\.\./.*$") # out of tree dependency(workspace) use this option
             message("==>[[${name}]]")
