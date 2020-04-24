@@ -16,7 +16,7 @@ function(cppm_target_define)
         if(ARG_BINARY)
             add_executable(${name} "")
             set_target_properties(${name}_info PROPERTIES CPPM_TYPE "BINARY"
-                                                          CPPM_DEPEND "${CMAKE_PROJECT_NAME}")
+                                                          CPPM_DEPEND "${PROJECT_NAME}")
             target_include_directories(${name}
                 PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/${_public_header}
                 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${_private_header}
@@ -31,7 +31,7 @@ function(cppm_target_define)
             set_target_properties(${name} PROPERTIES LINKER_LANGUAGE CXX)
             set_target_properties(${name}_info PROPERTIES CPPM_NAMESPACE "${_namespace}" CPPM_TYPE "LIBRARY")
             set_target_properties(${name}_info PROPERTIES CPPM_MODULE "${name}"
-                                                          CPPM_DEPEND "${CMAKE_PROJECT_NAME}"
+                                                          CPPM_DEPEND "${PROJECT_NAME}"
                                                           CPPM_DESCRIPTION "${name}/${${PROJECT_NAME}_VERSION}")
             set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
             target_include_directories(${name}
@@ -46,7 +46,7 @@ function(cppm_target_define)
             add_library(${_namespace}::${name} ALIAS ${name})
             set_target_properties(${name}_info PROPERTIES CPPM_NAMESPACE "${_namespace}" CPPM_TYPE "LIBRARY")
             set_target_properties(${name}_info PROPERTIES CPPM_MODULE "${name}"
-                                                          CPPM_DEPEND "${CMAKE_PROJECT_NAME}"
+                                                          CPPM_DEPEND "${PROJECT_NAME}"
                                                           CPPM_DESCRIPTION "${name}/${${PROJECT_NAME}_VERSION}")
             target_include_directories(${name}
                 INTERFACE

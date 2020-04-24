@@ -58,7 +58,7 @@ function(find_cppkg)
         add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}"
-             DEPEND  "${CMAKE_PROJECT_NAME}"
+             DEPEND  "${PROJECT_NAME}"
         )
         set_target_properties(${name}_info PROPERTIES CPPM_LOADPATH "${ARG_LOADPATH}")
         if(NOT ARG_LOADPATH MATCHES "^\.\./.*$") # out of tree dependency(workspace) use this option
@@ -93,7 +93,7 @@ function(find_cppkg)
             add_cppkg_info(${name}
                 MODULE  "${ARG_MODULE}"
                 VERSION "${${name}_VERSION}"
-                DEPEND  "${CMAKE_PROJECT_NAME}"
+                DEPEND  "${PROJECT_NAME}"
             )
         else()
             cppm_error_print("Can't find Package ${name}/${${name}_VERSION}")
