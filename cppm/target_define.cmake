@@ -4,35 +4,9 @@ function(cppm_target_define)
 
     cppm_set_if_else(_public_header  "ARG_PUBLIC_HEADER"  "${ARG_PUBLIC_HEADER}"  "include")
     cppm_set_if_else(_private_header "ARG_PRIVATE_HEADER" "${ARG_PRIVATE_HEADER}" "src")
-
-    #if(ARG_PUBLIC_HEADER)
-    #    set(_public_header ${ARG_PUBLIC_HEADER})
-    #else()
-    #    set(_public_header "include")
-    #endif()
-
-    #if(ARG_PRIVATE_HEADER)
-    #    set(_private_header ${ARG_PRIVATE_HEADER})
-    #else()          
-    #    set(_private_header "src")
-    #endif()
-
-    cppm_print("test ${_public_header}")
-    cppm_print("test ${_private_header}")
-
-    if(ARG_OPTIONAL)
-        set(_O_${name} ${ARG_OPTIONAL})
-    else()
-        set(_O_${name} ${CMAKE_PROJECT_NAME}_${name})
-    endif()
-
+    cppm_set_if_else(_O_${name}      "ARG_PRIVATE_HEADER" "${ARG_OPTIONAL}"       "${CMAKE_PROJECT_NAME}_${name}")
+    cppm_set_if_else(_namespace      "ARG_NAMESPACE"      "${ARG_NAMESPACE}"      "${CMAKE_PROJECT_NAME}")
     cmake_dependent_option(${_O_${name}} "Build with ${name}" ON "ARG_EXCLUDE" OFF)
-
-    if(ARG_NAMESPACE)
-        set(_namespace ${ARG_NAMESPACE})
-    else()
-        set(_namespace ${CMAKE_PROJECT_NAME})
-    endif()
 
     if(${_O_${name}})
         if(TARGET ${name}_info)
