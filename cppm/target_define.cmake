@@ -65,8 +65,9 @@ endfunction()
 
 macro(cppm_with_unit_test)
     string(TOUPPER ${CMAKE_PROJECT_NAME} upper_name) 
+
     cmake_dependent_option(${upper_name}_BUILD_TESTING "${CMAKE_PROJECT_NAME} build test"
-        ON "CMAKE_BUILD_TYPE STREQUAL \"Debug\"" OFF)
+        ON "cppm_is_debug" OFF)
     if(${${upper_name}_BUILD_TESTING})
         message("==>Unit Test<==")
     endif()
