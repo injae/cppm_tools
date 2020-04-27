@@ -24,7 +24,7 @@ function(cppm_target_install)
             install(TARGETS ${name} RUNTIME DESTINATION bin) # $HOME/.cppm/local/share/${name}-${version}
             get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../" ABSOLUTE)
             cppm_print("install ${PACKAGE_PREFIX_DIR} ${CPPM_PREFIX}")
-            if("${PACKAGE_PREFIX_DIR}" STREQUAL "${CPPM_PREFIX}" AND (CMAKE_BUILD_TYPE MATCHES "RELEASE"))
+            if("${PACKAGE_PREFIX_DIR}" STREQUAL "${CPPM_PREFIX}" AND (CMAKE_BUILD_TYPE MATCHES "Release"))
                 get_target_property(_file_name ${name} TARGET_FILE_BASE_NAME)
                 cppm_print("---- ${file_name}")
                 install(CODE "execute_process(COMMAND cmake -E create_symlink ${CMAKE_INSTALL_PREFIX}/bin/${_file_name} ${CPPM_PREFIX}/bin/${_file_name})")
