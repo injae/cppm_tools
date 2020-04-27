@@ -25,6 +25,7 @@ macro(cppm_target_install)
             get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_INSTALL_PREFIX}/../../" ABSOLUTE)
             if(PACKAGE_PREFIX_DIR STREQUAL "${CPPM_PREFIX}" AND (CMAKE_BUILD_TYPE MATCHES "RELEASE"))
                 get_target_property(_file_name ${name} TARGET_FILE_BASE_NAME)
+                cppm_print("---- ${file_name}")
                 install(CODE "execute_process(COMMAND cmake -E create_symlink ${CMAKE_INSTALL_PREFIX}/bin/${_file_name} ${CPPM_PREFIX}/bin/${_file_name})")
                 
                # add_custom_command(TARGET ${name} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_INSTALL_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" "${CPPM_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" COMMENT "-- Linking ${CMAKE_INSTALL_PREFIX}/bin -> ${CPPM_PREFIX}/bin/")
