@@ -10,6 +10,13 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
+    set_cache_check(${name}_cmake_args ${ARG_CMAKE_ARGS})
+    cppm_set_then(_recompile "FALSE" "_is_same" "TRUE")
+    cppm_print("value test ${_recompile}")
+    set_cache_check(${namme}_version ${version}) 
+    cppm_set_then(_recompile "FALSE" "_is_same" "TRUE")
+    cppm_print("value test ${_recompile}")
+
     set(_version ${version})
     if(version STREQUAL "git")
       set(version "")
