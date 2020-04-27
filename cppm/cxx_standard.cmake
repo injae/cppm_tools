@@ -9,7 +9,7 @@ macro(cppm_cxx_standard _version)
     cppm_print("c++ version: ${cxx_standard}")
 
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-        if(_version STREQUAL "17")
+        if("${_version}" STREQUAL "17")
             add_compiler_option(CMAKE_CXX_FLAGS "/std:c++latest")
         else()
             add_compiler_option(CMAKE_CXX_FLAGS "/std:c++${_version}")
