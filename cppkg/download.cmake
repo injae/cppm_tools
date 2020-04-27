@@ -10,7 +10,7 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
-    set_cache_check(${name}_cmake_args  "${ARG_CMAKE_ARGS}" STRING)
+    set_cache_check(${name}_cmake_args "${ARG_CMAKE_ARGS}" STRING)
     cppm_set_then(_recompile "FALSE" "_is_same" "TRUE")
     cppkg_print("value test ${_recompile}")
     set_cache_check(${namme}_version "${version}" STRING) 
