@@ -11,6 +11,7 @@ macro(cppm_setting)
         set(${PROJECT_NAME}_NO_MESSAGE TRUE)
     endif()
 
+    if(NOT SUB_PROJECT)
     cppm_set(CPPM_ROOT    "${HOME}/.cppm")
     cppm_set(CPPM_PREFIX  "${CPPM_ROOT}")
     cppm_set(CPPM_MODULE  "${CPPM_ROOT}/cmake")
@@ -39,6 +40,7 @@ macro(cppm_setting)
 
     _cppm_find_package_prefix(${CPPM_PREFIX})
     cppm_print("cppm_root: ${CPPM_ROOT}")
+    endif()
 
 endmacro()
 
