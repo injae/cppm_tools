@@ -10,6 +10,10 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
+    if(NOT cppm_generator_type STREQUAL "visual-studio") ## visual studio build type problem 
+        cppm_set(CMAKE_BUILD_TYPE "Release")
+        set(cppm_build_type "release")
+    endif()
     set_cache_check(${name}_cmake_args "${ARG_CMAKE_ARGS}" STRING)
     cppm_set_then(_recompile "FALSE" "_is_same" "TRUE")
     set_cache_check(${name}_version "${version}" STRING) 
@@ -57,10 +61,6 @@ macro(download_package)
     endif()
     
     include(ExternalProject)
-    if(NOT cppm_generator_type STREQUAL "visual-studio") ## visual studio build type problem 
-        cppm_set(CMAKE_BUILD_TYPE "Release")
-        set(cppm_build_type "release")
-    endif()
     if(_recompile OR _is_git)
         if(NOT EXISTS ${_cache_path})
             file(MAKE_DIRECTORY ${_cache_path})
