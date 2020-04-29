@@ -30,7 +30,7 @@ function(cppm_target_install)
                add_custom_command(TARGET ${name} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink "${CMAKE_INSTALL_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" "${CPPM_PREFIX}/bin/$<TARGET_FILE_BASE_NAME:${name}>" COMMENT "-- Linking ${CMAKE_INSTALL_PREFIX}/bin -> ${CPPM_PREFIX}/bin/")
             endif()
         endif()
-        if(_target_type MATCHES "LIBRARY")
+        else()
             get_target_property(_namespace ${name}_info CPPM_NAMESPACE)
             include(CMakePackageConfigHelpers)
             write_basic_package_version_file(
