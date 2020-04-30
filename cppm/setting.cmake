@@ -38,7 +38,7 @@ macro(cppm_setting)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
     set(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)
 
-    _include_vcpkg()
+    #_include_vcpkg()
     _cppm_find_package_prefix(${CPPM_PREFIX})
 
     cppm_print("cppm_root: ${CPPM_ROOT}")
@@ -149,4 +149,3 @@ macro(_include_vcpkg)
     endif()
     endif()
 endmacro()
-
