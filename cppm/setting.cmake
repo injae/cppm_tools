@@ -33,6 +33,11 @@ macro(cppm_setting)
     cppm_print("System: ${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}")
     cppm_print("Compiler: ${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION}")
     cppm_print("Generator: ${CMAKE_GENERATOR}")
+    cppm_print("Toolchains: ${CMAKE_TOOLCHAIN_FILE}")
+
+    if(cppm_detect_vcpkg)
+        cppm_print("Detect Vcpkg: ${vcpkg_path}")
+    endif()
 
     _cppm_ccache()
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
