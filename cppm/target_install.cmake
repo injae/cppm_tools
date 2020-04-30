@@ -35,7 +35,7 @@ function(cppm_target_install)
             write_basic_package_version_file(
                 ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
                 VERSION ${${PROJECT_NAME}_VERSION}
-                COMPATIBILITY ExactVersion
+                COMPATIBILITY SameMinorVersion # 0.2 != 0.3, 0.2 == 0.2.5
             ) 
             install(FILES
                 ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
