@@ -38,7 +38,9 @@ macro(cppm_setting)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
     set(CMAKE_FIND_PACKAGE_SORT_ORDER NATURAL)
 
+    _include_vcpkg()
     _cppm_find_package_prefix(${CPPM_PREFIX})
+
     cppm_print("cppm_root: ${CPPM_ROOT}")
     endif()
 
@@ -56,8 +58,11 @@ macro(_cppm_ccache)
 endmacro()
 
 macro(_cppm_find_package_prefix prefix)
-    list(APPEND CMAKE_PREFIX_PATH "${prefix}")
-    list(APPEND CMAKE_PREFIX_PATH "${prefix}/share")
+    list(APPEND CMAKE_PREFIX_PATH    "${prefix}")
+    list(APPEND CMAKE_PREFIX_PATH    "${prefix}/share")
+    list(APPEND CMAKE_FIND_ROOT_PATH "${prefix}/share")
+    #list(APPEND CMAKE_LIBRARY_PATH "  ${prefix}/share")
+
 endmacro()
 
 macro(_cppm_rpath) # macos has RPATH bug
@@ -129,5 +134,18 @@ macro(_cppkg_define_property)
         BRIEF_DOCS "Cppm package dependencies list"
         FULL_DOCS  "Cppm package dependencies list"
     )
+endmacro()
+
+macro(_include_vcpkg)
+    option(NO_VCPKG OFF)
+    if(NOT NO_VCPKG)
+    find_program(vcpkg_exe vcpkg)
+    if(NOT vcpkg_exe-NOTFOUND)
+        get_filename_component(vcpkg_path ${vcpkg_exe} DIRECTORY CACHE)
+        set(vcpkg_toolchains "${vcpkg_path}/scripts/buildsystems/vcpkg.cmake")
+        cppkg_print("Detect Vcpkg: ${vcpkg_path}")
+        include(${vcpkg_toolchains})
+    endif()
+    endif()
 endmacro()
 
