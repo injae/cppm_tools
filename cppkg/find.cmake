@@ -50,7 +50,7 @@ function(find_cppkg)
 
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
-        cppm_set_if(_recompile "TRUE" "cppm_build_type_change")
+        cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
         file(SHA256 ${_cppkg} _cppkg_hash)
         set_cache_check(${PROJECT_NAME}_${name}_${version_}_hash ${_cppkg_hash} STRING)
         cppm_print("${_recompile} ${_is_same}")
