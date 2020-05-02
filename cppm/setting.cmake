@@ -62,8 +62,8 @@ macro(_cppm_ccache)
 endmacro()
 
 macro(_cppm_find_package_prefix prefix)
-    list(APPEND CMAKE_PREFIX_PATH    "${prefix}")
     list(APPEND CMAKE_PREFIX_PATH    "${prefix}/share")
+    #list(APPEND CMAKE_PREFIX_PATH    "${prefix}")
     list(APPEND CMAKE_FIND_ROOT_PATH "${prefix}/share")
     #list(APPEND CMAKE_LIBRARY_PATH "  ${prefix}/share")
 

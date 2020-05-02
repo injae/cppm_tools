@@ -18,12 +18,20 @@ function(find_cppkg)
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     set(version_ ${version})
+
     if(version STREQUAL "latest")
       set(version "")
     endif()
 
     if(version STREQUAL "git")
       set(version "")
+    endif()
+
+    if(TARGET ${name}_info)
+        get_target_property(preload_version ${name}_info CPPM_VERSION) 
+        if(version VERSION_LESS preload_version)
+            
+        endif()
     endif()
 
     if(ARG_HUNTER) 
