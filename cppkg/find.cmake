@@ -55,9 +55,9 @@ function(find_cppkg)
         set_cache_check(${PROJECT_NAME}_${name}_${version_}_hash ${_cppkg_hash} STRING)
         cppm_print("${_recompile} ${_is_same}")
         if(NOT _is_same OR (_recompile))
-        message("==>[[${name}]]")
+            message("==>[[${name}]]")
             configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
-                        ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
+                           ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
             execute_process(COMMAND
                             ${CMAKE_COMMAND}
                             "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
@@ -67,7 +67,7 @@ function(find_cppkg)
             execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-        message("<==[[${name}]]")
+            message("<==[[${name}]]")
         endif()
     endif()
     if(DEFINED ARG_LOADPATH)
