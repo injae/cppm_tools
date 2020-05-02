@@ -25,7 +25,7 @@ macro(cppm_setting)
 
     _cppm_os_flag()
     _cppm_generator()
-    _cppm_build_type()
+    set_cppm_build_type()
     _cppm_rpath()
     _cppkg_define_property()
 
@@ -114,7 +114,7 @@ macro(_cppm_generator)
     endif()
 endmacro()
 
-macro(_cppm_build_type)
+macro(set_cppm_build_type)
     default_cache(CMAKE_BUILD_TYPE Debug STRING)
     string(TOLOWER ${CMAKE_BUILD_TYPE} lower_build_type) 
     set_cache_check(cppm_build_type "${lower_build_type}" STRING)
