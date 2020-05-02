@@ -21,9 +21,9 @@ function(find_cppkg)
 
     if(version STREQUAL "latest" OR (version STREQUAL "git"))
       set(version "")
-      set(_request_build True)
+      set(_recompile True)
     else()
-      set(_request_build False)
+      set(_recompile False)
     endif()
 
     if(DEFINED ARG_COMPONENTS)
@@ -38,15 +38,14 @@ function(find_cppkg)
     endif()
 
 
-    if(NOT DEFINED ARG_LOADPATH)
-    endif()
-
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
         file(SHA256 ${_cppkg} _cppkg_hash)
+        set_cache_check(${name}_build_type "${CMAKE_BUILD_TYPE}" STRING)
+        cppm_set_then(_recompile "TRUE" "_is_same" "FALSE")
         set_cache_check(${PROJECT_NAME}_${name}_${version}_hash _cppkg_hash STRING)
         find_package(${name} ${version} ${component_script} EXACT QUIET)
-        if(NOT _is_same AND (_request_build AND (NOT ${${name}_FOUND})))
+        if(NOT _is_same AND (_recompile AND (NOT ${${name}_FOUND})))
             message("==>[[${name}]]")
             configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
                         ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
