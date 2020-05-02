@@ -70,6 +70,7 @@ macro(download_package)
             hash_check(${_source_path} ${_cache_path})
         endif()
         set(_binary_directory ${_cache_path}/build/${cppm_build_type}-${cppm_generator_type})
+        string(REPLACE ";" "|" CMAKE_PREFIX_PATH_ALT_SEP "${CMAKE_PREFIX_PATH}")
         if(NOT hash_matched OR (NOT EXISTS ${_binary_directory}) OR _recompile)
             cppkg_print("Download ${name} package")
             cppkg_print("Source Direcroty ${_source_path}")
@@ -82,7 +83,12 @@ macro(download_package)
                 DOWNLOAD_DIR ${_source_path}
                 SOURCE_DIR ${_source_path}
                 BINARY_DIR ${_binary_directory}
-                CMAKE_ARGS ${CMAKE_ARGS} ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -G ${CMAKE_GENERATOR} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+                LIST_SEPARATOR |
+                CMAKE_ARGS
+                    ${CMAKE_ARGS} -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH_ALT_SEP}
+                    ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
+                    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+                    -G ${CMAKE_GENERATOR} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
                 CONFIGURE_COMMAND ${_configure_cmd}
                 BUILD_COMMAND ${_build_cmd}
                 INSTALL_COMMAND cmake --build . --target install --config ${CMAKE_BUILD_TYPE}
