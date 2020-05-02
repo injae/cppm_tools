@@ -53,7 +53,6 @@ function(find_cppkg)
         cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
         file(SHA256 ${_cppkg} _cppkg_hash)
         set_cache_check(${PROJECT_NAME}_${name}_${version_}_hash ${_cppkg_hash} STRING)
-        cppm_print("${_recompile} ${_is_same}")
         if(NOT _is_same OR (_recompile))
             message("==>[[${name}]]")
             configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
