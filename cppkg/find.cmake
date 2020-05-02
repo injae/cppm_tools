@@ -21,6 +21,9 @@ function(find_cppkg)
 
     if(version STREQUAL "latest" OR (version STREQUAL "git"))
       set(version "")
+      set(_request_build True)
+    else()
+      set(_request_build False)
     endif()
 
     if(DEFINED ARG_COMPONENTS)
@@ -34,21 +37,30 @@ function(find_cppkg)
         cppm_print("Load Package ${name} from Hunter")
     endif()
 
+
+    if(NOT DEFINED ARG_LOADPATH)
+    endif()
+
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
-        message("==>[[${name}]]")
-        configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
-                    ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
-        execute_process(COMMAND
-                        ${CMAKE_COMMAND}
-                        "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
-                        "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
-                        RESULT_VARIABLE result
-                        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-        execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
-                        RESULT_VARIABLE result
-                        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-        message("<==[[${name}]]")
+        file(SHA256 ${_cppkg} _cppkg_hash)
+        set_cache_check(${PROJECT_NAME}_${name}_${version}_hash _cppkg_hash STRING)
+        find_package(${name} ${version} ${component_script} EXACT QUIET)
+        if(NOT _is_same AND (_request_build AND (NOT ${${name}_FOUND})))
+            message("==>[[${name}]]")
+            configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
+                        ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
+            execute_process(COMMAND
+                            ${CMAKE_COMMAND}
+                            "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
+                            "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
+                            RESULT_VARIABLE result
+                            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
+            execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
+                            RESULT_VARIABLE result
+                            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
+            message("<==[[${name}]]")
+        endif()
     endif()
     if(DEFINED ARG_LOADPATH)
         add_cppkg_info(${name}
