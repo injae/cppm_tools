@@ -50,12 +50,11 @@ function(find_cppkg)
 
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
-        set_cache_check(${name}_build_type "${CMAKE_BUILD_TYPE}" STRING)
+        cppm_set_if(_recompile "TRUE" "cppm_build_type_change")
         file(SHA256 ${_cppkg} _cppkg_hash)
-        cppm_set_if(_recompile "TRUE" "_is_same")
         set_cache_check(${PROJECT_NAME}_${name}_${_version}_hash ${_cppkg_hash} STRING)
+        message("==>[[${name}]]")
         if(NOT _is_same AND (_recompile))
-            message("==>[[${name}]]")
             configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
                         ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
             execute_process(COMMAND
@@ -67,8 +66,8 @@ function(find_cppkg)
             execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-            message("<==[[${name}]]")
         endif()
+        message("<==[[${name}]]")
     endif()
     if(DEFINED ARG_LOADPATH)
         add_cppkg_info(${name}
