@@ -1,3 +1,7 @@
+mark_as_advanced(CMAKE_TOOLCHAIN_FILE)
+
+get_property(_CMAKE_IN_TRY_COMPILE GLOBAL PROPERTY IN_TRY_COMPILE)
+
 if(CPPM_LOAD)
     return()
 endif()
@@ -62,5 +66,5 @@ list(APPEND CMAKE_PREFIX_PATH    "${CPPM_ROOT}")
 list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_PKGS}")
 list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 
-cppm_print("${CMAKE_CURRENT_SOURCE_DIR} load cppm toolchain")
+#cppm_print("Load cppm toolchain")
 cppm_set(CPPM_LOAD ON)
