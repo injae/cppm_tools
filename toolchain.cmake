@@ -40,6 +40,7 @@ _cppm_ccache()
 
 ## with vcpkg
 if(NOT NO_VCPKG)
+    cppm_print("search vcpkg")
     if(DEFINED ENV{VCPKG_ROOT})
         set(vcpkg_toolchains "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
         list(APPEND CMAKE_TOOLCHAIN_FILE "${vcpkg_toolchains}")
