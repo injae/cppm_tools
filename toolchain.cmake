@@ -23,6 +23,7 @@ cppm_set(CPPM_CACHE   "${CPPM_ROOT}/cache")
 cppm_set(CPPM_CORE    "${CPPM_CORE}")
 list(APPEND CMAKE_MODULE_PATH "${CPPM_PKGS}")
 include(cppm/setting)
+include(utility/cppm_print)
 
 _cppm_arch_flag()
 _cppm_os_flag()
