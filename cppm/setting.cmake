@@ -33,17 +33,8 @@ macro(_cppm_ccache)
         find_program(CCACHE_EXE ccache)
         if(NOT CCACHE_EXE-NOTFOUND)
             set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
-            cppm_print("Build Cache: ccache")
         endif()
     endif()
-endmacro()
-
-macro(_cppm_find_package_prefix prefix)
-    list(APPEND CMAKE_PREFIX_PATH    "${prefix}/share")
-    #list(APPEND CMAKE_PREFIX_PATH    "${prefix}")
-    list(APPEND CMAKE_FIND_ROOT_PATH "${prefix}/share")
-    #list(APPEND CMAKE_LIBRARY_PATH "  ${prefix}/share")
-
 endmacro()
 
 macro(_cppm_rpath) # macos has RPATH bug

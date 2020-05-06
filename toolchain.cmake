@@ -63,3 +63,4 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_PKGS}")
 list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 
 set(CPPM_LOAD ON)
+cppkg_print("loaded cppm toolchain")
