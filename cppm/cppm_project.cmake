@@ -6,7 +6,7 @@ macro(cppm_project)
             GIT_TAG ${CPPM_VERSION}
         )
     endif()
-    option(NO_VCPKG OFF)
+    default_cache(NO_VCPKG OFF BOOL)
     if(ARG_WITH_VCPKG)
         _include_vcpkg()
     else()
