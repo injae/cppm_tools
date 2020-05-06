@@ -80,7 +80,7 @@ macro(download_package)
                 URL ${ARG_URL}
                 GIT_REPOSITORY ${ARG_GIT}
                 GIT_TAG ${ARG_GIT_TAG}
-                DOWNLOAD_DIR ${_source_path}
+                DOWNLOAD_DIR ${_cache_path}
                 SOURCE_DIR ${_source_path}
                 BINARY_DIR ${_binary_directory}
         #        LIST_SEPARATOR |
