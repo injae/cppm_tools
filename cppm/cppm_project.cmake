@@ -6,5 +6,8 @@ macro(cppm_project)
             GIT_TAG ${CPPM_VERSION}
         )
     endif()
+    if(ARG_WITH_VCPKG)
+        set(WITH_VCPKG ON)
+    endif()
     set(CMAKE_TOOLCHAIN_FILE "${CPPM_CORE}/toolchain.cmake")
 endmacro()

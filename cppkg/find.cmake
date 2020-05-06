@@ -61,7 +61,7 @@ function(find_cppkg)
                            ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
             execute_process(COMMAND
                             ${CMAKE_COMMAND}
-                            "-DCMAKE_TOOLCHAIN_FILE=${CPPM_CORE}/toolchain.cmake"
+                            "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
                             "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
                             "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
                             RESULT_VARIABLE result

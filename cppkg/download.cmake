@@ -87,7 +87,7 @@ macro(download_package)
                 CMAKE_ARGS
                     ${CMAKE_ARGS}
                     #-DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH_ALT_SEP}
-                    "-DCMAKE_TOOLCHAIN_FILE=${CPPM_CORE}/toolchain.cmake"
+                    "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
                     ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
                     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
                     -G ${CMAKE_GENERATOR} -DCMAKE_POSITION_INDEPENDENT_CODE=ON

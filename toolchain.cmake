@@ -32,7 +32,7 @@ include(utility/cppm_print)
 _cppm_arch_flag()
 _cppm_os_flag()
 _cppm_generator()
-cppm_set(cppm_target_triplet ${cppm_target_arch}-${cppm_target_base_platform})
+cppm_set(cppm_target_triplet ${cppm_target_arch}-${cppm_target_platform})
 _cppm_build_type()
 _cppm_rpath()
 _cppkg_define_property()
@@ -73,6 +73,6 @@ list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
             CPPM_CORE
             cppm_target_arch
             cppm_target_base_platform
+            cppm_target_platform
             CPPM_EXTERNAL_TOOLCHAIN_FILE
-            cppm-target_platform
         )
