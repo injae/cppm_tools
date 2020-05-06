@@ -39,7 +39,7 @@ function(find_cppkg)
 
     if(DEFINED ARG_LOADPATH)
     else()
-        if(cppm_detect_vcpkg)
+        if(cppm_detect_vcpkg OR (version STREQUAL ""))
             find_package(${name} ${version} ${component_script} QUIET)
         else()
             find_package(${name} ${version} ${component_script} EXACT QUIET)
