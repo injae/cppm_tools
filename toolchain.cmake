@@ -68,3 +68,9 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 
 #cppm_print("Load cppm toolchain")
 cppm_set(CPPM_LOAD ON)
+list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
+            CPPM_ROOT
+            cppm_target_arch
+            cppm_target_base_platform
+            cppm-target_platform
+        )
