@@ -38,9 +38,24 @@ _cppm_rpath()
 _cppkg_define_property()
 _cppm_ccache()
 
+list(APPEND CMAKE_PREFIX_PATH    "${CPPM_PKGS}")
+list(APPEND CMAKE_PREFIX_PATH    "${CPPM_ROOT}")
+list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_PKGS}")
+list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
+
+#cppm_print("Load cppm toolchain")
+cppm_set(CPPM_LOAD ON)
+list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
+            CPPM_ROOT
+            CPPM_CORE
+            cppm_target_arch
+            cppm_target_base_platform
+            cppm_target_platform
+            CPPM_EXTERNAL_TOOLCHAIN_FILE
+        )
+
 ## with vcpkg
 if(NOT NO_VCPKG)
-    cppm_print("search vcpkg")
     if(DEFINED ENV{VCPKG_ROOT})
         set(vcpkg_toolchains "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
         list(APPEND CMAKE_TOOLCHAIN_FILE "${vcpkg_toolchains}")
@@ -61,19 +76,3 @@ if(NOT NO_VCPKG)
         endif()
     endif()
 endif()
-
-list(APPEND CMAKE_PREFIX_PATH    "${CPPM_PKGS}")
-list(APPEND CMAKE_PREFIX_PATH    "${CPPM_ROOT}")
-list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_PKGS}")
-list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
-
-#cppm_print("Load cppm toolchain")
-cppm_set(CPPM_LOAD ON)
-list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
-            CPPM_ROOT
-            CPPM_CORE
-            cppm_target_arch
-            cppm_target_base_platform
-            cppm_target_platform
-            CPPM_EXTERNAL_TOOLCHAIN_FILE
-        )
