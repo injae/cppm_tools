@@ -9,7 +9,6 @@ macro(cppm_project)
     default_cache(NO_VCPKG OFF BOOL)
     if(ARG_WITH_VCPKG)
         _include_vcpkg()
-    else()
     endif()
 endmacro()
 
