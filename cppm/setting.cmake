@@ -13,7 +13,7 @@ macro(cppm_setting)
 
     if(NOT SUB_PROJECT)
     cppm_print("Target: ${PROJECT_NAME} [Type:${cppm_build_type}, Cppm:${CPPM_VERSION}, CMake:${CMAKE_VERSION}]")
-    cppm_print("System: ${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}")
+    cppm_print("System: ${cppm_target_triplet}")
     cppm_print("Compiler: ${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION}")
     cppm_print("Generator: ${CMAKE_GENERATOR}")
     cppm_print("Toolchains: ${CMAKE_TOOLCHAIN_FILE}")
