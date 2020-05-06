@@ -39,11 +39,12 @@ function(find_cppkg)
 
     if(DEFINED ARG_LOADPATH)
     else()
-        if(cppm_detect_vcpkg OR (version STREQUAL ""))
-            find_package(${name} ${version} ${component_script} QUIET)
-        else()
-            find_package(${name} ${version} ${component_script} EXACT QUIET)
-        endif()
+        find_package(${name} ${version} ${component_script} QUIET)
+        #if(cppm_detect_vcpkg OR (version STREQUAL ""))
+        #    find_package(${name} ${version} ${component_script} QUIET)
+        #else()
+        #    find_package(${name} ${version} ${component_script} QUIET)
+        #endif()
         if(NOT ${${name}_FOUND})
             set(_recompile TRUE)
         endif()
@@ -60,6 +61,7 @@ function(find_cppkg)
                            ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
             execute_process(COMMAND
                             ${CMAKE_COMMAND}
+                            "-DCMAKE_TOOLCHAIN_FILE=${CPPM_CORE}/toolchain.cmake"
                             "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
                             "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
                             RESULT_VARIABLE result
