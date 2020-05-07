@@ -29,7 +29,7 @@ endmacro()
 
 macro(_cppm_ccache)
     option(USE_CCACHE "use ccache option default is on" ON)
-    if(USE_CCACHE)
+    if(NOT USE_CCACHE-NOTFOUND)
         find_program(CCACHE_EXE ccache)
         if(NOT CCACHE_EXE-NOTFOUND)
             set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
