@@ -65,5 +65,6 @@ function(cppm_target_install)
 
             message(STATUS "[cppm] Export CMake Module: ${_namespace}::${name}")
         endif()
+        include("${CMAKE_CURRENT_LIST_FILE}/uninstall.cmake")
     endif()
 endfunction()
