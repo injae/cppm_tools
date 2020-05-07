@@ -26,12 +26,15 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
-
-if(DEFINED __ADD_UNINSTALL_TARGET_INCLUDED)
-  return()
+if("${CMAKE_GENERATOR}" MATCHES "^(Visual Studio|Xcode)")
+    set(_uninstall "UNINSTALL")
+else()
+    set(_uninstall "uninstall")
 endif()
-set(__ADD_UNINSTALL_TARGET_INCLUDED TRUE)
 
+if(TARGET ${_uninstall})
+    return()
+endif()
 
 set(_filename ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
