@@ -71,8 +71,9 @@ macro(download_package)
         else()
             if(EXISTS ${_cache_path}/hash.cmake)
                 include(${_cache_path}/hash.cmake)
+                set(CHECK_HASH "MD5=${URL_HASH}")
             else()
-                set(URL_HASH "")
+                set(CHECK_HASH "")
             endif()
         endif()
         set(_binary_directory ${_cache_path}/build/${cppm_build_type}-${cppm_generator_type})
@@ -84,7 +85,7 @@ macro(download_package)
             ExternalProject_Add(
                 _${name}
                 URL ${ARG_URL}
-                URL_HASH MD5=${URL_HASH}
+                ${CHECK_HASH}
                 GIT_REPOSITORY ${ARG_GIT}
                 GIT_TAG ${ARG_GIT_TAG}
                 DOWNLOAD_DIR ${_cache_path}
