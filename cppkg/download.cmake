@@ -88,8 +88,8 @@ macro(download_package)
                 _${name}
                 ${GIT_REPO}
                 ${GIT_TAG}
-                URL "${ARG_URL}"
                 ${CHECK_HASH}
+                URL "${ARG_URL}"
                 DOWNLOAD_DIR ${_cache_path}
                 DOWNLOAD_NO_PROGRESS TRUE
                 DOWNLOAD_NO_EXTRACT TRUE
