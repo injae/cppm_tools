@@ -82,7 +82,6 @@ macro(download_package)
                 GIT_TAG ${ARG_GIT_TAG}
                 DOWNLOAD_DIR ${_cache_path}
                 DOWNLOAD_NO_PROGRESS TRUE
-                DOWNLOAD_NO_EXTRACT FALSE
                 SOURCE_DIR ${_source_path}
                 BINARY_DIR ${_binary_directory}
         #        LIST_SEPARATOR |
@@ -103,8 +102,8 @@ macro(download_package)
             if(_is_git)
                 write_hash(${_source_path} ${_cache_path})
             else()
-                ExternalProject_Get_Property(_${name} DOWNLOADED_FILE)
-                cppkg_print("${DOWNLOADED_FILE}")
+                ExternalProject_Get_Property(_${name} DOWNLOAD_NAME)
+                cppkg_print("${DOWNLOAD_NAME}")
             endif()
         endif()
     endif()
