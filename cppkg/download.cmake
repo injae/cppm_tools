@@ -68,6 +68,8 @@ macro(download_package)
         if(_is_git)
             include(download/git)
             hash_check(${_source_path} ${_cache_path})
+            set(GIT_REPO "GIT_REPOSITORY ${ARG_GIT}")
+            set(GIT_TAG  "GIT_TAG ${ARG_GIT_TAG}")
         else()
             if(EXISTS ${_cache_path}/hash.cmake)
                 include(${_cache_path}/hash.cmake)
@@ -86,8 +88,8 @@ macro(download_package)
                 _${name}
                 URL ${ARG_URL}
                 ${CHECK_HASH}
-                GIT_REPOSITORY ${ARG_GIT}
-                GIT_TAG ${ARG_GIT_TAG}
+                ${GIT_REPO}
+                ${GIT_TAG}
                 DOWNLOAD_DIR ${_cache_path}
                 DOWNLOAD_NO_PROGRESS TRUE
                 DOWNLOAD_NO_EXTRACT TRUE
