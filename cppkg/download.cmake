@@ -68,6 +68,10 @@ macro(download_package)
         if(_is_git)
             include(download/git)
             hash_check(${_source_path} ${_cache_path})
+        else()
+            if(EXISTS ${_cache_path}/hash.cmake)
+                include(${_cache_path}/hash.cmake)
+            endif()
         endif()
         set(_binary_directory ${_cache_path}/build/${cppm_build_type}-${cppm_generator_type})
         #string(REPLACE ";" "|" CMAKE_PREFIX_PATH_ALT_SEP "${CMAKE_PREFIX_PATH}")
@@ -78,6 +82,7 @@ macro(download_package)
             ExternalProject_Add(
                 _${name}
                 URL ${ARG_URL}
+                URL_HASH MD5=${URL_HASH}
                 GIT_REPOSITORY ${ARG_GIT}
                 GIT_TAG ${ARG_GIT_TAG}
                 DOWNLOAD_DIR ${_cache_path}
@@ -104,7 +109,11 @@ macro(download_package)
                 write_hash(${_source_path} ${_cache_path})
             else()
                 ExternalProject_Get_Property(_${name} DOWNLOADED_FILE)
-                cppkg_print("------ Downloaded File: ${DOWNLOADED_FILE}")
+                file(MD5 ${DOWNLOADED_FILE} _file_hash)
+                set(hash_file ${_cache_path}/hash.cmake)
+                set(file_data "set(URL_HASH \"${_file_hash}\")")
+                file(WRITE "${hash_file}" "${file_data}")
+                cppkg_print("------ Downloaded File: ${_file_hash}")
             endif()
         endif()
     endif()
