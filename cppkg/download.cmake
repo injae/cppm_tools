@@ -118,7 +118,7 @@ macro(download_package)
                 "file(MD5 ${DOWNLOADED_FILE} _file_hash)
                 \nset(file_data \"set(URL_HASH \$\{_file_hash\})\")
                 \nfile(WRITE \"${hash_file}\" \"\$\{file_data\}\")\n")
-                add_custom_command(TARGET url_hash
+                add_custom_command(TARGET ${name}_url_hash
                 COMMAND cmake -P gen_hash.cmake
                 WORKING_DIRECTORY ${_cache_path}
                 DEPEND _${name}-download
