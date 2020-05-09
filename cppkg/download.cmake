@@ -104,6 +104,7 @@ macro(download_package)
                 CONFIGURE_COMMAND ${_configure_cmd}
                 BUILD_COMMAND ${_build_cmd}
                 INSTALL_COMMAND cmake --build . --target install --config ${CMAKE_BUILD_TYPE}
+                STEP_TARGETS download
                 ${ARG_UNPARSED_ARGUMENTS}
             )
 
@@ -117,13 +118,14 @@ macro(download_package)
                 "file(MD5 ${DOWNLOADED_FILE} _file_hash)
                 \nset(file_data \"set(URL_HASH \$\{_file_hash\})\")
                 \nfile(WRITE \"${hash_file}\" \"\$\{file_data\}\")\n")
-                ExternalProject_Add_Step(_${name} url_hash
+                add_custom_command(_${name} url_hash
                 COMMAND cmake -P gen_hash.cmake
                 WORKING_DIRECTORY ${_cache_path}
                 COMMENT "Generate url hash"
                 ALWAYS  TRUE
+                DEPEND _${name}-download
                 )
-                ExternalProject_Add_StepTargets(${_name} url_hash)
+             #   ExternalProject_Add_StepTargets(${_name} url_hash)
             endif()
         endif()
     endif()
