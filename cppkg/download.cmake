@@ -73,9 +73,8 @@ macro(download_package)
         else()
             if(EXISTS ${_cache_path}/hash.cmake)
                 include(${_cache_path}/hash.cmake)
-                set(CHECK_HASH "URL_MD5 ${URL_HASH}")
             else()
-                set(CHECK_HASH "")
+                set(URL_HASH "")
             endif()
         endif()
         set(_binary_directory ${_cache_path}/build/${cppm_build_type}-${cppm_generator_type})
@@ -89,7 +88,8 @@ macro(download_package)
                 ${GIT_REPO}
                 ${GIT_TAG}
                 ${CHECK_HASH}
-                URL "${ARG_URL}"
+                URL ${ARG_URL}
+                URL_MD5 ${URL_HASH}
                 DOWNLOAD_DIR ${_cache_path}
                 DOWNLOAD_NO_PROGRESS TRUE
                 DOWNLOAD_NO_EXTRACT TRUE
