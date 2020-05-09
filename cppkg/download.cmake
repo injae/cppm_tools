@@ -34,6 +34,7 @@ macro(download_package)
     if(ARG_SHA256)
         set(HASH URL_HASH SHA256=${ARG_SHA256})
     else()
+        cppkg_print("If use SHA256 option, can use download cache")
         set(HASH)
     endif()
     
