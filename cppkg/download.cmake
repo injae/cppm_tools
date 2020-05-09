@@ -89,8 +89,8 @@ macro(download_package)
                 GIT_REPOSITORY ${ARG_GIT}
                 GIT_TAG ${ARG_GIT_TAG}
                 DOWNLOAD_DIR ${_cache_path}
+                DOWNLOAD_NO_EXTRACT 1
                 DOWNLOAD_NO_PROGRESS TRUE
-                DOWNLOAD_NO_EXTRACT 
                 SOURCE_DIR ${_source_path}
                 BINARY_DIR ${_binary_directory}
         #        LIST_SEPARATOR |
