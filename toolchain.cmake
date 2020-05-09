@@ -15,6 +15,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows" OR (NOT CMAKE_SYSTEM_NAME AND CMAKE_HOST
 else()
     set(env_home "$ENV{HOME}")
 endif()
+
 string(REPLACE "\\" "/" HOME "${env_home}")
 get_filename_component(CPPM_CORE "${CMAKE_CURRENT_LIST_FILE}" PATH)
 list(APPEND CMAKE_MODULE_PATH "${CPPM_CORE}")
