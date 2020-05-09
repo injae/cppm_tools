@@ -86,10 +86,10 @@ macro(download_package)
             cppkg_print("Cache Direcroty ${_cache_path}")
             ExternalProject_Add(
                 _${name}
-                URL ${ARG_URL}
-                ${CHECK_HASH}
                 ${GIT_REPO}
                 ${GIT_TAG}
+                URL "${ARG_URL}"
+                ${CHECK_HASH}
                 DOWNLOAD_DIR ${_cache_path}
                 DOWNLOAD_NO_PROGRESS TRUE
                 DOWNLOAD_NO_EXTRACT TRUE
