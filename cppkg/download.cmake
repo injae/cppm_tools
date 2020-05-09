@@ -112,13 +112,11 @@ macro(download_package)
                 write_hash(${_source_path} ${_cache_path})
             else()
                 ExternalProject_Get_Property(_${name} DOWNLOADED_FILE)
-                file(WRITE gen_hash.cmake
-                "
-                file(MD5 ${DOWNLOADED_FILE} _file_hash)\n
+                file(WRITE ${_cache_path}/gen_hash.cmake
+                " file(MD5 ${DOWNLOADED_FILE} _file_hash)\n
                 set(hash_file ${_cache_path}/hash.cmake)\n
                 set(file_data \"set(URL_HASH ${_file_hash})\")\n
-                file(WRITE \"${hash_file}\" \"${file_data}\")\n
-                ")
+                file(WRITE \"${hash_file}\" \"${file_data}\")\n ")
                 ExternalProject_Add_Step(_${name} url_hash
                 COMMAND cmake -P gen_hash.cmake
                 WORKING_DIRECTORY ${_cache_path}
