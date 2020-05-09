@@ -121,8 +121,6 @@ macro(download_package)
                 add_custom_command(url_hash
                 COMMAND cmake -P gen_hash.cmake
                 WORKING_DIRECTORY ${_cache_path}
-                COMMENT "Generate url hash"
-                ALWAYS  TRUE
                 DEPEND _${name}-download
                 )
              #   ExternalProject_Add_StepTargets(${_name} url_hash)
