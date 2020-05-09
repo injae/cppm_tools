@@ -68,13 +68,11 @@ macro(download_package)
         if(_is_git)
             include(download/git)
             hash_check(${_source_path} ${_cache_path})
-            set(GIT_REPO "GIT_REPOSITORY ${ARG_GIT}")
-            set(GIT_TAG  "GIT_TAG ${ARG_GIT_TAG}")
         else()
             if(EXISTS ${_cache_path}/hash.cmake)
                 include(${_cache_path}/hash.cmake)
             else()
-                set(URL_HASH "")
+                set(URL_HASH " ")
             endif()
         endif()
         set(_binary_directory ${_cache_path}/build/${cppm_build_type}-${cppm_generator_type})
@@ -85,11 +83,10 @@ macro(download_package)
             cppkg_print("Cache Direcroty ${_cache_path}")
             ExternalProject_Add(
                 _${name}
-                ${GIT_REPO}
-                ${GIT_TAG}
-                ${CHECK_HASH}
                 URL ${ARG_URL}
                 URL_MD5 ${URL_HASH}
+                GIT_REPOSITORY ${ARG_GIT}
+                GIT_TAG ${ARG_GIT_TAG}
                 DOWNLOAD_DIR ${_cache_path}
                 DOWNLOAD_NO_PROGRESS TRUE
                 DOWNLOAD_NO_EXTRACT TRUE
