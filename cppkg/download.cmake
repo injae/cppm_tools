@@ -116,8 +116,8 @@ macro(download_package)
                 "
                 file(MD5 ${DOWNLOADED_FILE} _file_hash)\n
                 set(hash_file ${_cache_path}/hash.cmake)\n
-                set(file_data "set(URL_HASH \"${_file_hash}\")")\n
-                file(WRITE "${hash_file}" "${file_data}")\n
+                set(file_data \"set(URL_HASH \"${_file_hash}\")\")\n
+                file(WRITE \"${hash_file}\" \"${file_data}\")\n
                 ")
                 ExternalProject_Add_Step(_${name} url_hash
                 COMMAND cmake -P gen_hash.cmake
