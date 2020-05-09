@@ -97,9 +97,13 @@ macro(download_package)
                 INSTALL_COMMAND cmake --build . --target install --config ${CMAKE_BUILD_TYPE}
                 ${ARG_UNPARSED_ARGUMENTS}
             )
+
             install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS) 
             if(_is_git)
                 write_hash(${_source_path} ${_cache_path})
+            else()
+                ExternalProject_Get_Property(_${name} DOWNLOADED_FILE)
+                cppkg_print("${DOWNLOADED_FILE}")
             endif()
         endif()
     endif()
