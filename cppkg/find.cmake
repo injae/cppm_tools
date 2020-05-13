@@ -43,7 +43,6 @@ function(find_cppkg)
         set(_recompile TRUE)
     endif()
     cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
-    cppkg_print("${${name}_FOUND} : ${_recompile}")
 
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
