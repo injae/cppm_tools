@@ -59,7 +59,7 @@ macro(add_compiler_option cache_var data)
 endmacro()
  
 function(cppm_set cache_var data)
-    if(${cache_var} STREQUAL ${data})
+    if(${cache_var} STREQUAL "${data}")
         unset(${cache_var})
         set("${cache_var}" "${data}" CACHE INTERNAL "${ARGN}")
     else()
