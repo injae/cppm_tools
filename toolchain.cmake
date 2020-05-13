@@ -44,9 +44,6 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_PKGS}")
 list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 
 default_cache(USE_CPPM_PATH OFF BOOL)
-if(USE_CPPM_PATH)
-    set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}")
-endif()
 
 #cppm_print("Load cppm toolchain")
 cppm_set(CPPM_LOAD ON)
