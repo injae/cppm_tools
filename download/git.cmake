@@ -80,9 +80,8 @@ function(hash_check)
             WORKING_DIRECTORY ${src_path}
             OUTPUT_STRIP_TRAILING_WHITESPACE
         )
-        cppkg_print("git version check")
-        cppkg_print("cache: ${GIT_HASH} git: ${short_hash}")
-        if("${short_hash}" STREQUAL "${GIT_HASH}")
+        cppkg_print("cache: ${GIT_HASH}, origin: ${short_hash}")
+        if("${short_hash}" STREQUAL "${Git_Hash}")
             set(hash_matched TRUE PARENT_SCOPE)
         else()
             cppkg_print("update version ${short_hash} -> ${GIT_HASH}")
