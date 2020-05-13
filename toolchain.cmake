@@ -26,6 +26,7 @@ cppm_set(CPPM_PKGS    "${CPPM_PREFIX}/cppkg")
 cppm_set(CPPM_CACHE   "${CPPM_ROOT}/cache")
 cppm_set(CPPM_CORE    "${CPPM_CORE}")
 list(APPEND CMAKE_MODULE_PATH "${CPPM_PKGS}")
+cppm_set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}")
 include(cppm/setting)
 include(utility/cppm_print)
 
@@ -57,6 +58,7 @@ list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
             cppm_target_platform
             CPPM_EXTERNAL_TOOLCHAIN_FILE
             CMAKE_PREFIX_PATH
+            CMAKE_FIND_ROOT_PATH
         )
 
 ## with vcpkg
