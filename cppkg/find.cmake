@@ -82,7 +82,7 @@ function(find_cppkg)
 
         if(${${name}_FOUND} EQUAL 0)
             cppkg_print("Can't find Package: ${name}/${version} from Cppkg")
-            find_package(${name} ${component_script})
+            find_package(${name} ${component_script} QUIET)
             if(${${name}_FOUND})
                 cppkg_print("Find Alternative Package: ${name}/${${name}_VERSION} from Cppkg")
             endif()

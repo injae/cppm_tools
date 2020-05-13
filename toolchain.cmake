@@ -54,6 +54,7 @@ list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
             cppm_target_base_platform
             cppm_target_platform
             CPPM_EXTERNAL_TOOLCHAIN_FILE
+            CMAKE_PREFIX_PATH
         )
 
 ## with vcpkg
