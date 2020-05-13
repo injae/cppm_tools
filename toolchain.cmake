@@ -44,6 +44,7 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_PKGS}")
 list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 
 default_cache(USE_CPPM_PATH OFF BOOL)
+set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
 
 #cppm_print("Load cppm toolchain")
 cppm_set(CPPM_LOAD ON)
@@ -60,7 +61,7 @@ list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
 if(NOT NO_VCPKG)
     if(DEFINED ENV{VCPKG_ROOT})
         set(vcpkg_toolchains "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
-        list(APPEND CMAKE_TOOLCHAIN_FILE "${vcpkg_toolchains}")
+        include("${vcpkg_toolchains}")
         set(cppm_detect_vcpkg True)
     else()
         find_program(vcpkg_exe vcpkg)
