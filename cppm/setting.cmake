@@ -14,6 +14,7 @@ macro(cppm_setting)
     if(USE_CPPM_PATH)
         set_cache(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}" STRING)
     endif()
+    _cppm_build_type()
 
     if(NOT SUB_PROJECT)
     cppm_print("Target: ${PROJECT_NAME}-${PROJECT_VERSION} [Type:${cppm_build_type}, Cppm:${CPPM_VERSION}, CMake:${CMAKE_VERSION}]")
