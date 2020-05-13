@@ -1,5 +1,0 @@
-cppm_print("in")
-default_cache(USE_CPPM_PATH OFF BOOL)
-if(USE_CPPM_PATH)
-    set_cache(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}" STRING)
-endif()
