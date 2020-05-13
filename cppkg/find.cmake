@@ -19,6 +19,7 @@ function(find_cppkg)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     set(version_ ${version})
 
+    message("==>[[${name}]]")
     if(version STREQUAL "latest" OR (version STREQUAL "git"))
       set(version "")
       set(_recompile TRUE)
@@ -53,7 +54,6 @@ function(find_cppkg)
         #set_cache_check(${PROJECT_NAME}_${name}_${version_}_hash ${_cppkg_hash} STRING)
         #if(NOT _is_same OR (_recompile))
         if(_recompile)
-            message("==>[[${name}]]")
             configure_file(thirdparty/${name}/${version_}/${name}.cmake.in
                            ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_}/CMakeLists.txt)
             execute_process(COMMAND
@@ -66,7 +66,6 @@ function(find_cppkg)
             execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
-            message("<==[[${name}]]")
         endif()
     endif()
     if(DEFINED ARG_LOADPATH)
@@ -105,5 +104,6 @@ function(find_cppkg)
             cppm_error_print("Can't find Package ${name}/${${name}_VERSION}")
         endif()
     endif()
+    message("<==[[${name}]]")
 endfunction()
 
