@@ -76,7 +76,7 @@ macro(download_package)
             hash_check(${_source_path} ${_cache_path})
         endif()
         set(_binary_directory ${_cache_path}/build/${cppm_build_type}-${cppm_generator_type})
-        if(NOT hash_matched OR (NOT EXISTS ${_binary_directory}) OR _recompile)
+        if(NOT hash_matched OR (NOT EXISTS ${_binary_directory} OR (_recompile)))
             cppkg_print("Download ${name} package")
             cppkg_print("Cache Direcroty ${_cache_path}")
             ExternalProject_Add(
