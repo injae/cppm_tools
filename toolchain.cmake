@@ -1,4 +1,5 @@
 mark_as_advanced(CMAKE_TOOLCHAIN_FILE)
+mark_as_advanced(USE_CPPM_PATH)
 
 get_property(_CMAKE_IN_TRY_COMPILE GLOBAL PROPERTY IN_TRY_COMPILE)
 
@@ -46,7 +47,7 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 cppm_set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}")
 cppm_set(CMAKE_FIND_ROOT_PATH "${CMAKE_FIND_ROOT_PATH}")
 
-#set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
+set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
 
 #cppm_print("Load cppm toolchain")
 cppm_set(CPPM_LOAD ON)
@@ -68,7 +69,6 @@ if(NOT NO_VCPKG)
         include("${vcpkg_toolchains}")
         set(cppm_detect_vcpkg True)
     else()
-        find_program(vcpkg_exe vcpkg)
         if(NOT "${vcpkg_exe}" STREQUAL "vcpkg_exe-NOTFOUND")
             get_filename_component(vcpkg_path ${vcpkg_exe} DIRECTORY CACHE)
             set(vcpkg_toolchains "${vcpkg_path}/scripts/buildsystems/vcpkg.cmake")
