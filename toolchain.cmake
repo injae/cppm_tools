@@ -1,5 +1,5 @@
 mark_as_advanced(CMAKE_TOOLCHAIN_FILE)
-message("--- toolchain")
+message("--- toolchain ${CMAKE_PROJECT_NAME}:${CMAKE_PROJECT_VERSION}")
 
 get_property(_CMAKE_IN_TRY_COMPILE GLOBAL PROPERTY IN_TRY_COMPILE)
 
