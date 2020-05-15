@@ -1,4 +1,5 @@
 mark_as_advanced(CMAKE_TOOLCHAIN_FILE)
+message("--- toolchain")
 
 get_property(_CMAKE_IN_TRY_COMPILE GLOBAL PROPERTY IN_TRY_COMPILE)
 
