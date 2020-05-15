@@ -47,7 +47,7 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 cppm_set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}")
 cppm_set(CMAKE_FIND_ROOT_PATH "${CMAKE_FIND_ROOT_PATH}")
 
-set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
+cppm_set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
 
 #cppm_print("Load cppm toolchain")
 cppm_set(CPPM_LOAD ON)
