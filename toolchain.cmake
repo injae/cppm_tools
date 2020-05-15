@@ -6,6 +6,7 @@ get_property(_CMAKE_IN_TRY_COMPILE GLOBAL PROPERTY IN_TRY_COMPILE)
 if(CPPM_LOAD)
     return()
 endif()
+message("--- compile toolchain")
 
 if(CPPM_EXTERNAL_TOOLCHAIN_FILE)
     include("${CPPM_EXTERNAL_TOOLCHAIN_FILE}")
