@@ -59,6 +59,7 @@ list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
             cppm_target_platform
             CPPM_EXTERNAL_TOOLCHAIN_FILE
             CMAKE_PREFIX_PATH
+            CMAKE_PROJECT_INCLUDE
             CMAKE_FIND_ROOT_PATH
         )
 
