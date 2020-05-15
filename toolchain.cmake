@@ -6,7 +6,6 @@ get_property(_CMAKE_IN_TRY_COMPILE GLOBAL PROPERTY IN_TRY_COMPILE)
 if(CPPM_LOAD)
     return()
 endif()
-message("--- compile toolchain")
 
 if(CPPM_EXTERNAL_TOOLCHAIN_FILE)
     include("${CPPM_EXTERNAL_TOOLCHAIN_FILE}")
@@ -51,10 +50,12 @@ cppm_set(CMAKE_FIND_ROOT_PATH "${CMAKE_FIND_ROOT_PATH}")
 
 default_cache(USE_CPPM_PATH OFF BOOL)
 mark_as_advanced(USE_CPPM_PATH)
-cppm_set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
-#cppm_print("Load cppm toolchain")
-#cppm_set(CPPM_LOAD ON)
-set(CPPM_LOAD ON)
+if(USE_CPPM_PATH)
+    set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}")
+endif()
+cppm_set(CPPM_LOAD ON)
+
+
 list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
             CPPM_ROOT
             CPPM_CORE

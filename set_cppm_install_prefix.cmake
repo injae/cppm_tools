@@ -1,5 +1,3 @@
-message("----- here")
 if(USE_CPPM_PATH)
-    message("----- in")
     set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}")
 endif()
