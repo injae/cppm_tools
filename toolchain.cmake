@@ -50,7 +50,7 @@ cppm_set(CMAKE_FIND_ROOT_PATH "${CMAKE_FIND_ROOT_PATH}")
 
 option(USE_CPPM_PATH OFF)
 #default_cache(USE_CPPM_PATH OFF BOOL)
-cppm_set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
+set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake" CACHE STRING)
 
 #cppm_print("Load cppm toolchain")
 cppm_set(CPPM_LOAD ON)
