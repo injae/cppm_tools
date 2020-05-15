@@ -26,6 +26,7 @@ cppm_set(CPPM_MODULE  "${CPPM_ROOT}/cmake")
 cppm_set(CPPM_PKGS    "${CPPM_PREFIX}/cppkg")
 cppm_set(CPPM_CACHE   "${CPPM_ROOT}/cache")
 cppm_set(CPPM_CORE    "${CPPM_CORE}")
+
 list(APPEND CMAKE_MODULE_PATH "${CPPM_PKGS}")
 cppm_set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}")
 include(cppm/setting)
@@ -47,6 +48,7 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 cppm_set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}")
 cppm_set(CMAKE_FIND_ROOT_PATH "${CMAKE_FIND_ROOT_PATH}")
 
+default_cache(USE_CPPM_PATH OFF BOOL)
 cppm_set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
 
 #cppm_print("Load cppm toolchain")
