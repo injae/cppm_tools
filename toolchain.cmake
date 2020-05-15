@@ -64,7 +64,8 @@ list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
         )
 
 ## with vcpkg
-if(NOT NO_VCPKG)
+default_cache(WITH_VCPKG OFF BOOL)
+if(WITH_VCPKG)
     if(DEFINED ENV{VCPKG_ROOT})
         set(vcpkg_toolchains "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
         include("${vcpkg_toolchains}")
