@@ -74,7 +74,7 @@ if(WITH_VCPKG)
         include("${vcpkg_toolchains}")
         set(cppm_detect_vcpkg True)
     else()
-
+        if(NOT "${vcpkg_exe}" STREQUAL "vcpkg_exe-NOTFOUND")
             get_filename_component(vcpkg_path ${vcpkg_exe} DIRECTORY CACHE)
             set(vcpkg_toolchains "${vcpkg_path}/scripts/buildsystems/vcpkg.cmake")
             if(EXISTS ${vcpkg_toolchains})
