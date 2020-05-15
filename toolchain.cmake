@@ -47,11 +47,9 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_ROOT}")
 cppm_set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}")
 cppm_set(CMAKE_FIND_ROOT_PATH "${CMAKE_FIND_ROOT_PATH}")
 
-#option(USE_CPPM_PATH OFF BOOL)
-
 default_cache(USE_CPPM_PATH OFF BOOL)
 mark_as_advanced(USE_CPPM_PATH)
-set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake" CACHE STRING FORCE)
+cppm_set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
 #cppm_print("Load cppm toolchain")
 cppm_set(CPPM_LOAD ON)
 list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
