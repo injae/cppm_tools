@@ -53,7 +53,8 @@ default_cache(USE_CPPM_PATH OFF BOOL)
 mark_as_advanced(USE_CPPM_PATH)
 cppm_set(CMAKE_PROJECT_INCLUDE "${CPPM_CORE}/set_cppm_install_prefix.cmake")
 #cppm_print("Load cppm toolchain")
-cppm_set(CPPM_LOAD ON)
+#cppm_set(CPPM_LOAD ON)
+set(CPPM_LOAD ON)
 list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
             CPPM_ROOT
             CPPM_CORE
@@ -73,7 +74,7 @@ if(WITH_VCPKG)
         include("${vcpkg_toolchains}")
         set(cppm_detect_vcpkg True)
     else()
-        if(NOT "${vcpkg_exe}" STREQUAL "vcpkg_exe-NOTFOUND")
+
             get_filename_component(vcpkg_path ${vcpkg_exe} DIRECTORY CACHE)
             set(vcpkg_toolchains "${vcpkg_path}/scripts/buildsystems/vcpkg.cmake")
             if(EXISTS ${vcpkg_toolchains})
