@@ -98,7 +98,7 @@ macro(download_package)
                     -G ${CMAKE_GENERATOR} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
                 CONFIGURE_COMMAND ${_configure_cmd}
                 BUILD_COMMAND ${_build_cmd}
-                INSTALL_COMMAND cmake --build . --target install --config ${CMAKE_BUILD_TYPE}
+                INSTALL_COMMAND cmake --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}
                 STEP_TARGETS download
                 ${ARG_UNPARSED_ARGUMENTS}
             )

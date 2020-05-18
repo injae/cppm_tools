@@ -62,7 +62,6 @@ if(USE_CPPM_PATH)
 cppm_set(CMAKE_PROJECT_INCLUDE ${CPPM_CORE}/add_cppm_target.cmake)
 endif()
 
-
 #cppm_create_symlink(${CMAKE_INSTALL_PREFIX})
 cppm_set(CPPM_LOAD ON)
 
