@@ -68,6 +68,7 @@ cppm_create_symlink(${CMAKE_INSTALL_PREFIX})
 ")
 add_custom_target(cppm_link COMMAND "${CMAKE_COMMAND}" -P "${cppm_symlink_file}")
 set_property(TARGET cppm_link PROPERTY FOLDER "CMakePredefinedTargets")
+cppm_set(CMAKE_PROJECT_INCLUDE ${CPPM_CORE}/set_cppm_install_prefix.cmake)
 endif()
 
 
