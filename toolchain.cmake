@@ -60,6 +60,8 @@ if(USE_CPPM_PATH)
         cppm_set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}")
     endif()
 endif()
+#include(cppm/create_symlink)
+#cppm_create_symlink(${CMAKE_INSTALL_PREFIX})
 cppm_set(CPPM_LOAD ON)
 
 list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
