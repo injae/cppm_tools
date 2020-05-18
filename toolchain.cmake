@@ -59,8 +59,17 @@ if(USE_CPPM_PATH)
     else()
         cppm_set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}")
     endif()
+include(cppm/create_symlink)
+set(cppm_symlink_file "${CMAKE_BINARY_DIR}/cppm_symlink.cmake")
+file(WRITE ${cppm_symlink_file}
+"include(${CPPM_CORE}/cppm/create_symlink.cmake)
+cppm_create_symlink(${CMAKE_INSTALL_PREFIX})
+")
+add_custom_target(cppm_link COMMAND "${CMAKE_COMMAND}" -P "${cppm_symlink_file}")
+set_property(TARGET cppm_link PROPERTY FOLDER "CMakePredefinedTargets")
 endif()
-#include(cppm/create_symlink)
+
+
 #cppm_create_symlink(${CMAKE_INSTALL_PREFIX})
 cppm_set(CPPM_LOAD ON)
 
