@@ -208,7 +208,6 @@ function(triplet_check triplet)
     endif()
     list(GET atoms 0 arch)
     list(GET atoms 1 platform)
-    message("-------- ${arch}-${platform}-${generator}")
 
     if(NOT "${arch}" STREQUAL "${cppm_target_arch}")
         set(_result FALSE PARENT_SCOPE)
