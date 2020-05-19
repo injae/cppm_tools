@@ -10,7 +10,7 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
-    if(NOT cppm_generator_type STREQUAL "visual-studio") ## visual studio build type problem 
+    if(NOT cppm_generator_type STREQUAL "msvc") ## visual studio build type problem 
         cppm_set(CMAKE_BUILD_TYPE "Release")
         set(cppm_build_type "release")
     endif()
