@@ -3,7 +3,7 @@ macro(cppm_project)
     if(NOT IS_CPPM_LOADED)
         cppm_download_package(cppm-tools
             GIT https://github.com/injae/cppm_tools.git
-            GIT_TAG ${CPPM_VERSION}
+            GIT_TAG ${CPPM_TOOLS_VERSION}
         )
     endif()
     if(ARG_WITH_VCPKG)
