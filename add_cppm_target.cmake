@@ -14,4 +14,5 @@ include(cppm/uninstall)
 endif()
 
 include(cppm/setting)
+include(utility/set_cmake_cache)
 _cppm_set_prefix()
