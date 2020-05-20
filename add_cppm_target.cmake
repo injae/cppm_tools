@@ -17,7 +17,7 @@ if(USE_CPPM_PATH)
     ")
     add_custom_target(cppm_link COMMAND "${CMAKE_COMMAND}" -P "${cppm_symlink_file}")
     set_property(TARGET cppm_link PROPERTY FOLDER "CMakePredefinedTargets")
-    include(cppm/uninstall)
     endif()
 endif()
+    include(cppm/uninstall)
 
