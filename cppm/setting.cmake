@@ -36,7 +36,7 @@ endmacro()
 
 macro(_cppm_set_prefix)
     _cppm_build_type()
-    if(cppm_build_type STREQUAL "release" OR (NOT cppm_generator_type STREQUAL "visual"))
+    if(cppm_build_type STREQUAL "release")# OR (NOT cppm_generator_type STREQUAL "visual"))
         list(APPEND CMAKE_PREFIX_PATH    "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
         list(APPEND CMAKE_LIBRARY_PATH   "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
         list(APPEND CMAKE_FIND_ROOT_PATH "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
