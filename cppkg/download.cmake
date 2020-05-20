@@ -1,8 +1,7 @@
 macro(download_package)
     set(options LOCAL GLOBAL)
     set(oneValueArgs URL GIT GIT_TAG SHA256)
-    set(multiValueArgs CMAKE_ARGS W_CONFIGURE W_BUILD W_INSTALL
-                                  L_CONFIGURE L_BUILD L_INSTALL)
+    set(multiValueArgs CMAKE_ARGS CONFIGURE_CMD BUILD_CMD INSTALL_CMD)
     cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
@@ -44,6 +43,23 @@ macro(download_package)
         endif()
     endif()
     _cppm_rpath()
+
+    if(ARG_CONFIGURE_CMD)
+        set(_configure_cmd "${ARG_L_CONFIUGURE_CMD}")
+    else()
+        set(_configure_cmd "")
+    endif()
+    if(ARG_BUILD_CMD)
+        set(_build_cmd "${ARG_L_BUILD_CMD}")
+    else()
+        set(_build_cmd "")
+    endif()
+
+    if(ARG_INSTALL_CMD)
+        set(_install_cmd "${ARG_INSTALL_CMD}")
+    else()
+        set(_install_cmd "cmake --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}")
+    endif()
 
     if(WIN32)
         set(_configure_cmd "${ARG_W_CONFIGURE}")
@@ -88,7 +104,7 @@ macro(download_package)
                     -G ${CMAKE_GENERATOR} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
                 CONFIGURE_COMMAND ${_configure_cmd}
                 BUILD_COMMAND ${_build_cmd}
-                INSTALL_COMMAND cmake --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}
+                INSTALL_COMMAND ${_install_cmd} 
                 STEP_TARGETS download
                 ${ARG_UNPARSED_ARGUMENTS}
             )
@@ -97,7 +113,6 @@ macro(download_package)
             endif()
         else()
             cppkg_print("load cache: ${_binary_directory}")
-        endif()
     endif()
 endmacro()
 
