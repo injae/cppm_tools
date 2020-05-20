@@ -10,6 +10,7 @@ function(search_cppkg)
         else()
             set(${name}_found FALSE PARENT_SCOPE)
         endif()
+        unset(find_bin CACHE)
     elseif(ARG_CMAKE)
 
     else()
