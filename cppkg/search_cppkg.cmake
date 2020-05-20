@@ -1,5 +1,5 @@
 function(search_cppkg)
-    cmake_parse_arguments(ARG "LIB;BIN;CMAKE" "VERSION" "" ${ARGN})
+    cmake_parse_arguments(ARG "lib;bin;cmake" "VERSION" "" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(REMOVE_AT ARG_UNPARSED_ARGUMENTS 0)
     if(ARG_BIN)
