@@ -15,6 +15,7 @@ macro(download_package)
 #        set(cppm_build_type "release")
 #    endif()
 
+
     set(_version ${version})
     if(version STREQUAL "git")
       set(version "")
@@ -60,6 +61,7 @@ macro(download_package)
         set(_build_cmd "${ARG_L_BUILD}")
         set(_install_cmd "${ARG_L_INSTALL}")
     endif()
+    cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
     
     include(ExternalProject)
     if(_recompile OR _is_git)
