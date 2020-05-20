@@ -217,7 +217,7 @@ macro(_cppm_build_type)
     endif()
 endmacro()
 
-macro(_cppm_compiler)
+macro(_cppm_compiler_type)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         if("x${CMAKE_CXX_SIMULATE_ID}" STREQUAL "xMSVC")
             cppm_set(cppm_compiler_type "clang")
