@@ -47,7 +47,7 @@ macro(download_package)
     _cppm_rpath()
 
     if(ARG_CONFIGURE_CMD)
-        set(_configure_cmd ${ARG_CONFIUGURE_CMD})
+        set(_configure_cmd ${ARG_CONFIGURE_CMD})
     else()
         set(_configure_cmd "")
     endif()
