@@ -106,6 +106,7 @@ macro(download_package)
             endif()
         else()
             cppkg_print("load cache: ${_binary_directory}")
+        endif()
     endif()
 endmacro()
 
