@@ -1,5 +1,11 @@
+include(cppm/setting)
+include(utility/set_cmake_cache)
+_cppm_set_prefix()
+_cppm_compiler_type()
+cppm_set(cppm_target_triplet ${cppm_target_arch}-${cppm_target_platform}-${cppm_compiler_type})
 include(cppm/create_symlink)
-if(TARGET cppm_link)
+
+if(TARGET cppm_link AND (USE_CPPM_PATH))
 else()
 set(cppm_symlink_file "${CMAKE_BINARY_DIR}/cppm_symlink.cmake")
 file(WRITE ${cppm_symlink_file}
@@ -13,8 +19,3 @@ set_property(TARGET cppm_link PROPERTY FOLDER "CMakePredefinedTargets")
 include(cppm/uninstall)
 endif()
 
-include(cppm/setting)
-include(utility/set_cmake_cache)
-_cppm_set_prefix()
-_cppm_compiler_type()
-cppm_set(cppm_target_triplet ${cppm_target_arch}-${cppm_target_platform}-${cppm_compiler_type})
