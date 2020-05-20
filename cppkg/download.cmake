@@ -10,12 +10,6 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
-#    if(NOT cppm_generator_type STREQUAL "visual") ## visual studio build type problem 
-#        cppm_set(CMAKE_BUILD_TYPE "Release")
-#        set(cppm_build_type "release")
-#    endif()
-
-
     set(_version ${version})
     if(version STREQUAL "git")
       set(version "")
@@ -60,10 +54,6 @@ macro(download_package)
         set(_configure_cmd "${ARG_L_CONFIUGURE}")
         set(_build_cmd "${ARG_L_BUILD}")
         set(_install_cmd "${ARG_L_INSTALL}")
-    endif()
-
-    if(cppm_generator_type STREQUAL "visual") ## visual studio build type problem 
-        cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
     endif()
     
     include(ExternalProject)
