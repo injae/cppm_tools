@@ -40,10 +40,11 @@ macro(download_package)
       set(CMAKE_INSTALL_PREFIX "")
     else()
         if(_is_git)
-            set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${name}")
+            set(IS_GIT "-DCPPKG_GIT_VERSION=ON")
+#            set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${name}")
             set(_source_path ${_cache_path}/src)
         else()
-            set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${name}-${version}")
+#            set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${name}-${version}")
             set(_source_path ${_cache_path}/src)
         endif()
     endif()
@@ -88,7 +89,9 @@ macro(download_package)
                     ${CMAKE_ARGS}
                     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
                     "-DUSE_CPPM_PATH=ON"
-                    ${_INSTALL_PREFIX} ${ARG_CMAKE_ARGS}
+                    ${IS_GIT}
+                    #${_INSTALL_PREFIX}
+                    ${ARG_CMAKE_ARGS}
                     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
                     -G ${CMAKE_GENERATOR} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
                 CONFIGURE_COMMAND ${_configure_cmd}
