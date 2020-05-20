@@ -36,10 +36,10 @@ macro(download_package)
     else()
         set(OPTIONAL_ARGS "-DUSE_CPPM_PATH=ON")
         if(_is_git)
-            set(OPTIONAL_ARGS "${OPTIONAL_ARGS} -DCPPKG_GIT_VERSION=ON")
+            set(OPTIONAL_ARGS "${OPTIONAL_ARGS};-DCPPKG_GIT_VERSION=ON")
             set(_source_path ${_cache_path}/src)
         else()
-            set(OPTIONAL_ARGS "${OPTIONAL_ARGS} -DCPPM_PROJECT_VERSION_HINT=\"${version}\"")
+            set(OPTIONAL_ARGS "${OPTIONAL_ARGS};-DCPPM_PROJECT_VERSION_HINT=\"${version}\"")
             set(_source_path ${_cache_path}/src)
         endif()
     endif()
@@ -83,7 +83,6 @@ macro(download_package)
                     ${CMAKE_ARGS}
                     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
                     "${OPTIONAL_ARGS}"
-                    #${_INSTALL_PREFIX}
                     ${ARG_CMAKE_ARGS}
                     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
                     -G ${CMAKE_GENERATOR} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
@@ -93,7 +92,6 @@ macro(download_package)
                 STEP_TARGETS download
                 ${ARG_UNPARSED_ARGUMENTS}
             )
-#            install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS) 
             if(_is_git)
                 write_hash(${_source_path} ${_cache_path})
             endif()
@@ -125,3 +123,5 @@ endmacro()
 #string(REPLACE ";" "|" CMAKE_PREFIX_PATH_ALT_SEP "${CMAKE_PREFIX_PATH}")
 #        LIST_SEPARATOR |
 #-DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH_ALT_SEP}
+
+#            install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS) 
