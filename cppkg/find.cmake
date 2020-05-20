@@ -43,6 +43,11 @@ function(find_cppkg)
         set(_recompile TRUE)
     endif()
     cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
+    if(NOT cppm_generator_type STREQUAL "visual")
+        set(CPPKG_INSTALL_BUILD_TYPE "Release")
+    else()
+        set(CPPKG_INSTALL_BUILD_TYPE "${CMAKE_BUILD_TYPE}")
+    endif()
 
     set(_cppkg "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/${name}/${version_}/${name}.cmake.in") 
     if(EXISTS ${_cppkg})
@@ -56,7 +61,7 @@ function(find_cppkg)
                             ${CMAKE_COMMAND}
                             "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
                             "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
-                            "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" .
+                            "-DCMAKE_BUILD_TYPE=${CPPKG_INSTALL_BUILD_TYPE}" .
                             RESULT_VARIABLE result
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
             execute_process(COMMAND cmake --build . --config ${CMAKE_BUILD_TYPE}
