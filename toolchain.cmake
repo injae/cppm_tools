@@ -38,6 +38,7 @@ default_cache(USE_CPPM_PATH OFF BOOL)
 default_cache(CPPKG_GIT_VERSION OFF BOOL)
 mark_as_advanced(USE_CPPM_PATH)
 mark_as_advanced(CPPKG_GIT_VERSION)
+#mark_as_advanced(CPPM_PROJECT_VERSION_HINT) cmake project version not settinged project set version
 
 _cppm_arch_flag()
 _cppm_os_flag()

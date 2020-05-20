@@ -32,19 +32,17 @@ macro(download_package)
     set(_cache_path ${CPPM_CACHE}/${name}/${_version})
 
     if(ARG_GLOBAL)
-      set(CMAKE_INSTALL_PREFIX "")
+        set(OPTIONAL_ARGS "")
     else()
+        set(OPTIONAL_ARGS "-DUSE_CPPM_PATH=ON")
         if(_is_git)
-            set(IS_GIT "-DCPPKG_GIT_VERSION=ON")
-#            set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${name}")
+            set(OPTIONAL_ARGS "${OPTIONAL_ARGS} -DCPPKG_GIT_VERSION=ON")
             set(_source_path ${_cache_path}/src)
         else()
-#            set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${name}-${version}")
             set(_source_path ${_cache_path}/src)
         endif()
     endif()
     _cppm_rpath()
-    set(_INSTALL_PREFIX "-DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}") 
 
     if(WIN32)
         set(_configure_cmd "${ARG_W_CONFIGURE}")
@@ -83,8 +81,7 @@ macro(download_package)
                 CMAKE_ARGS
                     ${CMAKE_ARGS}
                     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
-                    "-DUSE_CPPM_PATH=ON"
-                    ${IS_GIT}
+                    "${OPTIONAL_ARGS}"
                     #${_INSTALL_PREFIX}
                     ${ARG_CMAKE_ARGS}
                     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
@@ -95,8 +92,7 @@ macro(download_package)
                 STEP_TARGETS download
                 ${ARG_UNPARSED_ARGUMENTS}
             )
-
-            install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS) 
+#            install(DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin/" DESTINATION ${CPPM_PREFIX}/bin USE_SOURCE_PERMISSIONS) 
             if(_is_git)
                 write_hash(${_source_path} ${_cache_path})
             endif()
