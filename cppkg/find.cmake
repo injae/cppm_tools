@@ -43,8 +43,6 @@ function(find_cppkg)
     search_cppkg(${name} ${component_script} ${ARG_TYPE} VERSION ${version})
     if(NOT ${name}_found)
         set(_recompile TRUE)
-    else()
-        cppkg_print("found ${name} : ${${name}_path}")
     endif()
 
     cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
