@@ -61,7 +61,7 @@ macro(download_package)
     if(ARG_INSTALL_CMD)
         set(_install_cmd "${ARG_INSTALL_CMD}")
     else()
-        set(_install_cmd "cmake --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}")
+        set(_install_cmd "${CMAKE_COMMAND} --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}")
     endif()
 
     include(ExternalProject)
