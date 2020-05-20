@@ -10,16 +10,10 @@ macro(download_package)
 
     cppm_setting(NO_MESSAGE)
 
-    if(NOT cppm_generator_type STREQUAL "msvc") ## visual studio build type problem 
+    if(NOT cppm_generator_type STREQUAL "visual") ## visual studio build type problem 
         cppm_set(CMAKE_BUILD_TYPE "Release")
         set(cppm_build_type "release")
     endif()
-    #set_cache_check(${name}_cmake_args "${ARG_CMAKE_ARGS}" STRING)
-    #cppm_set_then(_recompile "TRUE" "_is_same" "FALSE")
-    #set_cache_check(${name}_version "${version}" STRING) 
-    #cppm_set_then(_recompile "TRUE" "_is_same" "FALSE")
-    #set_cache_check(${name}_build_type "${CMAKE_BUILD_TYPE}" STRING)
-    #cppm_set_then(_recompile "TRUE" "_is_same" "FALSE")
 
     set(_version ${version})
     if(version STREQUAL "git")
