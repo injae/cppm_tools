@@ -4,6 +4,7 @@ macro(cppm_project)
         cppm_download_package(cppm-tools
             GIT https://github.com/injae/cppm_tools.git
             GIT_TAG ${CPPM_TOOLS_VERSION}
+            PATH  ${CPPM_CPPKG}/cppm-tools-${CPPM_TOOLS_VERSION}
         )
     endif()
     if(ARG_WITH_VCPKG)
