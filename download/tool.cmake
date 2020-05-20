@@ -21,7 +21,7 @@ function(cppm_download_package)
     endif()
 
     if(NOT DEFINED ARG_PATH)
-        set(ARG_PATH ${CPPM_PKGS}/${name}-${VERSION})
+        set(ARG_PATH ${CPPM_CACHE}/${name}/${VERSION}/src)
     endif()
 
     set(_install_script "${CPPM_CACHE}/${name}/${VERSION}/install-script")
