@@ -11,7 +11,6 @@ function(search_cppkg)
             set(${name}_found FALSE PARENT_SCOPE)
         endif()
         unset(find_bin CACHE)
-        message("-------- find_bin ${find_bin}")
     elseif(ARG_cmake)
 
     else()
