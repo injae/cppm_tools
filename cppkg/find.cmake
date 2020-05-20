@@ -40,7 +40,7 @@ function(find_cppkg)
     endif()
 
     include(cppkg/search_cppkg)
-    search_cppkg(${name} ${version} ${component_script} ${ARG_TYPE})
+    search_cppkg(${name} ${component_script} ${ARG_TYPE} VERSION ${version})
     if(${name}_found)
         cppkg_print("found ${name}")
         set(_recompile TRUE)
