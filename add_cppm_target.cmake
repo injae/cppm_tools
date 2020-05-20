@@ -12,3 +12,18 @@ add_custom_target(cppm_link COMMAND "${CMAKE_COMMAND}" -P "${cppm_symlink_file}"
 set_property(TARGET cppm_link PROPERTY FOLDER "CMakePredefinedTargets")
 include(cppm/uninstall)
 endif()
+
+# visual debug release export bugfix
+#if(NOT cppm_generator_type STREQUAL "visual") ## visual studio build type problem 
+#    set(cppkg_install_type "release")
+#else()
+#    set(cppkg_install_type "${cppm_build_type}")
+#endif()
+#
+#if("${CMAKE_PROJECT_VERSION}" STREQUAL "" OR (CPPKG_GIT_VERSION))
+#    cppm_set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${cppkg_install_type}/${CMAKE_PROJECT_NAME}")
+#else()
+#    cppm_set(CMAKE_INSTALL_PREFIX "${CPPM_PKGS}/${cppkg_install_type}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}")
+#endif()
+
+
