@@ -13,6 +13,9 @@ include(cppm/create_symlink)
 if(USE_CPPM_PATH)
     if(TARGET cppm_link )
     else()
+    if(NOT EXISTS "${CPPM_ROOT}/bin")
+        file(MAKE_DIRECTORY ${CPPM_ROOT}/bin)
+    endif()
     set(cppm_symlink_file "${CMAKE_BINARY_DIR}/cppm_symlink.cmake")
     file(WRITE ${cppm_symlink_file}
     "include(${CPPM_CORE}/cppm/create_symlink.cmake)
@@ -24,5 +27,6 @@ if(USE_CPPM_PATH)
     set_property(TARGET cppm_link PROPERTY FOLDER "CMakePredefinedTargets")
     endif()
 endif()
-    include(cppm/uninstall)
+
+include(cppm/uninstall)
 
