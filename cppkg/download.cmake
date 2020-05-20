@@ -61,7 +61,10 @@ macro(download_package)
         set(_build_cmd "${ARG_L_BUILD}")
         set(_install_cmd "${ARG_L_INSTALL}")
     endif()
-    cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
+
+    if(cppm_generator_type STREQUAL "visual") ## visual studio build type problem 
+        cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
+    endif()
     
     include(ExternalProject)
     if(_recompile OR _is_git)
