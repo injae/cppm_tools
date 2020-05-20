@@ -47,21 +47,21 @@ macro(download_package)
     _cppm_rpath()
 
     if(ARG_CONFIGURE_CMD)
-        set(_configure_cmd "${ARG_L_CONFIUGURE_CMD}")
+        set(_configure_cmd ${ARG_L_CONFIUGURE_CMD})
     else()
         set(_configure_cmd "")
     endif()
 
     if(ARG_BUILD_CMD)
-        set(_build_cmd "${ARG_L_BUILD_CMD}")
+        set(_build_cmd ${ARG_L_BUILD_CMD})
     else()
         set(_build_cmd "")
     endif()
 
     if(ARG_INSTALL_CMD)
-        set(_install_cmd "${ARG_INSTALL_CMD}")
+        set(_install_cmd ${ARG_INSTALL_CMD})
     else()
-        set(_install_cmd "${CMAKE_COMMAND} --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}")
+        set(_install_cmd ${CMAKE_COMMAND} --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE})
     endif()
 
     include(ExternalProject)
@@ -95,9 +95,9 @@ macro(download_package)
                     ${ARG_CMAKE_ARGS}
                     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
                     -G ${CMAKE_GENERATOR} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
-                CONFIGURE_COMMAND "${_configure_cmd}"
-                BUILD_COMMAND "${_build_cmd}"
-                INSTALL_COMMAND "${_install_cmd}"
+                CONFIGURE_COMMAND ${_configure_cmd}
+                BUILD_COMMAND ${_build_cmd}
+                INSTALL_COMMAND ${_install_cmd}
                 STEP_TARGETS download
                 ${ARG_UNPARSED_ARGUMENTS}
             )
