@@ -1,5 +1,5 @@
-include(cppm/setting)
-include(utility/set_cmake_cache)
+#include(cppm/setting)
+#include(utility/set_cmake_cache)
 if(DEFINED CPPM_PROJECT_VERSION_HINT)
     if(NOT "${CMAKE_PROJECT_VERSION}" STREQUAL "${CPPM_PROJECT_VERSION_HINT}")
         set(CMAKE_PROJECT_VERSION ${CPPM_PROJECT_VERSION_HINT})
@@ -8,7 +8,7 @@ endif()
 _cppm_set_prefix()
 _cppm_compiler_type()
 cppm_set(cppm_target_triplet ${cppm_target_arch}-${cppm_target_platform}-${cppm_compiler_type})
-include(cppm/create_symlink)
+include(${CPPM_TOOL}/cppm/create_symlink)
 
 if(USE_CPPM_PATH)
 if(TARGET cppm_link )
@@ -28,5 +28,5 @@ set_property(TARGET cppm_link PROPERTY FOLDER "CMakePredefinedTargets")
 endif()
 endif()
 
-include(cppm/uninstall)
+include(${CPPM_TOOL}/cppm/uninstall)
 
