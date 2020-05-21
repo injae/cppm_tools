@@ -15,7 +15,7 @@ macro(download_package)
       set(_is_git TRUE)
     endif()
 
-    include(cppkg/search_cppkg)
+    include(${CPPM_TOOL}/cppkg/search_cppkg)
     search_cppkg(${name} ${ARG_TYPE} VERSION ${version})
     if(NOT ${name}_found)
         set(_recompile TRUE)
