@@ -1,7 +1,5 @@
 
 macro(cppm_cxx_standard _version)
-    include(utility/set_cmake_cache)
-    include(utility/cppm_print)
     set_cache(CMAKE_CXX_STANDARD ${_version} STRING)
     set_cache(CMAKE_CXX_STANDARD_REQUIRED ON BOOL)
     set_cache(cxx_standard ${_version} STRING)

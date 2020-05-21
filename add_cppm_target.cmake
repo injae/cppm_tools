@@ -1,5 +1,3 @@
-#include(cppm/setting)
-#include(utility/set_cmake_cache)
 if(DEFINED CPPM_PROJECT_VERSION_HINT)
     if(NOT "${CMAKE_PROJECT_VERSION}" STREQUAL "${CPPM_PROJECT_VERSION_HINT}")
         set(CMAKE_PROJECT_VERSION ${CPPM_PROJECT_VERSION_HINT})

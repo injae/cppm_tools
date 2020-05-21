@@ -39,7 +39,7 @@ function(find_cppkg)
         cppm_print("Load Package ${name} from Hunter")
     endif()
 
-    include(cppkg/search_cppkg)
+    include(${CPPM_TOOL}/cppkg/search_cppkg)
     search_cppkg(${name} ${component_script} ${ARG_TYPE} VERSION ${version})
     if(NOT ${name}_found)
         set(_recompile TRUE)
