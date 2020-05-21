@@ -21,7 +21,7 @@ else()
 endif()
 string(REPLACE "\\" "/" HOME "${env_home}")
 get_filename_component(CPPM_CORE "${CMAKE_CURRENT_LIST_FILE}" PATH)
-get_filename_component(CPPM_TOOL "${CPPM_CORE}" PATH)
+get_filename_component(CPPM_TOOL "${CPPM_CORE}" NAME)
 list(APPEND CMAKE_MODULE_PATH "${HOME}/.cppm/cmake")
 include(${CPPM_TOOL}/utility/set_cmake_cache)
 cppm_set(CPPM_ROOT    "${HOME}/.cppm") #
