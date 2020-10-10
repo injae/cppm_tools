@@ -33,7 +33,7 @@ else()
 endif()
 
 if(TARGET uninstall OR (TARGET UNINSTALL))
-    message("this scope")
+    message("${CPPM_CORE}")
     return()
 else()
     set(_filename ${CMAKE_BINARY_DIR}/cmake_uninstall.cmake)
