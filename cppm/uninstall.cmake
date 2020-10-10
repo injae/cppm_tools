@@ -32,7 +32,8 @@ else()
     set(_uninstall "uninstall")
 endif()
 
-if(TARGET uninstall OR (TARGET UNINSTALL))
+# if uninstall target defined package use CPPM_UNINSTALLER_ALREADY_DEFINED option true
+if(TARGET uninstall OR (TARGET UNINSTALL OR (CPPM_UNINSTALLER_ALREADY_DEFINED)))
     message("${CPPM_CORE}")
     return()
 else()
