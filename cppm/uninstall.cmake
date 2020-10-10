@@ -33,6 +33,7 @@ else()
 endif()
 
 if(TARGET uninstall OR (TARGET UNINSTALL))
+    message("this scope")
     return()
 endif()
 
