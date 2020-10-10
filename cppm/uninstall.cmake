@@ -32,7 +32,7 @@ else()
     set(_uninstall "uninstall")
 endif()
 
-if(TARGET uninstall or (TARGET UNINSTALL))
+if(TARGET uninstall OR (TARGET UNINSTALL))
     return()
 endif()
 
