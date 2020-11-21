@@ -51,7 +51,7 @@ function(git_clone)
                 cppm_print("[cppm] ${output}")
             endif()
 
-            if(NOT ${ARG_BRANCH} MATCHES "master")
+            if(NOT ${ARG_BRANCH} MATCHES "main")
                 excute_process(
                     COMMAND ${GIT_EXCUTEABLE} checkout ${ARG_BRANCH}
                     WORKING_DIRECTORY ${ARG_PATH}/${name}
