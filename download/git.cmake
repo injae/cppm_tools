@@ -16,7 +16,7 @@ function(git_clone)
     endif()
 
     if(NOT ARG_BRANCH)
-        set(ARG_BRANCH master)
+        set(ARG_BRANCH main)
     endif()
 
     if(NOT ARG_PATH)
