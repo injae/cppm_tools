@@ -42,7 +42,7 @@ function(find_cppkg)
     endif()
     option(${optional_variable} "Optional Dependency Flag: ${name}" OFF)
 
-    if(optional_variable)
+    if(${optional_variable})
         set(_is_can_use TRUE)
     else()
         set(_is_can_use FALSE)
@@ -52,6 +52,7 @@ function(find_cppkg)
              DEPEND  "${PROJECT_NAME}"
              OPTIONAL_FLAG "${_is_can_use}"
         )
+        cppm_print("Disabled Package ${name} from flag ${optional_variable}")
         return()
     endif()
 
