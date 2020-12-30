@@ -37,10 +37,11 @@ function(find_cppkg)
 
     if(DEFINED ARG_OPTIONAL)
         set(optional_variable ${ARG_OPTIONAL})
+        option(${optional_variable} "Optional Dependency Flag: ${name}" OFF)
     else()
         set(optional_variable "USE_${name}")
+        option(${optional_variable} "Optional Dependency Flag: ${name}" ON)
     endif()
-    option(${optional_variable} "Optional Dependency Flag: ${name}" OFF)
 
     if("${optional_variable}")
         set(_is_can_use TRUE)
