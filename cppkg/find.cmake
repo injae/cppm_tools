@@ -1,5 +1,5 @@
 function(add_cppkg_info name)
-    cmake_parse_arguments(ARG "" "VERSION;DEPEND" "MODULE" ${ARGN})
+    cmake_parse_arguments(ARG "" "VERSION;DEPEND;OPTIONAL_FLAG" "MODULE" ${ARGN})
     if(TARGET ${name}_info)
     else()
         add_custom_target(${name}_info COMMENT "Cppkg Info Target")
@@ -10,12 +10,13 @@ function(add_cppkg_info name)
         CPPM_VERSION "${ARG_VERSION}"
         CPPM_DEPEND  "${ARG_DEPEND}"
         CPPM_DESCRIPTION "${name}/${ARG_VERSION}"
+        CPPM_OPTIONAL_FLAG "${ARG_OPTIONAL_FLAG}"
     )
 endfunction()
 
 
 function(find_cppkg)
-    cmake_parse_arguments(ARG "HUNTER" "TYPE" "MODULE;COMPONENTS;LOADPATH" ${ARGN})
+    cmake_parse_arguments(ARG "HUNTER" "TYPE;OPTIONAL" "MODULE;COMPONENTS;LOADPATH" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     set(version_ ${version})
@@ -32,6 +33,16 @@ function(find_cppkg)
         set(component_script COMPONENTS ${ARG_COMPONENTS})
     else()
         set(component_script)
+    endif()
+
+    if(DEFINED ARG_OPTIONAL)
+        set(optional_variable ${ARG_OPTIONAL})
+        option(${optional_variable} "Optional Dependency Flag: ${name}" OFF)
+    endif()
+    if(${optional_variable})
+        set(_is_can_use TRUE)
+    else()
+        set(_is_can_use FALSE)
     endif()
 
     if(ARG_HUNTER) 
@@ -74,6 +85,7 @@ function(find_cppkg)
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}"
              DEPEND  "${PROJECT_NAME}"
+             OPTIONAL_FLAG "${_is_can_use}"
         )
         set_target_properties(${name}_info PROPERTIES CPPM_LOADPATH "${ARG_LOADPATH}")
         if(NOT ARG_LOADPATH MATCHES "^\.\./.*$") # out of tree dependency(workspace) use this option
@@ -103,6 +115,7 @@ function(find_cppkg)
                 MODULE  "${ARG_MODULE}"
                 VERSION "${${name}_VERSION}"
                 DEPEND  "${PROJECT_NAME}"
+                OPTIONAL_FLAG "${_is_can_use}"
             )
         else()
             cppm_error_print("Can't find Package ${name}/${${name}_VERSION}")
