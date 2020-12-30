@@ -46,6 +46,13 @@ function(find_cppkg)
         set(_is_can_use TRUE)
     else()
         set(_is_can_use FALSE)
+        add_cppkg_info(${name}
+             MODULE  "${ARG_MODULE}"
+             VERSION "${version_}"
+             DEPEND  "${PROJECT_NAME}"
+             OPTIONAL_FLAG "${_is_can_use}"
+        )
+        return()
     endif()
 
     if(ARG_HUNTER) 
