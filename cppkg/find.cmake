@@ -35,13 +35,13 @@ function(find_cppkg)
         set(component_script)
     endif()
 
+
+    string(TOUPPER ${PROJECT_NAME} upper_project_name) 
+    set(optional_variable "${upper_project_name}_USE_${name}")
     if(DEFINED ARG_OPTIONAL)
-        set(optional_variable ${ARG_OPTIONAL})
-        option(${optional_variable} "Optional Dependency Flag: ${name}" OFF)
+        option(${optional_variable} "Optional Dependency Flag: ${name}" ${ARG_OPTIONAL})
     else()
-        string(TOUPPER ${PROJECT_NAME} upper_project_name) 
-        set(optional_variable "${upper_project_name}_USE_${name}")
-        option(${optional_variable} "Optional Dependency Flag: ${name}" ON)
+        option(${optional_variable} "Optional Dependency Flag: ${name}" ${ARG_OPTIONAL})
     endif()
 
     if(${optional_variable})
