@@ -39,7 +39,7 @@ function(find_cppkg)
         set(optional_variable ${ARG_OPTIONAL})
         option(${optional_variable} "Optional Dependency Flag: ${name}" OFF)
     else()
-        set(optional_variable "USE_${name}")
+        set(optional_variable "${PROJECT_NAME}_USE_${name}")
         option(${optional_variable} "Optional Dependency Flag: ${name}" ON)
     endif()
 
