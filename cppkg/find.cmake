@@ -1,11 +1,11 @@
 function(add_cppkg_info name)
     cmake_parse_arguments(ARG "" "VERSION;DEPEND;OPTIONAL_FLAG" "MODULE" ${ARGN})
-    if(TARGET ${name}_info)
+    if(TARGET ${PROJECT_NAME}_${name}_info)
     else()
-        add_custom_target(${name}_info COMMENT "Cppkg Info Target")
+        add_custom_target(${PROJECT_NAME}$_{name}_info COMMENT "Cppkg Info Target")
     endif()
 
-    set_target_properties(${name}_info PROPERTIES
+    set_target_properties(${PROJECT_NAME}_${name}_info PROPERTIES
         CPPM_MODULE "${ARG_MODULE}"
         CPPM_VERSION "${ARG_VERSION}"
         CPPM_DEPEND  "${ARG_DEPEND}"
@@ -100,7 +100,7 @@ function(find_cppkg)
              DEPEND  "${PROJECT_NAME}"
              OPTIONAL_FLAG "${_is_can_use}"
         )
-        set_target_properties(${name}_info PROPERTIES CPPM_LOADPATH "${ARG_LOADPATH}")
+        set_target_properties(${PROJECT_NAME}_${name}_info PROPERTIES CPPM_LOADPATH "${ARG_LOADPATH}")
         if(NOT ARG_LOADPATH MATCHES "^\.\./.*$") # out of tree dependency(workspace) use this option
             add_subdirectory(${ARG_LOADPATH})
         else()
