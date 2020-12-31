@@ -36,8 +36,8 @@ function(find_cppkg)
     endif()
 
 
-    string(TOUPPER ${PROJECT_NAME} upper_project_name) 
-    set(optional_variable "${upper_project_name}_USE_${name}")
+    set(small_opt_var "${project_name}_use_${name}")
+    string(TOUPPER ${small_opt_var} optional_variable) 
     if(DEFINED ARG_OPTIONAL)
         option(${optional_variable} "Optional Dependency Flag: ${name}" ${ARG_OPTIONAL})
     else()
