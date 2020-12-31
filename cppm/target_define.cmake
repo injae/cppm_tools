@@ -9,13 +9,14 @@ function(cppm_target_define)
     cmake_dependent_option("${_optional}" "build with ${name}" ON "NOT ARG_EXCLUDE" OFF)
 
     if(${${_optional}})
-        if(TARGET ${name}_info)
+        set(target_info ${PROJECT_NAME}_${name}_info)
+        if(TARGET ${target_name})
         else()
-            add_custom_target(${name}_info COMMENT "Cppkg Info Target")
+            add_custom_target(${target_info} COMMENT "Cppkg Info Target")
         endif()
         if(ARG_BINARY)
             add_executable(${name} "")
-            set_target_properties(${name}_info PROPERTIES CPPM_TYPE "BINARY"
+            set_target_properties(${target_info} PROPERTIES CPPM_TYPE "BINARY"
                                                           CPPM_DEPEND "${PROJECT_NAME}")
             target_include_directories(${name}
                 PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/${_public_header}
@@ -24,10 +25,10 @@ function(cppm_target_define)
         elseif(ARG_STATIC OR ARG_SHARED)
             if(ARG_STATIC)
                 add_library(${name} STATIC "")
-                set_target_properties(${name}_info PROPERTIES CPPM_TYPE "STATIC")
+                set_target_properties(${target_info} PROPERTIES CPPM_TYPE "STATIC")
             elseif(ARG_SHARED)
                 add_library(${name} SHARED "")
-                set_target_properties(${name}_info PROPERTIES CPPM_TYPE "SHARED")
+                set_target_properties(${target_info} PROPERTIES CPPM_TYPE "SHARED")
                 if(cppm_target_base_platform STREQUAL "windows")
                     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
                     if(EXISTS "include/${name}_export.h")
@@ -41,10 +42,10 @@ function(cppm_target_define)
             endif()
             add_library(${_namespace}::${name} ALIAS ${name})
             set_target_properties(${name} PROPERTIES LINKER_LANGUAGE CXX)
-            set_target_properties(${name}_info PROPERTIES CPPM_NAMESPACE "${_namespace}")
-            set_target_properties(${name}_info PROPERTIES CPPM_MODULE "${name}"
-                                                          CPPM_DEPEND "${PROJECT_NAME}"
-                                                          CPPM_DESCRIPTION "${name}/${${PROJECT_NAME}_VERSION}")
+            set_target_properties(${target_info} PROPERTIES CPPM_NAMESPACE "${_namespace}")
+            set_target_properties(${target_info} PROPERTIES CPPM_MODULE "${name}"
+                                                            CPPM_DEPEND "${PROJECT_NAME}"
+                                                            CPPM_DESCRIPTION "${name}/${${PROJECT_NAME}_VERSION}")
             set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
             target_include_directories(${name}
                 PUBLIC
@@ -56,10 +57,10 @@ function(cppm_target_define)
         elseif(ARG_INTERFACE)
             add_library(${name} INTERFACE)
             add_library(${_namespace}::${name} ALIAS ${name})
-            set_target_properties(${name}_info PROPERTIES CPPM_NAMESPACE "${_namespace}" CPPM_TYPE "HEADER_ONLY")
-            set_target_properties(${name}_info PROPERTIES CPPM_MODULE "${name}"
-                                                          CPPM_DEPEND "${PROJECT_NAME}"
-                                                          CPPM_DESCRIPTION "${name}/${${PROJECT_NAME}_VERSION}")
+            set_target_properties(${target_info} PROPERTIES CPPM_NAMESPACE "${_namespace}" CPPM_TYPE "HEADER_ONLY")
+            set_target_properties(${target_info} PROPERTIES CPPM_MODULE "${name}"
+                                                            CPPM_DEPEND "${PROJECT_NAME}"
+                                                            CPPM_DESCRIPTION "${name}/${${PROJECT_NAME}_VERSION}")
             target_include_directories(${name}
                 INTERFACE
                     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${_public_header}>
@@ -68,7 +69,7 @@ function(cppm_target_define)
         endif()
         if(SUB_PROJECT)
             include_directories(${_public_header})
-            get_target_property(_load_path ${name}_info CPPM_LOADPATH)
+            get_target_property(_load_path ${target_info} CPPM_LOADPATH)
             cppkg_print("Load Workspace: ${name}/${PROJECT_VERSION} from ${_load_path}")
         endif()
         target_compile_features(${name} INTERFACE "cxx_std_${cxx_standard}")
@@ -84,10 +85,10 @@ function(cppm_target_define)
             else()
                 cppm_error_print("unit_test_library bug please commit this error")
             endif()
-            set_target_properties(${name}_info PROPERTIES CPPM_IS_TEST ON)
+            set_target_properties(${target_info} PROPERTIES CPPM_IS_TEST ON)
             cppm_test_print("Add Test ${name}")
         else()
-            set_target_properties(${name}_info PROPERTIES CPPM_IS_TEST OFF)
+            set_target_properties(${target_info} PROPERTIES CPPM_IS_TEST OFF)
         endif()
     endif()
 endfunction()
