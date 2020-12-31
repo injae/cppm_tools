@@ -59,9 +59,9 @@ function(find_cppkg)
              DEPEND  "${PROJECT_NAME}"
              OPTIONAL_FLAG "${_is_can_use}"
         )
-        cppkg_print("Disabled Package ${name}, Flag: ${optional_variable}=ON|OFF")
+        cppkg_print("Optional Package OFF ${name}, Flag: ${optional_variable}=ON|OFF")
         message("<==[[${name}]]")
-        return()
+        #return()
     endif()
 
     if(ARG_HUNTER) 
