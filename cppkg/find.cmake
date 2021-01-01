@@ -49,6 +49,7 @@ function(find_cppkg)
     else()
         option(${optional_variable} "Optional Dependency Flag: ${name}" ON)
     endif()
+    message("pass 0")
 
     if(${optional_variable})
         set(_is_can_use TRUE)
@@ -64,6 +65,7 @@ function(find_cppkg)
         message("<==[[${name}]]")
         #return()
     endif()
+    cppkg_print("pass 1")
 
     if(ARG_HUNTER) 
         hunter_add_package(${name} ${component_script})
@@ -100,8 +102,10 @@ function(find_cppkg)
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
         endif()
     endif()
+
+    message("pass 2")
     if(DEFINED ARG_LOADPATH)
-        cppkg_print("${name} - ${_is_can_use}")
+        message("${name} - ${_is_can_use}")
         add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}"
