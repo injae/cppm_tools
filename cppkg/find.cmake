@@ -1,11 +1,10 @@
 function(add_cppkg_info name)
     cmake_parse_arguments(ARG "" "VERSION;DEPEND;OPTIONAL_FLAG" "MODULE" ${ARGN})
-    cppkg_print("1  ${name} - ${_is_can_use}")
     if(TARGET ${name}_info)
         get_target_property(is_opt ${name}_info CPPM_OPTIONAL_FLAG)
         if(is_opt AND (NOT ${ARG_OPTIONAL_FLAG}))
             cppkg_print("not overwrite")
-#            return()
+            return()
         endif()
     else()
         add_custom_target(${name}_info COMMENT "Cppkg Info Target")
@@ -63,9 +62,8 @@ function(find_cppkg)
         )
         cppkg_print("Optional Package OFF ${name}, Flag: ${optional_variable}=ON|OFF")
         message("<==[[${name}]]")
-        #return()
+        return()
     endif()
-    cppkg_print("pass 1")
 
     if(ARG_HUNTER) 
         hunter_add_package(${name} ${component_script})
@@ -103,9 +101,7 @@ function(find_cppkg)
         endif()
     endif()
 
-    message("pass 2")
     if(DEFINED ARG_LOADPATH)
-        message("${name} - ${_is_can_use}")
         add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}"
