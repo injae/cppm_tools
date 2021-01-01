@@ -101,6 +101,7 @@ function(find_cppkg)
     endif()
 
     if(DEFINED ARG_LOADPATH)
+        set(ROOT_CPPM_VERSION ${CPPM_VERSION})
         add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}"
@@ -113,6 +114,7 @@ function(find_cppkg)
         else()
             cppkg_print("Load Workspace ${name}/${version_} from ${ARG_LOADPATH}")
         endif()
+        set(CPPM_VERSION ${ROOT_CPPM_VERSION})
     elseif("${ARG_TYPE}" STREQUAL "bin")
         search_cppkg(${name} ${component_script} ${ARG_TYPE} VERSION ${version})
         if(${name}_found)
