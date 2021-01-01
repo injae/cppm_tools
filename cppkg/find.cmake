@@ -15,7 +15,7 @@ function(add_cppkg_info name)
         CPPM_VERSION "${ARG_VERSION}"
         CPPM_DEPEND  "${ARG_DEPEND}"
         CPPM_DESCRIPTION "${name}/${ARG_VERSION}"
-        CPPM_OPTIONAL_FLAG "${ARG_OPTIONAL_FLAG}"
+        CPPM_OPTIONAL_FLAG ${ARG_OPTIONAL_FLAG}
     )
 endfunction()
 
