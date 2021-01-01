@@ -100,6 +100,7 @@ function(find_cppkg)
         endif()
     endif()
     if(DEFINED ARG_LOADPATH)
+        cppkg_print("${name} - ${_is_can_use}")
         add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}"
