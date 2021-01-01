@@ -1,5 +1,6 @@
 function(add_cppkg_info name)
     cmake_parse_arguments(ARG "" "VERSION;DEPEND;OPTIONAL_FLAG" "MODULE" ${ARGN})
+    cppkg_print("1  ${name} - ${_is_can_use}")
     if(TARGET ${name}_info)
         get_target_property(is_opt ${name}_info CPPM_OPTIONAL_FLAG)
         if(is_opt AND (NOT ${ARG_OPTIONAL_FLAG}))
