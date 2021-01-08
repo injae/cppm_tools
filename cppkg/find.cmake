@@ -1,5 +1,5 @@
 function(add_cppkg_info name)
-    cmake_parse_arguments(ARG "" "VERSION;DEPEND" "MODULE" ${ARGN})
+    cmake_parse_arguments(ARG "" "VERSION;DEPEND;" "MODULE" ${ARGN})
     if(TARGET ${name}_info)
     else()
         add_custom_target(${name}_info COMMENT "Cppkg Info Target")
@@ -15,7 +15,7 @@ endfunction()
 
 
 function(find_cppkg)
-    cmake_parse_arguments(ARG "HUNTER" "TYPE" "MODULE;COMPONENTS;LOADPATH" ${ARGN})
+    cmake_parse_arguments(ARG "HUNTER" "TYPE;OPTIONAL" "MODULE;COMPONENTS;LOADPATH" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     set(version_ ${version})
@@ -32,6 +32,24 @@ function(find_cppkg)
         set(component_script COMPONENTS ${ARG_COMPONENTS})
     else()
         set(component_script)
+    endif()
+
+
+    set(small_opt_var "${PROJECT_NAME}_use_${name}")
+    string(TOUPPER ${small_opt_var} optional_variable) 
+    if(DEFINED ARG_OPTIONAL)
+        option(${optional_variable} "Optional Dependency Flag: ${name}" ${ARG_OPTIONAL})
+    else()
+        option(${optional_variable} "Optional Dependency Flag: ${name}" ON)
+    endif()
+
+    if(${optional_variable})
+        set(_is_can_use TRUE)
+    else()
+        set(_is_can_use FALSE)
+        cppkg_print("Optional Package OFF ${name}, Flag: ${optional_variable}=ON|OFF")
+        message("<==[[${name}]]")
+        return()
     endif()
 
     if(ARG_HUNTER) 
@@ -69,7 +87,9 @@ function(find_cppkg)
                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/${name}/${version_})
         endif()
     endif()
+
     if(DEFINED ARG_LOADPATH)
+        set(ROOT_CPPM_VERSION ${CPPM_VERSION})
         add_cppkg_info(${name}
              MODULE  "${ARG_MODULE}"
              VERSION "${version_}"
@@ -81,6 +101,7 @@ function(find_cppkg)
         else()
             cppkg_print("Load Workspace ${name}/${version_} from ${ARG_LOADPATH}")
         endif()
+        set(CPPM_VERSION ${ROOT_CPPM_VERSION})
     elseif("${ARG_TYPE}" STREQUAL "bin")
         search_cppkg(${name} ${component_script} ${ARG_TYPE} VERSION ${version})
         if(${name}_found)

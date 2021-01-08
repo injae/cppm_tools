@@ -11,6 +11,7 @@ macro(cppm_setting)
         set(${PROJECT_NAME}_NO_MESSAGE TRUE)
     endif()
 
+    cppkg_print("Toolchains: ${CMAKE_TOOLCHAIN_FILE}")
     if(NOT SUB_PROJECT)
     cppm_print("Tools: CMake-${CMAKE_VERSION}, cppm-tools-${CPPM_TOOLS_VERSION}")
     cppm_print("Target: ${PROJECT_NAME}-${PROJECT_VERSION}-${cppm_build_type}")
