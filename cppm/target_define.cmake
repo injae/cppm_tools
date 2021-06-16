@@ -76,6 +76,12 @@ function(cppm_target_define)
             target_sources(${name} PRIVATE ${ARG_SOURCES})
         endif()
 
+        if(cppm_build_type STREQUAL "release")
+            target_compile_options(${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE})
+        else()
+            target_compile_options(${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG})
+        endif()
+
         if(__cppm_unit_test_area__)
             if(__unit_test_library__ STREQUAL "Catch2")
                 catch_discover_tests(${name})
