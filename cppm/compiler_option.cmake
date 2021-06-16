@@ -31,7 +31,7 @@ macro(_cppm_compiler_debug_option)
         elseif (cppm_compiler_type STREQUAL "msvc")
             add_compiler_option(CMAKE_CXX_FLAGS_DEBUG "${DEF_MSVC} ${ARG_MSVC}")
         endif()
-        cppm_print("Compiler Option: ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG}")
+        cppm_print("Compiler Option:[${cppm_compiler_type}] ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG}")
     endif()
 endmacro()
 
