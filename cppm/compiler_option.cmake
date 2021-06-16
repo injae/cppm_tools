@@ -6,7 +6,7 @@ macro(cppm_compiler_option)
         _cppm_compiler_release_option(NO_DEFAULT)
     else()
         _cppm_compiler_debug_option(${ARG_DEBUG})
-        _cppm_compiler_release_option(${ARG_RELEAGE})
+        _cppm_compiler_release_option(${ARG_RELEASE})
     endif()
 endmacro()
 
