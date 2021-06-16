@@ -50,6 +50,7 @@ macro(_cppm_compiler_release_option)
 
     if(cppm_build_type STREQUAL "release")
         if(cppm_compiler_type STREQUAL "clang")
+            message('in')
             add_compiler_option(CMAKE_CXX_FLAGS_RELEASE "${DEF_CLANG} ${ARG_CLANG}")
         elseif(cppm_compiler_type STREQUAL "gnu")
             add_compiler_option(CMAKE_CXX_FLAGS_RELEASE "${DEF_GCC} ${ARG_GCC}")
