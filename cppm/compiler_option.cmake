@@ -12,7 +12,7 @@ endmacro()
 
 macro(_cppm_compiler_debug_option)
     cmake_parse_arguments(ARG "NO_DEFAULT" "CLANG;GCC;MSVC" "" ${ARGN})
-
+    message("${ARGN} | ${ARG_CLANG}")
     if(${ARG_NO_DEFAULT})
         set(DEF_CLANG "")
         set(DEF_GCC   "")
@@ -40,6 +40,7 @@ endmacro()
 
 macro(_cppm_compiler_release_option)
     cmake_parse_arguments(ARG "NO_DEFAULT" "CLANG;GCC;MSVC" "" ${ARGN})
+    message("${ARGN} | ${ARG_CLANG}")
     if(${ARG_NO_DEFAULT})
         set(DEF_CLANG "")
         set(DEF_GCC   "")
