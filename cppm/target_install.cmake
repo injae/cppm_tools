@@ -3,12 +3,15 @@ function(cppm_write_target_dependency_file)
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     set(Deps "")
     get_target_property(deps ${name}_info CPPM_DEPENDENCIES)
+    
     if(NOT deps MATCHES "deps-NOTFOUND")
         foreach(dep IN LISTS deps)
-            string(CONCAT Deps "find_dependency(${dep})\n")
+            set(Deps "${Deps}find_dependency(${dep})\n")
         endforeach()
     endif()
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+        "get_filename_component(CPPM_CURRENT_MODULE_DIR ../ ABSOLUTE)\n"
+        "list(APPEND CMAKE_PREFIX_PATH \"$\{CPPM_CURRENT_MODULE_DIR}\")\n"
         "include(CMakeFindDependencyMacro)\n"
         "${Deps}\n"
         "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${PROJECT_NAME}-targets.cmake)\n"
@@ -49,10 +52,10 @@ function(cppm_target_install)
 
             # project-targets.cmake install part
             install(TARGETS ${name} EXPORT ${PROJECT_NAME}-targets
-                #PUBLIC_HEADER DESTINATION include
                 ARCHIVE  DESTINATION lib 
                 LIBRARY  DESTINATION lib
                 RUNTIME  DESTINATION bin
+                INCLUDES DESTINATION include
             )
             install(DIRECTORY include/ DESTINATION include)
 
