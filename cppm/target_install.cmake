@@ -12,6 +12,7 @@ function(cppm_write_target_dependency_file)
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
         "get_filename_component(CPPM_CURRENT_MODULE_DIR ../ ABSOLUTE)\n"
         "list(APPEND CMAKE_PREFIX_PATH \"$\{CPPM_CURRENT_MODULE_DIR}\")\n"
+        "list(APPEND CMAKE_PREFIX_PATH ${CMAKE_PREFIX})"
         "include(CMakeFindDependencyMacro)\n"
         "${Deps}\n"
         "include(\$\{CMAKE_CURRENT_LIST_DIR\}/${PROJECT_NAME}-targets.cmake)\n"
