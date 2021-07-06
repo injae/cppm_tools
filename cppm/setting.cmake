@@ -2,7 +2,7 @@ macro(cppm_setting)
     cmake_parse_arguments(ARG "NO_MESSAGE;UNITY_BUILD" "" "" ${ARGN})
     include(CMakeDependentOption)
 
-    if(CPPM_LOAD)
+    if(NOT CPPM_LOAD)
         include(${CMAKE_TOOLCHAIN_FILE})
     endif()
 
