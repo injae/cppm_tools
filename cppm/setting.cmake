@@ -42,6 +42,7 @@ endmacro()
 
 macro(_cppm_set_prefix)
     _cppm_build_type()
+    message("prefix: ${CMAKE_PREFIX_PATH}")
     if(CMAKE_PROJECT_NAME STREQUAL "${PROJECT_NAME}") # is root project, not sub project
         list(REMOVE_ITEM CMAKE_PREFIX_PATH    "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
         list(REMOVE_ITEM CMAKE_LIBRARY_PATH   "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
