@@ -4,6 +4,7 @@ macro(cppm_setting)
 
     if(NOT CPPM_LOAD)
         include(${CMAKE_TOOLCHAIN_FILE})
+        message("in")
     endif()
 
     if(NOT CMAKE_PROJECT_NAME MATCHES "${PROJECT_NAME}")
