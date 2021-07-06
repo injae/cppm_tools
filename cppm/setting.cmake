@@ -4,7 +4,7 @@ macro(cppm_setting)
 
     if(NOT CPPM_LOAD)
         include(${CMAKE_TOOLCHAIN_FILE})
-        message("in")
+        message("prefix: ${CMAKE_PREFIX_PATH}")
     endif()
 
     default_cache(cppm_root_is_cppm_project FALSE BOOL)
@@ -44,7 +44,6 @@ endmacro()
 
 macro(_cppm_set_prefix)
     _cppm_build_type()
-    message("prefix: ${CMAKE_PREFIX_PATH}")
     if(CMAKE_PROJECT_NAME STREQUAL "${PROJECT_NAME}" OR (NOT cppm_root_is_cppm_project)) # is root project, not sub project
         list(REMOVE_ITEM CMAKE_PREFIX_PATH    "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
         list(REMOVE_ITEM CMAKE_LIBRARY_PATH   "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
