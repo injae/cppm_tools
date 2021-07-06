@@ -1,6 +1,11 @@
 macro(cppm_setting)
     cmake_parse_arguments(ARG "NO_MESSAGE;UNITY_BUILD" "" "" ${ARGN})
     include(CMakeDependentOption)
+
+    if(CPPM_LOAD)
+        include(${CMAKE_TOOLCHAIN_FILE})
+    endif()
+
     if(NOT CMAKE_PROJECT_NAME MATCHES "${PROJECT_NAME}")
         set(SUB_PROJECT TRUE)
         #set(${PROJECT_NAME}_NO_MESSAGE TRUE)
