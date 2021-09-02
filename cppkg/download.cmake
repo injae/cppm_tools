@@ -85,6 +85,11 @@ macro(download_package)
         if(NOT hash_matched OR (NOT EXISTS ${_binary_directory} OR (_recompile)))
             cppkg_print("Download ${name} package")
             cppkg_print("Cache Direcroty ${_cache_path}")
+            set(_cmake_file_api "${_binary_directory}/.cmake/api/v1")
+            file(make_directory "${_cmake_file_api}/cache-v2")
+            file(make_directory "${_cmake_file_api}/codemodel-v2")
+            file(make_directory "${_cmake_file_api}/toolchains-v1")
+            file(make_directory "${_cmake_file_api}/cmakeFiles-v1")
             ExternalProject_Add(
                 _${name}
                 URL ${ARG_URL}
@@ -109,6 +114,7 @@ macro(download_package)
                 STEP_TARGETS download
                 ${ARG_UNPARSED_ARGUMENTS}
             )
+
             if(_is_git)
                 write_hash(${_source_path} ${_cache_path})
             endif()
