@@ -47,24 +47,17 @@ macro(download_package)
     endif()
     _cppm_rpath()
 
-    cppm_set_then(_configure_cmd "" "ARG_CONFIGURE_CMD" "${ARG_CONFIGURE_CMD}")
+    if(ARG_CONFIGURE_CMD)
+        set(_configure_cmd ${ARG_CONFIGURE_CMD})
+    else()
+        set(_configure_cmd "")
+    endif()
 
-    #if(ARG_CONFIGURE_CMD)
-    #    set(_configure_cmd ${ARG_CONFIGURE_CMD})
-    #else()
-    #    set(_configure_cmd "")
-    #endif()
-    cppm_set_then(_build_cmd "" "ARG_BUILD_CMD" "${ARG_BUILD_CMD}")
-
-    #if(ARG_BUILD_CMD)
-    #    set(_build_cmd ${ARG_BUILD_CMD})
-    #else()
-    #    set(_build_cmd "")
-    #endif()
-
-    #cppm_set_then(_install_cmd
-    #    "${CMAKE_COMMAND} --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}"
-    #    "ARG_INSTALL_CMD" "${ARG_INSTALL_CMD}")
+    if(ARG_BUILD_CMD)
+        set(_build_cmd ${ARG_BUILD_CMD})
+    else()
+        set(_build_cmd "")
+    endif()
 
     if(ARG_INSTALL_CMD)
         set(_install_cmd ${ARG_INSTALL_CMD})
