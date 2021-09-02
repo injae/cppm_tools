@@ -86,10 +86,11 @@ macro(download_package)
             cppkg_print("Download ${name} package")
             cppkg_print("Cache Direcroty ${_cache_path}")
             set(_cmake_file_api "${_binary_directory}/.cmake/api/v1")
-            file(make_directory "${_cmake_file_api}/cache-v2")
-            file(make_directory "${_cmake_file_api}/codemodel-v2")
-            file(make_directory "${_cmake_file_api}/toolchains-v1")
-            file(make_directory "${_cmake_file_api}/cmakeFiles-v1")
+            file(make_directory "${_cmake_file_api}")
+            file(touch "${_cmake_file_api}/cache-v2")
+            file(touch "${_cmake_file_api}/codemodel-v2")
+            file(touch "${_cmake_file_api}/toolchains-v1")
+            file(touch "${_cmake_file_api}/cmakeFiles-v1")
             ExternalProject_Add(
                 _${name}
                 URL ${ARG_URL}
