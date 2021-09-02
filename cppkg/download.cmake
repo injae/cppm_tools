@@ -78,6 +78,10 @@ macro(download_package)
         if(NOT hash_matched OR (NOT EXISTS ${_binary_directory} OR (_recompile)))
             cppkg_print("Download ${name} package")
             cppkg_print("Cache Direcroty ${_cache_path}")
+            file(make_directory ${_binary_directory}/.cmake/api/query/cache-v2)
+            file(make_directory ${_binary_directory}/.cmake/api/query/codemodel-v2)
+            file(make_directory ${_binary_directory}/.cmake/api/query/cmakeFiles-v1)
+            file(make_directory ${_binary_directory}/.cmake/api/query/toolchains-v1)
             ExternalProject_Add(
                 _${name}
                 URL ${ARG_URL}
