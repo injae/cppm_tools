@@ -62,15 +62,15 @@ macro(download_package)
     #    set(_build_cmd "")
     #endif()
 
-    cppm_set_then(_install_cmd
-        "${CMAKE_COMMAND} --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}"
-        "ARG_INSTALL_CMD" "${ARG_INSTALL_CMD}")
+    #cppm_set_then(_install_cmd
+    #    "${CMAKE_COMMAND} --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE}"
+    #    "ARG_INSTALL_CMD" "${ARG_INSTALL_CMD}")
 
-    #if(ARG_INSTALL_CMD)
-    #    set(_install_cmd ${ARG_INSTALL_CMD})
-    #else()
-    #    set(_install_cmd ${CMAKE_COMMAND} --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE})
-    #endif()
+    if(ARG_INSTALL_CMD)
+        set(_install_cmd ${ARG_INSTALL_CMD})
+    else()
+        set(_install_cmd ${CMAKE_COMMAND} --build . --target install --target cppm_link --config ${CMAKE_BUILD_TYPE})
+    endif()
 
     include(ExternalProject)
     if(_recompile OR _is_git)
