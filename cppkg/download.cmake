@@ -102,15 +102,6 @@ macro(download_package)
                 STEP_TARGETS download
                 ${ARG_UNPARSED_ARGUMENTS}
             )
-        ExternalProject_Add_Step(_${name} configure
-            WORKING_DIRECTORY ${_binary_directory}
-            COMMAND "cmake -E make_directory .cmake/api/query/cache-v2"
-            COMMAND "cmake -E make_directory .cmake/api/query/codemodel-v2"
-            COMMAND "cmake -E make_directory .cmake/api/query/cmakeFiles-v1"
-            COMMAND "cmake -E make_directory .cmake/api/query/toolchains-v1"
-            ALWAYS TRUE
-            EXCLUDE_FROM_MAIN TRUE
-            )
             if(_is_git)
                 write_hash(${_source_path} ${_cache_path})
             endif()
