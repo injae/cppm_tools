@@ -31,7 +31,12 @@ macro(download_package)
         set(HASH)
     endif()
     
-    set(_cache_path ${CPPM_CACHE}/${name}/${_version})
+
+    if(_is_git)
+        set(_cache_path ${CMAKE_CURRENT_SOURCE_DIR}/${name}/${_version})
+    else()
+        set(_cache_path ${CPPM_CACHE}/${name}/${_version})
+    endif()
 
     if(ARG_GLOBAL)
         set(OPTIONAL_ARGS "")
