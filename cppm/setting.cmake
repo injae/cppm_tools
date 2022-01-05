@@ -44,7 +44,8 @@ endmacro()
 
 macro(_cppm_set_prefix)
     _cppm_build_type()
-    if(CMAKE_PROJECT_NAME STREQUAL "${PROJECT_NAME}" OR (NOT cppm_root_is_cppm_project)) # is root project, not sub project
+    if(CMAKE_PROJECT_NAME STREQUAL "${PROJECT_NAME}" OR (NOT cppm_root_is_cppm_project))
+        # is root project, not sub project
         list(REMOVE_ITEM CMAKE_PREFIX_PATH    "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
         list(REMOVE_ITEM CMAKE_LIBRARY_PATH   "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
         list(REMOVE_ITEM CMAKE_FIND_ROOT_PATH "${CPPM_PKGS}" "${CPPM_PKGS}/debug" "${CPPM_ROOT}")
@@ -67,7 +68,11 @@ macro(_cppm_set_prefix)
 
         if(USE_CPPM_PATH)
             if("${CMAKE_PROJECT_VERSION}" STREQUAL "" OR (CPPKG_GIT_VERSION))
-                cppm_set(CMAKE_INSTALL_PREFIX "${CPPM_INSTALL_PREFIX}/${CMAKE_PROJECT_NAME}")
+                if (CPPKG_GIT_VERSION)
+                    cppm_set(CMAKE_INSTALL_PREFIX "${CPPM_INSTALL_PREFIX}/lib-cppkg-git/${CMAKE_PROJECT_NAME}")
+                else()
+                    cppm_set(CMAKE_INSTALL_PREFIX "${CPPM_INSTALL_PREFIX}/${CMAKE_PROJECT_NAME}")
+                endif()
             else()
                 cppm_set(CMAKE_INSTALL_PREFIX "${CPPM_INSTALL_PREFIX}/${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}")
             endif()

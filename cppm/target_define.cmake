@@ -13,6 +13,13 @@ function(cppm_target_define)
         else()
             add_custom_target(${name}_info COMMENT "Cppkg Info Target")
         endif()
+        if(ARG_INTERFACE)
+            option("${CMAKE_PROJECT_NAME}_${name}_STATIC_BUILD" OFF)
+            if(${CMAKE_PROJECT_NAME}_${name}_STATIC_BUILD)
+                set(ARG_STATIC TRUE)
+            endif()
+        endif()
+
         if(ARG_BINARY)
             add_executable(${name} "")
             set_target_properties(${name}_info PROPERTIES CPPM_TYPE "BINARY"
