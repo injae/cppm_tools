@@ -14,6 +14,7 @@ function(search_cppkg)
     elseif(ARG_cmake)
 
     else()
+       cppm_print("${ARG_UNPARSED_ARGUMENTS}")
        find_package(${name} ${ARG_VERSION} ${ARG_UNPARSED_ARGUMENTS} QUIET)
        string(TOUPPER ${name} upper_name) 
        if(${${name}_FOUND} EQUAL 0)
