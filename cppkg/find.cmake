@@ -15,7 +15,7 @@ endfunction()
 
 
 function(find_cppkg)
-    cmake_parse_arguments(ARG "HUNTER" "TYPE;OPTIONAL;SYSTEM" "MODULE;COMPONENTS;LOADPATH" ${ARGN})
+    cmake_parse_arguments(ARG "HUNTER;SYSTEM" "TYPE;OPTIONAL" "MODULE;COMPONENTS;LOADPATH" ${ARGN})
     list(GET ARG_UNPARSED_ARGUMENTS 0 name)
     list(GET ARG_UNPARSED_ARGUMENTS 1 version)
     set(version_ ${version})
