@@ -67,7 +67,7 @@ function(find_cppkg)
         if(ARG_SYSTEM)
             cppm_error_print("Can't find Package ${name}/${${name}_VERSION}")
             return()
-        endif()
+        endif(ARG_SYSTEM)
     endif()
 
     cppm_set_if(_recompile "cppm_build_type_change" "TRUE")
